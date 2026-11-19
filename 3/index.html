@@ -9,133 +9,217 @@
 </head><body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
 <style>
-/* Layout: one centered column; a sticky step rail on top, each step a full card; the last step compares the picks and ends in an A4 sheet. */
+/* Layout: brand bar, step progress line, then a two-column body on wide screens (selection column + sticky "우리 집 사양" summary); on phones and portrait tablets the summary becomes the fixed bottom price bar. */
 :root{
-  --bg:#F3F1EC; --surface:#FFFFFF; --ink:#16203A; --muted:#5B6272; --line:#DCD6CA;
-  --navy:#16203A; --navy-ink:#F4F1EA; --gold:#B8914F; --gold-soft:#EFE4CF; --gold-ink:#5A421C;
-  --green:#5E8A5A; --green-soft:#E4EDE1; --rust:#A4432F; --rust-soft:#F6E3DC;
-  --serif:'Noto Serif KR', Georgia, serif; --sans:'Noto Sans KR', 'Apple SD Gothic Neo', Arial, sans-serif;
+  --bg:#F6F3EE; --surface:#FFFFFF; --surface2:#FBF9F5; --ink:#0F1729; --muted:#5E6677; --line:#E6E0D5; --line2:#D9D1C3;
+  --navy:#0F1729; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#B08D57; --gold2:#D8BC88; --gold-soft:#F4ECDD; --gold-ink:#6B4E22;
+  --green:#4F7A55; --green-soft:#E6EFE6; --rust:#A4432F; --rust-soft:#F7E6E0;
+  --sh1:0 1px 2px rgba(15,23,41,.05),0 6px 20px rgba(15,23,41,.06); --sh2:0 2px 4px rgba(15,23,41,.06),0 18px 40px rgba(15,23,41,.10);
+  --serif:'Noto Serif KR', Georgia, serif; --sans:'Noto Sans KR','Apple SD Gothic Neo',Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#11151F; --surface:#1A2030; --ink:#ECE7DC; --muted:#A8AFBF; --line:#2E3648;
-  --navy:#2A3552; --navy-ink:#F4F1EA; --gold:#D2AE6E; --gold-soft:#3A3122; --gold-ink:#F0DDB8;
-  --green:#8DB889; --green-soft:#1F2C22; --rust:#E08B76; --rust-soft:#3A231E; color-scheme:dark}}
+  --bg:#0D111B; --surface:#161C2A; --surface2:#1A2132; --ink:#EEE9DF; --muted:#A9B0BF; --line:#2A3245; --line2:#364057;
+  --navy:#0A0E17; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#D2B07A; --gold2:#E5CB98; --gold-soft:#2E2718; --gold-ink:#F0DDB8;
+  --green:#8DB889; --green-soft:#1C2A20; --rust:#E08B76; --rust-soft:#35201B; --sh1:none; --sh2:none; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#11151F; --surface:#1A2030; --ink:#ECE7DC; --muted:#A8AFBF; --line:#2E3648;
-  --navy:#2A3552; --navy-ink:#F4F1EA; --gold:#D2AE6E; --gold-soft:#3A3122; --gold-ink:#F0DDB8;
-  --green:#8DB889; --green-soft:#1F2C22; --rust:#E08B76; --rust-soft:#3A231E; color-scheme:dark}
+  --bg:#0D111B; --surface:#161C2A; --surface2:#1A2132; --ink:#EEE9DF; --muted:#A9B0BF; --line:#2A3245; --line2:#364057;
+  --navy:#0A0E17; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#D2B07A; --gold2:#E5CB98; --gold-soft:#2E2718; --gold-ink:#F0DDB8;
+  --green:#8DB889; --green-soft:#1C2A20; --rust:#E08B76; --rust-soft:#35201B; --sh1:none; --sh2:none; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.wrap{max-width:1040px;margin:0 auto}
-h1,h2,h3{font-family:var(--serif);text-wrap:balance;margin:0;color:var(--ink)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;padding-bottom:120px;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);text-wrap:balance;margin:0;color:var(--ink);letter-spacing:-.01em}
 p{margin:0}
-button{font-family:inherit;cursor:pointer}
-button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
-.rail-in{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.pill{font-size:14px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:transparent}
-.pill.done{background:var(--gold-soft);border-color:var(--gold-soft);color:var(--gold-ink)}
-.pill.on{background:var(--navy);border-color:var(--navy);color:var(--navy-ink);font-weight:700}
-.picks{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;min-height:28px}
-.chip{font-size:14px;font-weight:700;padding:3px 10px;border-radius:6px;background:var(--surface);border:1px dashed var(--gold);color:var(--gold-ink);animation:pop .35s ease both}
-@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
-.step{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px clamp(18px,3vw,36px);animation:rise .35s ease both}
-@keyframes rise{from{transform:translateY(10px);opacity:.4}to{transform:none;opacity:1}}
-.eyebrow{font-size:13px;letter-spacing:.12em;color:var(--gold);font-weight:700}
-.q{font-size:clamp(24px,3.4vw,34px);margin-top:6px}
-.q2{font-size:20px;margin-top:26px}
-.sub{color:var(--muted);margin-top:8px;max-width:64ch}
-.grid{display:grid;gap:14px;margin-top:16px}
-.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+button{font-family:inherit;cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+/* brand */
+.brand{background:var(--navy);color:var(--navy-ink);border-bottom:1px solid rgba(216,188,136,.35);padding-top:env(safe-area-inset-top,0px)}
+.brand-in{max-width:1240px;margin:0 auto;padding:12px max(18px,env(safe-area-inset-left,0px));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand .bn{font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:.02em}
+.brand .bn i{font-style:normal;color:var(--gold2);margin-right:8px}
+.brand .bt{font-size:12px;letter-spacing:.22em;color:var(--gold2);font-weight:700}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left,0px))}
+/* step progress */
+.rail{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:12px 0 10px;border-bottom:1px solid var(--line)}
+.rail-in{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.rail-in::-webkit-scrollbar{display:none}
+.pill{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:76px;position:relative;font-size:12px;color:var(--muted);font-weight:500;padding:0 4px;text-align:center}
+.pill b{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:var(--surface);border:1.5px solid var(--line2);color:var(--muted);position:relative;z-index:1;font-family:var(--sans)}
+.pill::before{content:"";position:absolute;top:14px;left:-50%;right:50%;height:1.5px;background:var(--line2)}
+.pill:first-child::before{display:none}
+.pill.done{color:var(--gold-ink)}
+.pill.done b{background:var(--gold);border-color:var(--gold);color:#fff}
+.pill.done::before,.pill.on::before{background:var(--gold)}
+.pill.on{color:var(--ink);font-weight:700}
+.pill.on b{background:var(--navy);border-color:var(--navy);color:var(--gold2);box-shadow:0 0 0 4px var(--gold-soft)}
+.picks{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;min-height:26px}
+.chip{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--gold2);color:var(--gold-ink);animation:pop .35s ease both}
+@keyframes pop{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
+/* body layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:start}
+.side{display:none}
+@media (min-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr) 360px}
+  .side{display:block;position:sticky;top:96px;margin-top:22px}
+  .picks{display:none}
+  .pbar{display:none}
+  body{padding-bottom:40px}
+}
+.step{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3.4vw,40px);box-shadow:var(--sh1);animation:rise .4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.22em;color:var(--gold);font-weight:700}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:var(--gold)}
+.q{font-size:clamp(25px,3.2vw,36px);margin-top:10px;line-height:1.25}
+.q2{font-size:21px;margin-top:34px}
+.sub{color:var(--muted);margin-top:10px;max-width:66ch}
+.pickone{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:700;color:var(--gold-ink);background:var(--gold-soft);border-radius:999px;padding:4px 12px}
+.grid{display:grid;gap:14px;margin-top:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.opt{text-align:left;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s,transform .15s}
-.opt:hover{border-color:var(--gold);transform:translateY(-2px)}
-.opt.sel{border-color:var(--navy);box-shadow:0 0 0 3px var(--gold-soft)}
+.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.opt{position:relative;text-align:left;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;transition:border-color .18s,transform .18s,box-shadow .18s;box-shadow:var(--sh1)}
+.opt:hover{border-color:var(--gold2);transform:translateY(-2px);box-shadow:var(--sh2)}
+.opt.sel{border:2px solid var(--navy);box-shadow:0 0 0 4px var(--gold-soft),var(--sh2)}
+.opt.sel::after{content:"✓";position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:var(--gold2);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
 .opt.dim{opacity:.45}
-.opt .t{font-family:var(--serif);font-size:24px;font-weight:700}
-.opt .k{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.opt .t{font-family:var(--serif);font-size:23px;font-weight:700;line-height:1.3;padding-right:24px}
+.opt .k{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.08em}
 .opt .d{font-size:15px;color:var(--muted)}
-.opt img{width:100%;height:150px;object-fit:contain;background:#fff;border-radius:8px;border:1px solid var(--line)}
-.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;margin:0 4px 2px 0}
-.t6{background:var(--navy);color:var(--navy-ink)}
+.opt img{width:100%;height:160px;object-fit:contain;background:#fff;border-radius:12px;border:1px solid var(--line);margin-bottom:6px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;margin:0 4px 3px 0}
+.t6{background:var(--navy);color:var(--gold2)}
 .t4{background:var(--rust-soft);color:var(--rust)}
 .tg{background:var(--green-soft);color:var(--green)}
 .tgold{background:var(--gold-soft);color:var(--gold-ink)}
-.nav{display:flex;gap:10px;justify-content:space-between;margin-top:24px;flex-wrap:wrap}
-.btn{border:none;border-radius:10px;padding:12px 20px;font-size:16px;font-weight:700}
-.btn-p{background:var(--navy);color:var(--navy-ink)}
-.btn-p:disabled{opacity:.35;cursor:not-allowed}
-.btn-s{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn-g{background:var(--gold);color:#1B1408}
-.note{font-size:13px;color:var(--muted);margin-top:14px}
-.hero{padding:40px 0 8px}
-.hero h1{font-size:clamp(34px,6vw,56px);line-height:1.15}
-.hero .lead{font-size:18px;color:var(--muted);margin-top:14px;max-width:54ch}
-.path{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.path span{font-size:14px;padding:6px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--line)}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:30px;flex-wrap:wrap}
+.btn{border:none;border-radius:12px;min-height:50px;padding:0 22px;font-size:16px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:var(--navy);color:var(--navy-ink);box-shadow:0 8px 20px rgba(15,23,41,.18)}
+.btn-p:disabled{opacity:.3;cursor:not-allowed;box-shadow:none;transform:none}
+.btn-s{background:transparent;color:var(--ink);border:1.5px solid var(--line2)}
+.btn-g{background:linear-gradient(135deg,#D6B77F,#AE8A52);color:#1A1306;box-shadow:0 8px 20px rgba(176,141,87,.28)}
+.note{font-size:13px;color:var(--muted);margin-top:16px}
+/* intro */
+.hero{padding:44px 0 6px}
+.hero h1{font-size:clamp(36px,6vw,64px);line-height:1.12}
+.hero .lead{font-size:18px;color:var(--muted);margin-top:16px;max-width:52ch}
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:26px}
+.path span{font-size:14px;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh1)}
 /* map */
-.map{display:grid;grid-template-columns:1fr minmax(70px,120px) 1fr;gap:12px;margin-top:18px}
+.map{display:grid;grid-template-columns:1fr minmax(64px,120px) 1fr;gap:12px;margin-top:16px}
 .mcol{display:flex;flex-direction:column;gap:10px;min-width:0}
-.tower{text-align:left;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:12px 14px;transition:border-color .15s,transform .15s}
-.tower:hover{transform:translateY(-2px);border-color:var(--gold)}
-.tower.sel{border-color:var(--navy);box-shadow:0 0 0 3px var(--gold-soft)}
-.tower.rec{border-color:var(--gold)}
+.tower{position:relative;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:16px;padding:14px 16px;transition:border-color .18s,transform .18s,box-shadow .18s;box-shadow:var(--sh1)}
+.tower:hover{transform:translateY(-2px);border-color:var(--gold2)}
+.tower.rec{background:linear-gradient(160deg,#FFF7E8,#F3E3C3);border:2px solid var(--gold);box-shadow:0 0 0 3px rgba(216,188,136,.35),var(--sh2)}
+.tower.sel{border:2px solid var(--navy);box-shadow:0 0 0 4px var(--gold-soft),var(--sh2)}
 .tower.dim{opacity:.4}
-.tower .n{font-family:var(--serif);font-size:22px;font-weight:700}
+.tower .n{font-family:var(--serif);font-size:23px;font-weight:700}
 .tower .tg2{font-size:13px;color:var(--muted)}
-.tower .c{font-size:13px;margin-top:4px}
-.garden{background:var(--green-soft);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;padding:10px 6px;text-align:center;color:var(--green);font-size:13px;font-weight:700}
-.park{border:2px dashed var(--green);border-radius:10px;padding:8px;text-align:center;font-size:13px;color:var(--green)}
-.dirs{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:14px;gap:8px;flex-wrap:wrap}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.pchip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:14px}
-.pchip.on{background:var(--gold);border-color:var(--gold);color:#1B1408;font-weight:700}
+.tower.rec .tg2{color:#6B4E22}
+.tower .c{font-size:13px;margin-top:6px}
+.ribbon{position:absolute;top:-10px;right:10px;background:linear-gradient(135deg,#C9A15E,#9C7639);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;box-shadow:0 4px 12px rgba(156,118,57,.35);letter-spacing:.04em}
+.garden{background:linear-gradient(180deg,var(--green-soft),#DCE9DB);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;padding:10px 6px;text-align:center;color:var(--green);font-size:12px;font-weight:700}
+.park{border:1.5px dashed var(--green);border-radius:12px;padding:8px;text-align:center;font-size:13px;color:var(--green)}
+.dirs{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:16px;gap:8px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pchip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:999px;min-height:44px;padding:0 16px;font-size:15px;transition:all .15s}
+.pchip::before{content:"";width:16px;height:16px;border-radius:5px;border:1.5px solid var(--line2);background:var(--surface);flex:none}
+.pchip.on{background:var(--navy);border-color:var(--navy);color:var(--navy-ink);font-weight:700}
+.pchip.on::before{content:"✓";border-color:var(--gold2);background:var(--gold2);color:var(--navy);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px}
 /* type detail */
-.detail{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
-.detail img{width:100%;align-self:start;background:#fff;border-radius:10px;border:1px solid var(--line)}
+.detail{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;margin-top:20px;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--surface2)}
+.detail img{width:100%;align-self:start;background:#fff;border-radius:12px;border:1px solid var(--line)}
 .atbl{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
-.atbl td{padding:6px 4px;border-bottom:1px solid var(--line)}
+.atbl td{padding:8px 4px;border-bottom:1px solid var(--line)}
 .atbl td:last-child{text-align:right;font-weight:700}
-.big-n{font-family:var(--serif);font-size:34px;font-weight:700;line-height:1.1}
+.big-n{font-family:var(--serif);font-size:36px;font-weight:700;line-height:1.1}
 /* line cards */
-.line{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:center}
+.line{display:grid;grid-template-columns:84px 1fr;gap:16px;align-items:center}
 .compass{width:84px;height:84px}
-.bar{height:8px;border-radius:4px;background:var(--line);margin-top:2px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--gold)}
+.bar{height:8px;border-radius:4px;background:var(--line);margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:4px}
+.pbarv{margin-top:6px}
+.pbarv .bar{height:10px}
+.pbarv small{font-size:12px;color:var(--muted)}
+/* charts */
+.chart{margin-top:20px;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:var(--surface2)}
+.chart h4{margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--gold-ink)}
+.hbar{display:grid;grid-template-columns:92px 1fr auto;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+.hbar .tr{height:16px;border-radius:8px;background:var(--line);overflow:hidden}
+.hbar .tr i{display:block;height:100%;border-radius:8px}
+.hbar b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.stack{display:flex;height:44px;border-radius:12px;overflow:hidden;font-size:13px;font-weight:700}
+.stack div{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;padding:0 6px}
+.stack .s1{background:var(--navy);color:var(--gold2)}
+.stack .s2{background:linear-gradient(135deg,#D6B77F,#AE8A52);color:#1A1306}
+.stack .s3{background:var(--line2);color:var(--ink)}
+.slegend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--muted)}
+.slegend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tl{position:relative;display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:6px;padding-top:26px}
+.tl::before{content:"";position:absolute;left:6%;right:6%;top:31px;height:2px;background:var(--line2)}
+.tl div{position:relative;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.35}
+.tl div::before{content:"";display:block;width:12px;height:12px;border-radius:50%;margin:0 auto 8px;background:var(--surface);border:2px solid var(--gold);position:relative;z-index:1}
+.tl div.k::before{background:var(--navy);border-color:var(--navy)}
+.tl div.e::before{background:var(--gold);border-color:var(--gold)}
+.tl b{display:block;color:var(--ink);font-size:12px}
 /* result */
-.res-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
-.kv{background:var(--bg);border-radius:10px;padding:12px 14px}
-.kv .l{font-size:12px;color:var(--muted);font-weight:700}
-.kv .v{font-family:var(--serif);font-size:22px;font-weight:700;margin-top:2px}
-.money{width:100%;border-collapse:collapse;margin-top:16px;font-variant-numeric:tabular-nums}
-.money td{padding:9px 6px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+.res-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:20px}
+.kv{background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kv .l{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.04em}
+.kv .v{font-family:var(--serif);font-size:22px;font-weight:700;margin-top:4px}
+.kv.hl{background:var(--navy);border-color:var(--navy)}
+.kv.hl .l{color:var(--gold2)}
+.kv.hl .v{color:#fff}
+.money{width:100%;border-collapse:collapse;margin-top:18px;font-variant-numeric:tabular-nums}
+.money td{padding:11px 6px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
 .money td:last-child{text-align:right;font-weight:700;white-space:nowrap}
-.money tr.tot td{font-size:18px;color:var(--ink);border-bottom:none}
+.money tr.tot td{font-size:19px;color:var(--ink);border-bottom:none;padding-top:14px}
+.money tr.tot td:last-child{font-family:var(--serif);color:var(--gold-ink)}
 .money .sm{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
 .feat{margin:12px 0 0;padding-left:20px}
-.feat li{margin:4px 0}
-.confirm{margin-top:16px;border:2px dashed var(--gold);border-radius:12px;padding:14px 16px;background:var(--gold-soft);color:var(--gold-ink)}
-.confirm .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.soft{background:var(--bg);color:var(--ink);border-color:var(--line)}
-.field{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700}
-.field input{font:inherit;font-weight:400;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:160px;max-width:100%}
-.acc{margin-top:14px;border-radius:12px;padding:14px 16px;background:var(--navy);color:var(--navy-ink)}
-.acc b{font-family:var(--serif);font-size:18px}
+.feat li{margin:6px 0}
+.confirm{margin-top:18px;border:1.5px solid var(--gold2);border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,#FFF9EF,var(--gold-soft));color:var(--gold-ink)}
+.confirm .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.soft{background:var(--surface2);color:var(--ink);border-color:var(--line)}
+.field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700}
+.field input{font:inherit;font-weight:400;font-size:16px;min-height:46px;padding:0 12px;border-radius:10px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink);width:180px;max-width:100%}
+.acc{margin-top:16px;border-radius:18px;padding:18px 20px;background:var(--navy);color:var(--navy-ink)}
+.acc b{font-family:var(--serif);font-size:18px;color:var(--gold2)}
 .cands{display:grid;gap:8px;margin-top:14px}
-.cand{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:10px;flex-wrap:wrap}
+.cand{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 16px;border:1px solid var(--line);border-radius:14px;flex-wrap:wrap;background:var(--surface2)}
 .cand b{font-family:var(--serif)}
-.cmp-wrap{overflow-x:auto;margin-top:14px}
+.cmp-wrap{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:18px}
 .cmp{width:100%;min-width:560px;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:15px;vertical-align:top}
+.cmp th,.cmp td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:15px;vertical-align:top}
 .cmp th{font-size:13px;color:var(--muted);font-weight:700;width:130px}
-.cmp thead td{font-family:var(--serif);font-weight:700;font-size:18px;background:var(--bg)}
-.cmp img{width:100%;max-width:220px;height:110px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid var(--line)}
-.sheet-wrap{overflow-x:auto;margin-top:18px;padding:12px;background:var(--line);border-radius:12px}
-.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:var(--navy-ink);padding:10px 18px;border-radius:10px;font-size:14px;z-index:20;max-width:90vw}
-.foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:28px;font-size:12px;color:var(--muted)}
+.cmp thead td{font-family:var(--serif);font-weight:700;font-size:18px;background:var(--navy);color:var(--gold2)}
+.cmp thead th{background:var(--navy)}
+.cmp img{width:100%;max-width:220px;height:110px;object-fit:contain;background:#fff;border-radius:8px;border:1px solid var(--line)}
+.sheet-wrap{overflow-x:auto;margin-top:20px;padding:14px;background:var(--line);border-radius:18px}
+.toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:var(--navy-ink);padding:12px 20px;border-radius:12px;font-size:14px;z-index:20;max-width:90vw;box-shadow:var(--sh2);border:1px solid rgba(216,188,136,.4)}
+.foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:32px;font-size:12px;color:var(--muted)}
 .linkbtn{background:none;border:none;color:var(--muted);font-size:12px;text-decoration:underline;padding:4px}
+/* summary side panel */
+.sidebox{background:var(--navy);color:var(--navy-ink);border-radius:22px;padding:24px;box-shadow:var(--sh2);border:1px solid rgba(216,188,136,.25)}
+.sidebox .st{font-size:12px;letter-spacing:.22em;color:var(--gold2);font-weight:700}
+.sidebox h3{color:#fff;font-size:22px;margin-top:6px}
+.srow{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid rgba(245,241,232,.12);font-size:14px}
+.srow span{color:rgba(245,241,232,.65)}
+.srow b{text-align:right}
+.srow.empty b{color:rgba(245,241,232,.35);font-weight:400}
+.sprice{margin-top:16px;padding:16px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(216,188,136,.3)}
+.sprice .l{font-size:12px;color:var(--gold2);font-weight:700;letter-spacing:.06em}
+.sprice .v{font-family:var(--serif);font-size:30px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.sprice .m{font-size:14px;color:rgba(245,241,232,.8);margin-top:2px}
+.sidebox .stack{height:30px;margin-top:12px;font-size:12px}
+.sidebox .stack .s3{background:rgba(245,241,232,.18);color:#fff}
+.sidebox .plan{width:100%;border-radius:12px;background:#fff;margin-top:12px}
+.sidebox .btn{width:100%;margin-top:10px}
+.sidebox .btn-s{color:var(--navy-ink);border-color:rgba(245,241,232,.35)}
+.sidebox .preq{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;margin-top:10px;min-height:50px;border-radius:12px;border:none;font-weight:700;font-size:16px;background:linear-gradient(135deg,#D6B77F,#AE8A52);color:#1A1306}
 /* staff */
 .stf{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
 .stf th,.stf td{border:1px solid var(--line);padding:3px;text-align:center}
@@ -150,28 +234,44 @@ body{word-break:keep-all;overflow-wrap:break-word}
 .imgov{position:fixed;inset:0;z-index:40;background:rgba(12,17,28,.82);display:flex;align-items:center;justify-content:center;padding:16px}
 .imgov-in{background:var(--surface);border-radius:14px;padding:14px;max-width:560px;width:100%;max-height:92vh;overflow:auto;text-align:center}
 .imgov-in img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;margin-top:8px}
-.pbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--navy);color:var(--navy-ink);padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px))}
-.pbar-in{max-width:1040px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.pbar .pl{font-size:12px;opacity:.75}
-.pbar .pv{font-family:var(--serif);font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
-.pbar .pv small{font-family:var(--sans);font-size:13px;font-weight:500;opacity:.8;margin-left:6px}
-.pbar a{color:#1B1408;background:var(--gold);text-decoration:none;font-weight:700;font-size:14px;padding:9px 14px;border-radius:9px;white-space:nowrap}
+/* bottom bar (phone / portrait tablet) */
+.pbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--navy);color:var(--navy-ink);padding:12px max(18px,env(safe-area-inset-left,0px)) calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(216,188,136,.35);box-shadow:0 -10px 30px rgba(15,23,41,.18)}
+.pbar-in{max-width:1240px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.pbar .pl{font-size:12px;color:var(--gold2);letter-spacing:.04em}
+.pbar .pv{font-family:var(--serif);font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;color:#fff}
+.pbar .pv small{font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(245,241,232,.8);margin-left:8px}
+.pbar a{color:#1A1306;background:linear-gradient(135deg,#D6B77F,#AE8A52);text-decoration:none;font-weight:700;font-size:14px;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:10px;white-space:nowrap}
 .pbar .preq{color:#1B1408;background:var(--gold);border:none;font:inherit;font-weight:700;font-size:14px;padding:9px 14px;border-radius:9px;white-space:nowrap;cursor:pointer}
-.pbar a.ghost{background:transparent;color:var(--navy-ink);border:1px solid rgba(244,241,234,.45)}
-.site{margin-top:14px}
+.pbar a.ghost{background:transparent;color:var(--navy-ink);border:1px solid rgba(245,241,232,.4)}
+.pbar .preq{background:linear-gradient(135deg,#D6B77F,#AE8A52);color:#1A1306;min-height:44px;border-radius:10px;padding:0 14px;font-size:14px;display:inline-flex;align-items:center;text-decoration:none}
+.site{margin-top:16px;border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--surface2)}
 .site summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--gold-ink)}
-.site img{width:100%;border-radius:10px;margin-top:10px;border:1px solid var(--line)}
-.detail .keyimg,.keyimg{width:120px;flex:none;background:#fff;border-radius:8px;border:1px solid var(--line);padding:4px}
+.site img{width:100%;border-radius:12px;margin-top:10px;border:1px solid var(--line)}
+.detail .keyimg,.keyimg{width:120px;flex:none;background:#fff;border-radius:10px;border:1px solid var(--line);padding:4px}
 .ref{margin-top:6px;font-size:13px;color:var(--gold-ink);background:var(--gold-soft);border-radius:8px;padding:6px 10px}
-.check{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
-.check li{margin:4px 0}
-@media (max-width:640px){.map{grid-template-columns:1fr 54px 1fr}.tower .tg2{display:none}.line{grid-template-columns:64px 1fr}.compass{width:64px;height:64px}.detail{grid-template-columns:1fr}}
+.check{margin-top:18px;border:1px solid var(--line);border-radius:18px;padding:16px 20px;background:var(--surface2)}
+.check li{margin:5px 0}
+.est{margin-top:14px;padding:18px 20px;border-radius:18px;border:1.5px solid var(--gold2);background:var(--surface2)}
+.est .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.est .res{margin-top:12px;font-weight:700;font-size:16px}
+.est .res em{font-style:normal;color:var(--gold-ink);background:var(--gold-soft);padding:2px 8px;border-radius:6px}
+@media (max-width:640px){
+  .map{grid-template-columns:1fr 48px 1fr;gap:8px}.tower{padding:12px}.tower .tg2{display:none}.tower .n{font-size:20px}
+  .line{grid-template-columns:64px 1fr}.compass{width:64px;height:64px}.detail{grid-template-columns:1fr}
+  .pbar .pv{font-size:18px}.pbar .pv small{display:block;margin:0}.pbar .ghost{display:none}
+  .hbar{grid-template-columns:76px 1fr auto;font-size:13px}
+  .tl{grid-template-columns:repeat(3,1fr);row-gap:14px}.tl::before{display:none}
+  .pill{min-width:64px;font-size:11px}
+  .res-top{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kv{padding:12px 14px}.kv .v{font-size:19px}
+  .step{border-radius:18px}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
+<div class="brand"><div class="brand-in"><span class="bn"><i>◆</i>상동역 롯데캐슬 시그니처</span><span class="bt">MY SIGNATURE</span></div></div>
 <div class="wrap">
   <div class="rail" id="rail"><div class="rail-in" id="pills"></div><div class="picks" id="picks"></div></div>
-  <main id="app"></main>
+  <div class="layout"><main id="app"></main><aside class="side" id="side" aria-label="우리 집 사양 요약"></aside></div>
   <div class="foot"><span>상동역 롯데캐슬 시그니처 · 입주자모집공고 공급금액 기준 · 대출 · 세금은 2026.11 기준 추정<br>조망 등은 동 · 층 · 호수별로 다르며 단지 주변 시설로 소음 등 영향이 있을 수 있습니다. 계약 전 입주자모집공고와 모형도로 꼭 확인하세요. 이미지는 이해를 돕기 위한 것으로 실제와 다를 수 있습니다.</span><span>상담팀장 김성태 010-8315-9602</span></div>
 <div class="pbar" id="pbar"></div>
 </div>
@@ -325,7 +425,7 @@ function reqLink(c,label,cls){
 const CHECK = ['자금조달 · 입주계획서: 계약일부터 30일 안에 제출 (미제출 · 거짓 작성 시 과태료)','인지세 17만 5천원 (계약자 부담분): 전자수입인지로 계약서 작성 달의 다음 달 10일까지 · 인지는 한 번만 출력됩니다','계약금은 분양대금 계좌로만 입금 · 유상옵션 · 시스템에어컨 계좌는 번호가 달라 혼동 주의','중도금 대출 이자는 후불제 (입주 전까지 시행위탁자 대납 → 입주 때 상환)'];
 
 // ---------- 상태 ----------
-const S = {step:0, houses:null, loan:null, prior:[], dong:null, type:null, ho:null, band:null, cands:[], confirm:{floor:'',unit:''}, info:{cust:'',agent:'',phone:''}, staff:false};
+const S = {step:0, houses:null, loan:null, lmode:null, inc:'', debt:'', prior:[], dong:null, type:null, ho:null, band:null, cands:[], confirm:{floor:'',unit:''}, info:{cust:'',agent:'',phone:''}, staff:false};
 try{ const s=JSON.parse(localStorage.getItem('hosil')||'null'); if(s&&s.cands) {S.cands=s.cands.filter(c=>c&&c.band&&BANDS.some(b=>b.id===c.band)); S.info=s.info||S.info;} }catch(e){}
 function save(){ try{ localStorage.setItem('hosil',JSON.stringify({cands:S.cands,info:S.info})); }catch(e){} }
 const STEPS=['시작','① 조건 · 대출','② 동','③ 타입','④ 호수 · 향','⑤ 층','⑥ 결과','⑦ 비교 · 사양서'];
@@ -337,7 +437,8 @@ function curLine(){ return L.find(l=>l.dong===S.dong && l.ho===S.ho); }
 
 function rail(){
   if(S.staff){ $('#pills').innerHTML='<span class="pill on">직원 · 현황 관리</span>'; $('#picks').innerHTML=''; return; }
-  $('#pills').innerHTML=STEPS.map((s,i)=>`<span class="pill ${i===S.step?'on':(i<S.step?'done':'')}">${s}</span>`).join('');
+  $('#pills').innerHTML=STEPS.map((s,i)=>`<span class="pill ${i===S.step?'on':(i<S.step?'done':'')}"><b>${i<S.step?'✓':(i===0?'◆':i)}</b>${s.replace(/^[①②③④⑤⑥⑦]\s*/,'')}</span>`).join('');
+  const on=$('#pills .pill.on'); if(on){ const r=$('#pills'); r.scrollLeft=Math.max(0,on.offsetLeft-r.clientWidth/2+on.clientWidth/2); }
   const c=[]; if(S.houses!=null) c.push(HOUSE[S.houses].name); if(S.loan) c.push(S.loan===6?'대출 6억 호실':'모든 호실'); if(S.dong) c.push(S.dong+'동'); if(S.type) c.push(S.type); if(S.ho) c.push(S.ho+'호 · '+curLine().dir+'향'); if(S.band) c.push(bandName(curLine(),BANDS.find(b=>b.id===S.band)));
   $('#picks').innerHTML=c.map(x=>`<span class="chip">${x}</span>`).join('') || '<span class="note" style="margin:0">고른 것이 여기에 쌓입니다</span>';
 }
@@ -348,6 +449,25 @@ function pbar(){
   else if(!S.staff && S.dong){ const ls=L.filter(l=>l.dong===S.dong&&(!S.type||l.type===S.type)&&(!S.ho||l.ho===S.ho)&&lineOK(l)); const v=[]; ls.forEach(l=>BANDS.forEach(bd=>{ if(bandOpen(l,bd)&&(S.loan!==6||loanFor(l.price[bd.i],S.houses)===6)) v.push(l.price[bd.i]); })); if(v.length) main=`<p class="pl">${S.dong}동${S.type?' '+S.type:''}${S.ho?' '+S.ho+'호':''} 분양가</p><p class="pv">${eok(Math.min(...v))} ~ ${eok(Math.max(...v))}</p>`; }
   b.innerHTML=`<div class="pbar-in"><div>${main}</div><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="ghost" href="tel:${CONTACT.raw}">${CONTACT.title} 전화</a>${S.ho&&S.band?reqLink(calc(S),'상담 요청','preq'):`<a href="../">처음 화면</a>`}</div></div>`;
 }
+function sideCTA(c){
+  if(typeof reqLink==='function') return reqLink(c,'이 집 가능한지 확인받기','preq');
+  return `<a class="btn btn-g" target="_blank" rel="noopener" style="text-decoration:none" href="${formLink(c,'시뮬레이터')}">이 집 가능한지 확인받기</a>`;
+}
+function side(){
+  const b=$('#side'); if(!b) return;
+  if(S.staff){ b.innerHTML=''; return; }
+  const l=S.dong&&S.ho?curLine():null; const bd=S.band?BANDS.find(x=>x.id===S.band):null;
+  const row=(k,v)=>`<div class="srow ${v?'':'empty'}"><span>${k}</span><b>${v||'선택 전'}</b></div>`;
+  let price='';
+  if(l&&bd){ const c=calc(S); const tot=c.P*(1+c.t+INT)+STAMP; const lp=c.loan/tot*100, mp=100-lp;
+    price=`<div class="sprice"><p class="l">분양가</p><p class="v">${eok(c.P)}</p><p class="m">입주 때 내 돈 <b style="color:var(--gold2)">약 ${eok(c.mine)}</b> · 잔금대출 ${c.loan}억</p>
+    <div class="stack" role="img" aria-label="입주 때 총비용 중 대출 ${c.loan}억, 내 돈 약 ${eok(c.mine)}">${c.loan?`<div class="s1" style="width:${lp}%">대출</div>`:''}<div class="s2" style="width:${mp}%">내 돈</div></div></div>${sideCTA(c)}<a class="btn btn-s" style="text-decoration:none" href="tel:${CONTACT.raw}">${CONTACT.who||CONTACT.title} ${CONTACT.tel}</a>`; }
+  else if(S.dong){ const ls=L.filter(x=>x.dong===S.dong&&(!S.type||x.type===S.type)&&(!S.ho||x.ho===S.ho)&&lineOK(x)); const v=[]; ls.forEach(x=>BANDS.forEach(y=>{ if(bandOpen(x,y)&&(S.loan!==6||loanFor(x.price[y.i],S.houses)===6)) v.push(x.price[y.i]); }));
+    if(v.length) price=`<div class="sprice"><p class="l">${S.dong}동${S.type?' '+S.type:''} 분양가 범위</p><p class="v" style="font-size:24px">${eok(Math.min(...v))} ~ ${eok(Math.max(...v))}</p><p class="m">층을 고르면 정확한 금액이 나옵니다</p></div>`; }
+  b.innerHTML=`<div class="sidebox"><p class="st">MY SIGNATURE</p><h3>우리 집 사양</h3>
+   ${row('주택 수',S.houses!=null?HOUSE[S.houses].name:'')}${row('잔금대출',S.loan?(S.loan===6?'6억 호실':'모든 호실'):'')}${row('동',S.dong?S.dong+'동':'')}${row('타입',S.type?S.type+' · 실사용 약 '+TYPE[S.type].use+'평':'')}${row('호수 · 향',l?l.ho+'호 · '+l.dir+'향':'')}${row('층',l&&bd?bandName(l,bd):'')}
+   ${S.type?`<img class="plan" src="plans/${S.type}.jpg" alt="${S.type} 평면도">`:''}${price}</div>`;
+}
 function go(n){ S.step=n; render(); window.scrollTo({top:0,behavior:'smooth'}); }
 function nav(nextOK,nextLabel){ return `<div class="nav"><button class="btn btn-s" data-act="back">← 이전</button><button class="btn btn-p" data-act="next" ${nextOK?'':'disabled'}>${nextLabel||'다음 →'}</button></div>`; }
 function compass(dir){
@@ -357,7 +477,7 @@ function compass(dir){
 
 // ---------- 화면 ----------
 function render(){
-  rail(); pbar(); const A=$('#app'); A.innerHTML='';
+  rail(); pbar(); side(); const A=$('#app'); A.innerHTML='';
   if(S.staff){ A.appendChild(staffView()); return; }
   const f=[s0,s1,s2,s3,s4,s5,s6,s7][S.step]; A.appendChild(f());
 }
@@ -365,7 +485,7 @@ function s0(){
   return el(`<section class="step" style="background:transparent;border:none;padding-left:0;padding-right:0">
   <div class="hero"><p class="eyebrow">상동역 롯데캐슬 시그니처</p><h1>나만의 시그니처<br>만들기</h1>
   <p class="lead">동 → 타입 → 호수 → 층을 차례로 고르면, 우리 가족 집의 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 ‘우리 집 사양서’로 완성됩니다. · 약 3분</p>
-  <div class="path"><span>① 조건 · 대출</span><span>② 동</span><span>③ 타입 · 평면</span><span>④ 호수 · 향</span><span>⑤ 층</span><span>⑥ 결과</span><span>⑦ 1·2·3순위 비교 · 사양서</span></div>
+  <div class="path"><span><b>①</b> 조건 · 대출</span><span><b>②</b> 동 · 생활 동선</span><span><b>③</b> 타입 · 평면</span><span><b>④</b> 호수 · 향</span><span><b>⑤</b> 층 · 가격</span><span><b>⑥</b> 결과 · 자금</span><span><b>⑦</b> 비교 · 사양서</span></div>
   <div class="nav" style="justify-content:flex-start"><button class="btn btn-g" data-act="next">시작하기 →</button>${S.cands.length?`<button class="btn btn-s" data-go="7">담아 둔 후보 보기</button>`:''}<a class="btn btn-s" style="text-decoration:none" href="../">처음 화면</a></div>
   <p class="note">계약 가능 여부와 정확한 동 · 호수는 선착순이라 ${CONTACT.title}이 현황을 확인한 뒤 확정합니다. 금액은 입주자모집공고 공급금액 기준이며 대출 · 세금은 2026년 11월 기준 추정입니다.</p></div></section>`);
 }
@@ -373,41 +493,54 @@ function s1(){
   const h=S.houses; const multi=h!=null&&h>=2;
   const n=el(`<section class="step"><p class="eyebrow">STEP ① · 조건 · 대출</p><h2 class="q">지금 집을 몇 채 갖고 계세요?</h2>
   <p class="sub">이 집을 빼고 지금 가진 주택 수입니다. 잔금대출과 취득세가 여기서 정해집니다.</p>
+  <p class="pickone">☝ 하나만 고르세요</p>
   <div class="grid g4">${HOUSE.map(x=>`<button class="opt ${h===x.id?'sel':''}" data-house="${x.id}"><span class="t" style="font-size:20px">${x.name}</span><span class="d">${x.d}</span><span class="d">취득세 약 ${(taxRate('84F',x.id)*100).toFixed(1)}% (84㎡)</span></button>`).join('')}</div>
   ${h===1?`<div class="confirm soft"><b>1주택 · 갈아타기라면 꼭 확인</b><ul class="feat" style="margin-top:6px"><li>잔금대출을 받으면 기존 집을 정해진 기한(현재 6개월) 안에 판다는 약정이 붙습니다.</li><li>양도세 비과세 일시적 2주택: 계약(분양권 취득) 후 3년 안, 또는 입주 후 3년 안에 기존 집을 팔면 특례를 받을 수 있습니다. 기존 집 1년 이상 보유 · 입주 후 실거주 등 요건은 세무사와 확인합니다.</li></ul></div>`:''}
   ${multi?`<div class="confirm" style="background:var(--rust-soft);color:var(--rust);border-color:var(--rust)"><b>다주택이라면</b><p style="margin-top:4px">수도권에서는 2주택 이상 보유자의 주택담보대출이 제한되어 잔금대출을 받기 어렵습니다. 기존 집을 잔금 전에 정리하면 조건이 달라지니 자금 계획을 함께 봅니다. 취득세는 잔금(취득) 때 보유한 주택 수 기준입니다.</p></div>`:''}
   <h3 class="q2">입주 때 잔금대출이 얼마나 필요하세요?</h3>
-  <p class="sub">같은 84F 19층이라도 대출 6억 호실은 입주 때 내 돈 약 9.94억, 4억 호실은 약 13.04억으로 약 3억 차이가 납니다.</p>
-  <div class="grid g2">
-   <button class="opt ${S.loan===6?'sel':''} ${multi?'dim':''}" data-loan="6"><span class="k">A · 6억이 필요해요</span><span class="t">대출 6억 호실만</span><span class="d">분양가 15억 이하 호실 · 84F · 84C · 84A · 84B · 84D</span><span class="d">필요 연소득 약 1.2억 (DSR 기준)</span></button>
-   <button class="opt ${S.loan===4?'sel':''}" data-loan="4"><span class="k">B · 4억이면 돼요 · 자금 여유</span><span class="t">모든 호실 보기</span><span class="d">15억 초과 호실과 113 · 121㎡까지 고를 수 있습니다</span><span class="d">필요 연소득 약 8천만원 (DSR 기준)</span></button>
+  <p class="pickone">☝ 아래 셋 중 하나만 고르세요</p>
+  <p class="sub">잘 모르시면 C를 눌러 연소득으로 가늠하면, 결과에 맞게 A 또는 B로 자동으로 정해집니다. 언제든 바꿀 수 있습니다.</p>
+  <div class="grid g3">
+   <button class="opt ${S.lmode==='A'?'sel':''} ${multi?'dim':''}" data-loan="6"><span class="k">A · 6억이 필요해요</span><span class="t">대출 6억 호실만 보기</span><span class="d">분양가 15억 이하 호실 · 84F · 84C · 84A · 84B · 84D</span><span class="d">필요 연소득 약 1.2억 (DSR 기준)</span></button>
+   <button class="opt ${S.lmode==='B'?'sel':''}" data-loan="4"><span class="k">B · 4억이면 돼요</span><span class="t">모든 호실 보기</span><span class="d">15억 초과 호실과 113 · 121㎡까지 모두</span><span class="d">필요 연소득 약 8천만원 (DSR 기준)</span></button>
+   <button class="opt ${S.lmode==='C'?'sel':''}" data-lmode="C"><span class="k">C · 잘 모르겠어요</span><span class="t">연소득으로 가늠하기</span><span class="d">연소득과 지금 갚는 대출을 넣으면 A · B 중 맞는 쪽으로 정해 드립니다</span></button>
   </div>
-  <div class="confirm soft"><b>연소득과 지금 갚는 대출로 가늠해 보세요</b>
-   <div class="row"><label class="field" for="inc">부부 합산 연소득(만원)<input id="inc" inputmode="numeric" placeholder="예: 10000"></label><label class="field" for="debt">기존 대출 월 상환액(만원)<input id="debt" inputmode="numeric" placeholder="없으면 0"></label></div>
-   <p id="incOut" style="margin-top:8px;font-weight:700"></p>
-   <p class="note">30년 · 연 7%(스트레스 금리 반영) · DSR 40% 가정의 대략값입니다. 신용대출 · 자동차 할부 등 모든 대출 상환액을 넣어 주세요. 정확한 한도는 은행에서 확인합니다.</p></div>
+  ${S.lmode==='C'?`<div class="est"><b>연소득과 지금 갚는 대출로 가늠하기</b>
+   <div class="row"><label class="field" for="inc">부부 합산 연소득 (만원)<input id="inc" inputmode="numeric" placeholder="예: 10000" value="${esc(S.inc||'')}"></label><label class="field" for="debt">기존 대출 월 상환액 (만원)<input id="debt" inputmode="numeric" placeholder="없으면 0" value="${esc(S.debt||'')}"></label></div>
+   <p class="res" id="incOut"></p>
+   <p class="note">30년 · 연 7%(스트레스 금리 반영) · DSR 40% 가정의 대략값입니다. 신용대출 · 자동차 할부 등 모든 대출 상환액을 넣어 주세요. 정확한 한도는 은행에서 확인합니다.</p></div>`:''}
+  <div class="chart"><h4>같은 84F 19층, 입주 때 내 돈 비교</h4>
+   <div class="hbar"><span>6억 호실</span><span class="tr"><i style="width:${9.94/13.04*100}%;background:var(--navy)"></i></span><b>약 9.94억</b></div>
+   <div class="hbar"><span>4억 호실</span><span class="tr"><i style="width:100%;background:linear-gradient(90deg,#D6B77F,#AE8A52)"></i></span><b>약 13.04억</b></div>
+   <p class="note" style="margin-top:8px">분양가 차이는 1억, 대출 한도 차이 2억까지 더해 입주 때 내 돈은 약 3억 차이가 납니다.</p></div>
   ${nav(h!=null && !!S.loan)}</section>`);
   const inc=n.querySelector('#inc'), debt=n.querySelector('#debt'), out=n.querySelector('#incOut');
-  const upd=()=>{const v=parseFloat(inc.value.replace(/[^0-9.]/g,'')); const m=parseFloat(debt.value.replace(/[^0-9.]/g,''))||0; if(!v){out.textContent='';return;}
-    const lim=Math.max(0,(v*0.4-m*12))/0.0798/10000;
-    out.textContent=`새로 받을 수 있는 대출 대략 ${lim.toFixed(1)}억 → `+(multi?'다주택은 잔금대출 자체가 제한됩니다':(lim>=6?'대출 6억 호실 가능권':(lim>=4?'4억까지 가능권 · 6억은 어려울 수 있음':'4억 미만 · 자금 계획을 함께 봅니다')));};
-  inc.addEventListener('input',upd); debt.addEventListener('input',upd);
+  if(inc){
+    const upd=()=>{ S.inc=inc.value; S.debt=debt.value; const v=parseFloat(inc.value.replace(/[^0-9.]/g,'')); const m=parseFloat(debt.value.replace(/[^0-9.]/g,''))||0;
+      if(!v){ out.textContent=''; S.loan=null; }
+      else { const lim=Math.max(0,(v*0.4-m*12))/0.0798/10000; const to=(!multi&&lim>=6)?6:4; if(S.loan!==to){ S.loan=to; S.dong=S.type=S.ho=S.band=null; }
+        out.innerHTML=`새로 받을 수 있는 대출 대략 <em>${lim.toFixed(1)}억</em> → `+(multi?'다주택은 잔금대출이 제한되어 <em>B · 모든 호실</em>로 봅니다':(to===6?'<em>A · 대출 6억 호실</em>로 진행합니다':(lim>=4?'<em>B · 모든 호실</em>로 진행합니다 (6억은 어려울 수 있음)':'<em>B · 모든 호실</em>로 보고 자금 계획을 함께 봅니다'))); }
+      const nb=n.querySelector('[data-act=next]'); if(nb) nb.disabled=!(S.houses!=null && S.loan); rail(); side(); pbar(); };
+    inc.addEventListener('input',upd); debt.addEventListener('input',upd); if(S.inc) upd();
+  }
   return n;
 }
 function s2(){
-  const rec=new Set(); S.prior.forEach(p=>PRIOR.find(x=>x.id===p).dongs.forEach(d=>rec.add(d)));
+  const rec=new Set(), hit={}; S.prior.forEach(p=>PRIOR.find(x=>x.id===p).dongs.forEach(d=>{rec.add(d); hit[d]=(hit[d]||0)+1;}));
   const card=d=>{
     const ls=L.filter(l=>l.dong===d && lineOK(l)); const any6=ls.some(lineHas6); const dim=ls.length===0;
-    return `<button class="tower ${S.dong===d?'sel':''} ${rec.has(d)?'rec':''} ${dim?'dim':''}" data-dong="${d}"><span class="n">${d}동</span> ${rec.has(d)?'<span class="tag tgold">추천</span>':''}<div class="tg2">${DONG[d].short}</div><div class="c">${dim?'<span class="tag t4">조건에 맞는 호실 상담</span>':(any6&&S.houses<2?'<span class="tag t6">대출 6억 호실 있음</span>':'')}${!dim&&ls.some(l=>!lineHas6(l))&&S.loan!==6?'<span class="tag tgold">넓은 집 · 4억 호실</span>':''}</div></button>`;
+    return `<button class="tower ${S.dong===d?'sel':''} ${rec.has(d)?'rec':''} ${dim?'dim':''}" data-dong="${d}">${rec.has(d)?`<span class="ribbon">★ 추천${hit[d]>1?' · '+hit[d]+'개 일치':''}</span>`:''}<span class="n">${d}동</span><div class="tg2">${DONG[d].short}</div><div class="c">${dim?'<span class="tag t4">조건에 맞는 호실 상담</span>':(any6&&S.houses<2?'<span class="tag t6">대출 6억 호실 있음</span>':'')}${!dim&&ls.some(l=>!lineHas6(l))&&S.loan!==6?'<span class="tag tgold">넓은 집 · 4억 호실</span>':''}</div></button>`;
   };
   return el(`<section class="step"><p class="eyebrow">STEP ② · 동</p><h2 class="q">어디서 살고 싶으세요?</h2>
-  <p class="sub">생활에서 먼저 챙기고 싶은 것을 누르면 맞는 동에 ‘추천’이 켜집니다. 지도에서 동을 하나 고르세요.</p>
+  <p class="sub"><b>1.</b> 생활에서 먼저 챙기고 싶은 것을 누르세요. <b>2.</b> ★ 추천이 켜진 동 중에서 하나를 고르세요.</p>
+  <p class="pickone">✓ 여러 개 선택할 수 있어요${S.prior.length?` · ${S.prior.length}개 선택됨`:''}</p>
   <div class="chips">${PRIOR.map(p=>`<button class="pchip ${S.prior.includes(p.id)?'on':''}" data-prior="${p.id}">${p.name}</button>`).join('')}</div>
   <details class="site"><summary>단지 배치도 크게 보기</summary><img src="siteplan.jpg" alt="단지 배치도" loading="lazy"></details>
   <div class="dirs"><span>← 서 · 보행자도로 · 상가</span><span>↑ 북 · 길주로 · 상동역 1번 출구</span><span>동 · 부천터미널 소풍 →</span></div>
   <div class="map"><div class="mcol">${['101','102','103'].map(card).join('')}<div class="park">어린이공원</div></div>
   <div class="garden"><span>공개공지</span><span>중앙</span><span>오픈스퀘어</span><span>정원</span><span>원형정원</span></div>
   <div class="mcol">${['107','106','105','104'].map(card).join('')}</div></div>
+  <div class="legend"><span><i style="background:linear-gradient(135deg,#C9A15E,#9C7639)"></i>★ 추천 · 고른 생활 우선순위와 맞는 동</span><span><i style="background:var(--navy)"></i>대출 6억 호실 있음</span><span><i style="border:2px solid var(--navy)"></i>내가 고른 동</span></div>
   ${S.dong?`<p class="sub" style="margin-top:16px"><b>${S.dong}동</b> · ${DONG[S.dong].tag}<br>${DONG[S.dong].comm}</p>`:''}
   ${nav(!!S.dong)}</section>`);
 }
@@ -423,7 +556,7 @@ function s3(){
   return el(`<section class="step"><p class="eyebrow">STEP ③ · 타입 · 평면</p><h2 class="q">${S.dong}동에서 우리 가족은 어떻게 살까요?</h2>
   <p class="sub">${S.loan===6?'대출 6억이 되는 층이 있는 타입만 보여 드립니다.':'지금 상담할 수 있는 이 동의 타입입니다.'} 막대는 실제로 쓰는 넓이(전용 + 발코니 확장)입니다.</p>
   <div class="grid g3">${keys.length?keys.map(t=>{const X=TYPE[t]; const ls=m[t];
-    return `<button class="opt ${S.type===t?'sel':''}" data-type="${t}"><img src="plans/${t}.jpg" alt="${t} 평면도" loading="lazy"><span class="k">${X.fam}</span><span class="t">${t} <span style="font-size:15px;font-family:var(--sans);font-weight:500;color:var(--muted)">${X.py}평형</span></span><span class="d">${X.plan}</span><div class="bar"><i style="width:${X.use/55*100}%"></i></div><span class="d">실사용 약 <b style="color:var(--ink)">${X.use}평</b> · 발코니 확장 ${X.bal}평</span><span>${X.model?'<span class="tag tgold">견본주택 건립</span>':''}${ls.some(lineHas6)&&S.houses<2?'<span class="tag t6">6억 층 있음</span>':'<span class="tag t4">대출 4억</span>'}</span></button>`}).join(''):'<p class="sub">이 동에서는 조건에 맞는 타입을 상담사가 따로 안내합니다. 이전으로 돌아가 다른 동을 골라 보세요.</p>'}</div>
+    return `<button class="opt ${S.type===t?'sel':''}" data-type="${t}"><img src="plans/${t}.jpg" alt="${t} 평면도" loading="lazy"><span class="k">${X.fam}</span><span class="t">${t} <span style="font-size:15px;font-family:var(--sans);font-weight:500;color:var(--muted)">${X.py}평형</span></span><span class="d">${X.plan}</span><div class="bar"><i style="width:${X.use/55*100}%"></i></div><span class="d">실사용 약 <b style="color:var(--ink)">${X.use}평</b> · 발코니 확장 ${X.bal}평</span>${(()=>{const v=[]; ls.forEach(x=>BANDS.forEach(y=>{ if(bandOpen(x,y)&&(S.loan!==6||loanFor(x.price[y.i],S.houses)===6)) v.push(x.price[y.i]); })); return v.length?`<span class="d">분양가 <b style="color:var(--ink)">${eok(Math.min(...v))} ~ ${eok(Math.max(...v))}</b></span>`:'';})()}<span>${X.model?'<span class="tag tgold">견본주택 건립</span>':''}${ls.some(lineHas6)&&S.houses<2?'<span class="tag t6">6억 층 있음</span>':'<span class="tag t4">대출 4억</span>'}</span></button>`}).join(''):'<p class="sub">이 동에서는 조건에 맞는 타입을 상담사가 따로 안내합니다. 이전으로 돌아가 다른 동을 골라 보세요.</p>'}</div>
   ${T?`<div class="detail"><img src="plans/${S.type}.jpg" alt="${S.type} 평면도 크게"><div><p class="eyebrow">${S.type} · ${T.py}평형</p><p class="big-n" style="margin-top:4px">실사용 약 ${T.use}평</p><p class="sub" style="margin-top:6px">${T.rooms} · 발코니 확장 무상</p><div style="display:flex;gap:12px;align-items:flex-start;margin-top:10px"><img class="keyimg" src="keys/${S.type}.png" alt="${S.type} 위치 안내도"><p class="sub" style="margin:0">색칠된 곳이 단지 안에서 ${S.type}이 있는 동 · 호수입니다.</p></div><div style="margin-top:10px">${areaTable(S.type)}</div><p class="note">평면도는 이해를 돕기 위한 것으로 실제와 다를 수 있으며, 일부 세대는 좌우 대칭으로 시공됩니다. 평면 · 면적 · 마감재는 공사 중 다소 변경될 수 있습니다.</p></div></div>`:''}
   ${nav(!!S.type)}</section>`);
 }
@@ -437,9 +570,10 @@ function s4(){
 }
 function s5(){
   const l=curLine(); const vf=VIEW[l.front];
+  const shown=BANDS.filter(b=>bandOpen(l,b) && (S.loan!==6 || loanFor(l.price[b.i],S.houses)===6)); const pv=shown.map(b=>l.price[b.i]); const pmin=Math.min(...pv), pmax=Math.max(...pv);
   const items=BANDS.filter(b=>bandOpen(l,b) && (S.loan!==6 || loanFor(l.price[b.i],S.houses)===6)).map(b=>{const v=l.price[b.i]; const ln=loanFor(v,S.houses); const st=bandState(l,b);
     const tip = b.id==='b1019'?'10개 층이 같은 가격 · 19층에 가까울수록 이득':(b.id==='b69'?'같은 가격 구간 · 9층에 가까울수록 이득':(b.id==='b2025'?'고층부 시작 · 같은 가격 구간':(b.id==='b2739'?'26층은 피난층 · 27층부터 같은 가격':(b.id==='b40'?'최상층부 구간':'가장 적은 돈으로 시작'))));
-    return `<button class="opt ${S.band===b.id?'sel':''}" data-band="${b.id}"><span class="k">${bandName(l,b)}</span><span class="t" style="font-size:22px">${eok(v)}</span>${SHOWV?`<span class="ref">상담 참고 · ${vf[b.v]} (추정)</span>`:''}<span class="d">${tip}</span><span>${loanTag(ln)}${st==='u'?'<span class="tag tgold">층 현장 확인</span>':''}${!CAN?'<span class="tag tgold">가능 여부 상담 확인</span>':''}</span></button>`;}).join('');
+    return `<button class="opt ${S.band===b.id?'sel':''}" data-band="${b.id}"><span class="k">${bandName(l,b)}</span><span class="t" style="font-size:22px">${eok(v)}</span><div class="pbarv"><div class="bar"><i style="width:${pmax>pmin?Math.round(25+75*(v-pmin)/(pmax-pmin)):60}%"></i></div><small>${v===pmin?'이 호수에서 가장 낮은 가격':'가장 낮은 구간보다 +'+man(v-pmin)}</small></div>${SHOWV?`<span class="ref">상담 참고 · ${vf[b.v]} (추정)</span>`:''}<span class="d">${tip}</span><span>${loanTag(ln)}${st==='u'?'<span class="tag tgold">층 현장 확인</span>':''}${!CAN?'<span class="tag tgold">가능 여부 상담 확인</span>':''}</span></button>`;}).join('');
   return el(`<section class="step"><p class="eyebrow">STEP ⑤ · 층</p><h2 class="q">몇 층에서 살고 싶으세요?</h2>
   <p class="sub">${l.dong}동 ${l.ho}호 ${l.type} · ${l.dir}향. 같은 가격 구간이면 위층부터 보는 것이 유리합니다. ${CAN?'현황판 기준 상담 가능한 층 구간입니다.':'층 구간별 공급금액입니다. 계약 가능 여부는 선착순이라 상담팀장이 확인해 드립니다.'}</p>
   <div class="grid g3">${items||'<p class="sub">조건에 맞는 층은 상담사가 현황판으로 따로 안내합니다.</p>'}</div>${nav(!!S.band,'결과 보기 →')}</section>`);
@@ -454,10 +588,17 @@ function s6(){
    <div class="kv"><p class="l">동 · 호수</p><p class="v">${l.dong}동 ${l.ho}호</p></div>
    <div class="kv"><p class="l">타입 · 향</p><p class="v">${l.type} · ${l.dir}향</p></div>
    <div class="kv"><p class="l">층 구간</p><p class="v">${bandName(l,c.b)}</p></div>
-   <div class="kv"><p class="l">분양가</p><p class="v">${eok(c.P)}</p></div>
+   <div class="kv hl"><p class="l">분양가</p><p class="v">${eok(c.P)}</p></div>
    <div class="kv"><p class="l">잔금대출</p><p class="v" style="font-size:${c.ln===0||c.ln==='check'?'17px':'22px'}">${loanTxt(c.ln)}</p></div>
    <div class="kv"><p class="l">실사용 면적</p><p class="v">약 ${T.use}평</p></div>
   </div>
+  <div class="chart"><h4>입주 때까지 들어가는 돈 · 한눈에 보기</h4>
+   ${(()=>{ const tot=c.P*(1+c.t+INT)+STAMP; const lp=c.loan/tot*100, ex=(c.tx+c.it+STAMP)/tot*100, mp=100-lp-ex;
+     return `<div class="stack" role="img" aria-label="총 ${eok(tot)} 중 대출 ${c.loan}억, 내 돈 분양가 몫, 세금·이자">${c.loan?`<div class="s1" style="width:${lp}%">대출 ${c.loan}억</div>`:''}<div class="s2" style="width:${mp}%">내 돈 (분양가 몫)</div><div class="s3" style="width:${ex}%" title="세금 · 이자"></div></div>
+     <div class="slegend"><span><i style="background:var(--navy)"></i>잔금대출 ${c.loan}억</span><span><i style="background:#C6A46C"></i>내 돈 약 ${eok(c.mine-(c.tx+c.it+STAMP))}</span><span><i style="background:var(--line2)"></i>취득세 · 후불이자 · 인지세 약 ${eok(c.tx+c.it+STAMP)}</span><span>총 약 <b style="color:var(--ink)">${eok(tot)}</b></span></div>`; })()}
+   <h4 style="margin-top:20px">납부 일정</h4>
+   <div class="tl"><div class="k"><b>계약일</b>1,000만</div><div class="k"><b>30일 안</b>${man(c.rest)}</div>${MID.map((d,i)=>`<div><b>${d.slice(2,7).replace('.','.')}</b>중도금 ${i+1}회</div>`).join('')}<div class="e"><b>2032.03</b>잔금 · 입주</div></div>
+   <p class="note" style="margin-top:10px">중도금 6회는 중도금 대출로 내고 이자는 입주 때 후불로 냅니다.</p></div>
   <table class="money">${moneyRows(c)}<tr class="tot"><td><b>입주 때 내 돈 (잔금대출 ${c.loan}억 반영)</b></td><td>약 ${eok(c.mine)}</td></tr></table>
   <div class="acc"><b>계약금 입금 계좌</b><p style="margin-top:4px">${ACC.bank} ${ACC.no} · 예금주 ${ACC.holder}</p><p style="font-size:13px;opacity:.85;margin-top:2px">입금자명: 동호수 + 성명 (예: 1011304홍길동) · 현금 · 개인 계좌로는 받지 않습니다 · 중도금 · 잔금은 세대별 가상계좌</p></div>
   <h3 style="margin-top:22px;font-size:20px">이 호실의 좋은 점</h3><ul class="feat">${features(c).map(x=>`<li>${x}</li>`).join('')}</ul>
@@ -487,7 +628,7 @@ function cmpHTML(list){
   ${SHOWV?row('상담 참고 (추정)',k=>VIEW[k.l.front][k.b.v]):''}
   ${row('분양가',k=>`<b>${eok(k.P)}</b>`)}
   ${row('잔금대출',k=>loanTxt(k.ln))}
-  ${row('입주 때 내 돈',k=>`<b>약 ${eok(k.mine)}</b>${list.length>1&&k.mine===minMine?' <span class="tag tg">가장 적음</span>':''}`)}
+  ${row('입주 때 내 돈',k=>`<b>약 ${eok(k.mine)}</b>${list.length>1&&k.mine===minMine?' <span class="tag tg">가장 적음</span>':''}<div class="bar" style="height:10px;margin-top:8px"><i style="width:${Math.round(k.mine/Math.max(...ks.map(z=>z.mine))*100)}%"></i></div>`)}
   ${row('견본주택',k=>TYPE[k.l.type].model?'건립':'평면도로 확인')}
   ${row('가까운 커뮤니티',k=>DONG[k.l.dong].comm)}
   </table></div>`;
@@ -590,7 +731,8 @@ document.addEventListener('click',async e=>{
   const d=b.dataset;
   if(d.cell){ const [k,i]=d.cell.split('|'); const s=(STAFF_DRAFT.lines[k]||'yyyyyyy').split(''); const cur=s[+i]; s[+i]=cur==='y'||cur==='-'?'n':(cur==='n'?'u':'y'); STAFF_DRAFT.lines[k]=s.join(''); b.className='cell '+s[+i]; b.textContent=s[+i]==='y'?'○':(s[+i]==='n'?'✕':'?'); return; }
   if(d.house){ S.houses=+d.house; if(S.houses>=2 && S.loan===6) S.loan=4; S.dong=S.type=S.ho=S.band=null; render(); return; }
-  if(d.loan){ if(S.houses!=null && S.houses>=2 && +d.loan===6){toast('다주택은 잔금대출이 제한되어 모든 호실로 봅니다'); S.loan=4;} else S.loan=+d.loan; S.dong=S.type=S.ho=S.band=null; render(); return; }
+  if(d.lmode){ S.lmode=d.lmode; S.loan=null; S.dong=S.type=S.ho=S.band=null; render(); setTimeout(()=>{const x=document.getElementById('inc'); if(x) x.focus();},50); return; }
+  if(d.loan){ S.lmode=(+d.loan===6?'A':'B'); if(S.houses!=null && S.houses>=2 && +d.loan===6){toast('다주택은 잔금대출이 제한되어 모든 호실로 봅니다'); S.loan=4; S.lmode='B';} else S.loan=+d.loan; S.dong=S.type=S.ho=S.band=null; render(); return; }
   if(d.prior){ S.prior=S.prior.includes(d.prior)?S.prior.filter(x=>x!==d.prior):[...S.prior,d.prior]; render(); return; }
   if(d.dong){ if(b.classList.contains('dim')){toast('이 동은 지금 조건에 맞는 호실을 상담사가 따로 안내합니다');} S.dong=d.dong; S.type=S.ho=S.band=null; render(); return; }
   if(d.type){ S.type=d.type; S.ho=S.band=null; render(); return; }
