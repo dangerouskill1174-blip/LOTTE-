@@ -87,7 +87,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 <div id="root"><p class="loading">여는 중…</p></div>
 <script>
 (function(){
-var PAGES={hub:1,v1:1,v2:1,sc:1,cd:1,sim:1};
+var PAGES={hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1};
 var te=new TextEncoder(), td=new TextDecoder();
 var K=null, KEY=null, $=function(q){return document.querySelector(q)};
 function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
@@ -124,7 +124,7 @@ async function show(){
   var p=page();
   try{
     var html=td.decode(await fetchDec(p+'.enc'));
-    if(p==='sim'){document.open();document.write(html);document.close();return}
+    if(p==='sim'||p==='consult'){document.open();document.write(html);document.close();return}
     $('#root').innerHTML='<main class="wrap">'+html+'</main>';window.scrollTo(0,0);hydrate();
   }catch(e){ if(e&&e.message==='missing'){$('#root').innerHTML='<main class="wrap"><p class="loading">자료를 찾지 못했습니다. <a href="./">상담 데스크로</a></p></main>'} else {sdel('sig-staff-k');KEY=null;lockView('암호가 바뀌었습니다. 새 암호를 넣어 주세요')} }
 }
@@ -159,6 +159,7 @@ document.addEventListener('click',function(e){
   if(a==='next'){try{localStorage.removeItem('sig-lead');localStorage.removeItem('hosil')}catch(_){}toast('앞 고객 기록을 지웠습니다. 다음 고객을 맞이하세요')}
   if(a==='lock'){sdel('sig-staff-k');KEY=null;lockView('잠갔습니다')}
 });
+try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
 (async function(){
   try{K=await (await fetch('k.json',{cache:'no-cache'})).json()}catch(e){$('#root').innerHTML='<p class="loading">연결을 확인해 주세요</p>';return}
   if(!window.crypto||!crypto.subtle){lockView('이 브라우저에서는 열 수 없습니다');return}

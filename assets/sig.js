@@ -56,5 +56,6 @@
   C.sms = function (msg) { return 'sms:' + C.raw + '?&body=' + encodeURIComponent('[' + C.site + '] ' + msg); };
   C.validTel = function (t) { return /^01[016789]-?[0-9]{3,4}-?[0-9]{4}$/.test(String(t).replace(/\s/g, '')); };
   C.fmtTel = function (t) { var d = String(t).replace(/[^0-9]/g, ''); return d.length === 11 ? d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7) : (d.length === 10 ? d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6) : t); };
-  C.guard = function (back) { if (!C.unlocked()) location.replace(back + '?need=1#reg'); };
+  C.guard = function (back) { if (!C.unlocked()) { if (/[?&]c=/.test(location.search)) set('sig-return', location.href); location.replace(back + '?need=1#reg'); } };
+  C.afterUnlock = function () { var r = get('sig-return'); if (r) { try { localStorage.removeItem('sig-return'); } catch (e) {} mem['sig-return'] = null; location.href = r; return true; } return false; };
 })();

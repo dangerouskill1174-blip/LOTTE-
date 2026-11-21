@@ -421,6 +421,8 @@ const CHECK = ['자금조달 · 입주계획서: 계약일부터 30일 안에 �
 const S = {step:0, houses:null, loan:null, lmode:null, inc:'', debt:'', prior:[], dong:null, type:null, ho:null, band:null, cands:[], confirm:{floor:'',unit:''}, info:{cust:'',agent:'',phone:''}, staff:false};
 try{ const s=JSON.parse(localStorage.getItem('hosil')||'null'); if(s&&s.cands) {S.cands=s.cands.filter(c=>c&&c.band&&BANDS.some(b=>b.id===c.band)); S.info=s.info||S.info;} }catch(e){}
 function save(){ try{ localStorage.setItem('hosil',JSON.stringify({cands:S.cands,info:S.info})); }catch(e){} }
+// 상담 후 고객에게 보낸 링크(?c=동.호.타입.층구간,…)로 열면 그 후보로 바로 비교 · 사양서 화면
+try{ const m=/[?&]c=([^&#]+)/.exec(location.search); if(m){ const cs=decodeURIComponent(m[1]).split(',').map(x=>{ const p=x.split('.'); return {dong:p[0],ho:+p[1],type:p[2],band:p[3],floor:'',unit:''}; }).filter(c=>L.some(l=>l.dong===c.dong&&l.ho===c.ho&&l.type===c.type)&&BANDS.some(b=>b.id===c.band)).slice(0,3); if(cs.length){ S.cands=cs; S.step=7; save(); } } }catch(e){}
 const STEPS=['시작','① 조건 · 대출','② 동','③ 타입','④ 호수 · 향','⑤ 층','⑥ 결과','⑦ 비교 · 사양서'];
 const $=s=>document.querySelector(s);
 const el=(h)=>{const t=document.createElement('template'); t.innerHTML=h.trim(); return t.content.firstElementChild;};
