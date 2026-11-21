@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="상담 데스크">
 <meta name="theme-color" content="#0F1729">
+<script src="sub.js"></script>
 <style>
 :root{--bg:#F6F3EE;--surface:#fff;--surface2:#FBF9F5;--ink:#0F1729;--muted:#5E6677;--line:#E6E0D5;--line2:#D9D1C3;--navy:#0F1729;--navy-ink:#F5F1E8;--gold:#9A6410;--gold2:#E8B547;--gold-soft:#FBE7B5;--gold-ink:#5A3700;--rust:#A4432F;
 --sh1:0 1px 2px rgba(15,23,41,.05),0 6px 20px rgba(15,23,41,.06);--sh2:0 2px 4px rgba(15,23,41,.06),0 18px 40px rgba(15,23,41,.10);--serif:'Noto Serif KR',Georgia,serif;--sans:'Noto Sans KR','Apple SD Gothic Neo',Arial,sans-serif}
@@ -62,6 +63,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .lk{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface2)}
 .lk b{display:block;font-family:var(--serif);font-size:17px}.lk span{font-size:13px;color:var(--muted);word-break:break-all}
 .lk .acts,.row{display:flex;gap:8px;flex-wrap:wrap}.row{margin-top:14px}
+.subok{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;color:#1F6F5C;background:#DDF1E9;border-radius:999px;padding:4px 12px}
 .hacts{display:flex;gap:8px;flex-wrap:wrap}
 .guidebar{display:block;margin-top:16px;padding:14px 18px;border-radius:14px;background:var(--navy);color:#F5F1E8;text-decoration:none;font-size:15px}.guidebar b{color:#F2C14E;margin-right:10px}
 .grp{margin-top:22px;border-radius:24px;padding:20px 20px 22px}
@@ -148,7 +150,8 @@ async function show(){
   try{
     var html=td.decode(await fetchDec(p+'.enc'));
     if(p==='sim'||p==='consult'){document.open();document.write(html);document.close();return}
-    $('#root').innerHTML='<main class="wrap">'+html+'</main>';window.scrollTo(0,0);hydrate();
+    $('#root').innerHTML=(SUBRES?SIGSUB.banner(SUBRES):'')+'<main class="wrap">'+html+'</main>';window.scrollTo(0,0);hydrate();
+    var hh=$('.htop h1'); if(hh&&SUBRES&&SUBRES.ok) hh.insertAdjacentHTML('afterend','<p class="subok">구독 중 · '+SUBRES.sub.until.replace(/-/g,'.')+'까지</p>');
   }catch(e){ if(e&&e.message==='missing'){$('#root').innerHTML='<main class="wrap"><p class="loading">자료를 찾지 못했습니다. <a href="./">상담 데스크로</a></p></main>'} else {sdel('sig-staff-k');KEY=null;lockView('암호가 바뀌었습니다. 새 암호를 넣어 주세요')} }
 }
 /* present mode */
@@ -183,7 +186,11 @@ document.addEventListener('click',function(e){
   if(a==='lock'){sdel('sig-staff-k');KEY=null;lockView('잠갔습니다')}
 });
 try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
+var SUBRES=null;
 (async function(){
+  if(!window.SIGSUB){ $('#root').innerHTML='<p class="loading">인터넷에 연결한 뒤 다시 열어 주세요</p>'; return; }
+  try{ SUBRES=await SIGSUB.check(); }catch(e){ SUBRES={ok:false,why:'first'}; }
+  if(!SUBRES.ok){ $('#root').innerHTML=SIGSUB.screen(SUBRES); return; }
   try{K=await (await fetch('k.json',{cache:'no-cache'})).json()}catch(e){$('#root').innerHTML='<p class="loading">연결을 확인해 주세요</p>';return}
   if(!window.crypto||!crypto.subtle){lockView('이 브라우저에서는 열 수 없습니다');return}
   var s=sget('sig-staff-k');
