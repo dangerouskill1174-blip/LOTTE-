@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처</title>
 <meta name="description" content="동 → 타입 → 호수 → 층을 고르면 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 우리 집 사양서로. 상담팀장 김성태 010-8315-9602">
 <meta property="og:type" content="website"><meta property="og:title" content="나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처">
@@ -12,19 +12,12 @@
 /* Layout: brand bar, step progress line, then a two-column body on wide screens (selection column + sticky "우리 집 사양" summary); on phones and portrait tablets the summary becomes the fixed bottom price bar. */
 :root{
   --bg:#F6F3EE; --surface:#FFFFFF; --surface2:#FBF9F5; --ink:#0F1729; --muted:#5E6677; --line:#E6E0D5; --line2:#D9D1C3;
-  --navy:#0F1729; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#9A6410; --gold2:#E8B547; --gold-soft:#FBE7B5; --gold-ink:#5A3700;
+  --navy:#0F1729; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#7A4F00; --gold2:#C98A12; --gold-soft:#FBE3A6; --gold-ink:#4A2E00;
   --green:#4F7A55; --green-soft:#E6EFE6; --rust:#A4432F; --rust-soft:#F7E6E0;
   --sh1:0 1px 2px rgba(15,23,41,.05),0 6px 20px rgba(15,23,41,.06); --sh2:0 2px 4px rgba(15,23,41,.06),0 18px 40px rgba(15,23,41,.10);
   --serif:'Noto Serif KR', Georgia, serif; --sans:'Noto Sans KR','Apple SD Gothic Neo',Arial,sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0D111B; --surface:#161C2A; --surface2:#1A2132; --ink:#EEE9DF; --muted:#A9B0BF; --line:#2A3245; --line2:#364057;
-  --navy:#0A0E17; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#D2B07A; --gold2:#E5CB98; --gold-soft:#2E2718; --gold-ink:#F0DDB8;
-  --green:#8DB889; --green-soft:#1C2A20; --rust:#E08B76; --rust-soft:#35201B; --sh1:none; --sh2:none; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0D111B; --surface:#161C2A; --surface2:#1A2132; --ink:#EEE9DF; --muted:#A9B0BF; --line:#2A3245; --line2:#364057;
-  --navy:#0A0E17; --navy2:#1C2846; --navy-ink:#F5F1E8; --gold:#D2B07A; --gold2:#E5CB98; --gold-soft:#2E2718; --gold-ink:#F0DDB8;
-  --green:#8DB889; --green-soft:#1C2A20; --rust:#E08B76; --rust-soft:#35201B; --sh1:none; --sh2:none; color-scheme:dark}
+
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;padding-bottom:120px;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
@@ -65,6 +58,8 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
   .pbar{display:none}
   body{padding-bottom:40px}
 }
+.step.still{animation:none}
+.opt.sel::after{display:none!important}
 .step{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3.4vw,40px);box-shadow:var(--sh1);animation:rise .4s cubic-bezier(.2,.7,.2,1) both}
 @keyframes rise{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
 .eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.22em;color:var(--gold);font-weight:700}
@@ -79,8 +74,9 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .opt{position:relative;text-align:left;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;transition:border-color .18s,transform .18s,box-shadow .18s;box-shadow:var(--sh1)}
 .opt:hover{border-color:var(--gold2);transform:translateY(-2px);box-shadow:var(--sh2)}
-.opt.sel{border:2px solid var(--navy);box-shadow:0 0 0 4px var(--gold-soft),var(--sh2)}
-.opt.sel::after{content:"✓";position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:var(--gold2);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.opt.sel{border:2px solid var(--navy);background:#FFF4D6;padding-top:44px;box-shadow:0 0 0 4px rgba(242,193,78,.45),var(--sh2)}
+.opt.sel::before{content:"✓ 선택됨";position:absolute;left:0;right:0;top:0;height:32px;background:var(--navy);color:#F2C14E;font-size:14px;font-weight:800;display:flex;align-items:center;padding-left:16px;border-radius:16px 16px 0 0;letter-spacing:.04em}
+.opt.sel::after{display:none;content:"✓";position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:var(--gold2);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
 .opt.dim{opacity:.45}
 .opt .t{font-family:var(--serif);font-size:23px;font-weight:700;line-height:1.3;padding-right:24px}
 .opt .k{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.08em}
@@ -111,7 +107,9 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .tower{position:relative;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:16px;padding:14px 16px;transition:border-color .18s,transform .18s,box-shadow .18s;box-shadow:var(--sh1)}
 .tower:hover{transform:translateY(-2px);border-color:var(--gold2)}
 .tower.rec{background:linear-gradient(160deg,#FFF1CC,#F6D88A);border:2px solid var(--gold);box-shadow:0 0 0 3px rgba(232,181,71,.35),var(--sh2)}
-.tower.sel{border:2px solid var(--navy);box-shadow:0 0 0 4px var(--gold-soft),var(--sh2)}
+.tower.sel,.tower.rec.sel{background:linear-gradient(160deg,#1C2846,#0F1729);border:3px solid #F2C14E;box-shadow:0 0 0 4px rgba(242,193,78,.45),var(--sh2)}
+.tower.sel .n{color:#fff}.tower.sel .tg2{color:rgba(245,241,232,.8)!important}
+.tower.sel::after{content:"✓ 선택됨";position:absolute;left:12px;top:-12px;background:#F2C14E;color:#0F1729;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px}
 .tower.dim{opacity:.4}
 .tower .n{font-family:var(--serif);font-size:23px;font-weight:700}
 .tower .tg2{font-size:13px;color:var(--muted)}
@@ -474,7 +472,7 @@ function compass(dir){
 function render(){
   rail(); pbar(); side(); const A=$('#app'); A.innerHTML='';
   if(S.staff){ A.appendChild(staffView()); return; }
-  const f=[s0,s1,s2,s3,s4,s5,s6,s7][S.step]; A.appendChild(f());
+  const f=[s0,s1,s2,s3,s4,s5,s6,s7][S.step]; const node=f(); if(render.last===S.step && node.classList) node.classList.add('still'); render.last=S.step; A.appendChild(node);
 }
 function s0(){
   return el(`<section class="step" style="background:transparent;border:none;padding-left:0;padding-right:0">
@@ -601,6 +599,7 @@ function s6(){
    <h4 style="margin-top:20px">납부 일정</h4>
    <div class="tl"><div class="k"><b>계약일</b>1,000만</div><div class="k"><b>30일 안</b>${man(c.rest)}</div>${MID.map((d,i)=>`<div><b>${d.slice(2,7).replace('.','.')}</b>중도금 ${i+1}회</div>`).join('')}<div class="e"><b>2032.03</b>잔금 · 입주</div></div>
    <p class="note" style="margin-top:10px">중도금 6회는 중도금 대출로 내고 이자는 입주 때 후불로 냅니다.</p></div>
+  ${c.loan?(()=>{ const pay=r=>{ const m=r/12, n=360; return c.loan*1e8*m/(1-Math.pow(1+m,-n))/1e4; }; return `<div class="chart" style="margin-top:14px"><h4>잔금대출 ${c.loan}억 · 매달 갚는 돈 예시 (30년 원리금균등)</h4><div class="hbar"><span>금리 연 4%</span><span class="tr"><i style="width:${Math.round(pay(.04)/pay(.05)*100)}%;background:var(--navy)"></i></span><b>월 약 ${Math.round(pay(.04)).toLocaleString()}만 원</b></div><div class="hbar"><span>금리 연 5%</span><span class="tr"><i style="width:100%;background:linear-gradient(90deg,#F2C14E,#C98A12)"></i></span><b>월 약 ${Math.round(pay(.05)).toLocaleString()}만 원</b></div><p class="note" style="margin-top:6px">금리는 가정입니다. 실제 금리와 한도는 입주 때 은행 심사로 정해집니다.</p></div>`; })():''}
   <table class="money">${moneyRows(c)}<tr class="tot"><td><b>입주 때 내 돈 (${c.loan?'잔금대출 '+c.loan+'억 반영':'잔금대출 없이'})</b></td><td>약 ${eok(c.mine)}</td></tr></table>
   <div class="acc"><b>계약금 입금 계좌</b><p style="margin-top:4px">${ACC.bank} ${ACC.no} · 예금주 ${ACC.holder}</p><p style="font-size:13px;opacity:.85;margin-top:2px">입금자명: 동호수 + 성명 (예: 1011304홍길동) · 현금 · 개인 계좌로는 받지 않습니다 · 중도금 · 잔금은 세대별 가상계좌</p></div>
   <h3 style="margin-top:22px;font-size:20px">이 호실의 좋은 점</h3><ul class="feat">${features(c).map(x=>`<li>${x}</li>`).join('')}</ul>
@@ -609,7 +608,7 @@ function s6(){
    <div class="row">${reqLink(c,'이 집 가능한지 확인받기','btn btn-g')}<a class="btn btn-s" style="text-decoration:none" href="tel:${CONTACT.raw}">${CONTACT.who} ${CONTACT.tel} 전화</a></div>
    <p style="margin-top:10px">확인되면 아래에 적어 두세요.</p>
    <div class="row"><label class="field" for="cf">확정 층<input id="cf" placeholder="예: 19" value="${esc(S.confirm.floor)}"></label><label class="field" for="cu">확정 호수<input id="cu" placeholder="예: 1903" value="${esc(S.confirm.unit)}"></label></div></div>
-  <div class="nav"><button class="btn btn-s" data-act="back">← 층 다시 고르기</button><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="again">다른 후보도 찾기</button><button class="btn btn-g" data-act="keep">${S.cands.length<3?(S.cands.length+1)+'순위로 담기':'후보 3개 가득'}</button><button class="btn btn-p" data-go="7">비교 · 사양서 →</button></div></div>
+  <div class="nav"><button class="btn btn-s" data-act="back">← 층 다시 고르기</button><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length&&S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:`<button class="btn btn-s" data-act="again">다른 후보도 찾기</button>`}<button class="btn btn-g" data-act="keep">${S.cands.length<3?(S.cands.length+1)+'순위로 담기':'후보 3개 가득'}</button><button class="btn btn-p" data-go="7">비교 · 사양서 →</button></div></div>
   <p class="note">금액은 입주자모집공고 공급금액 기준이며 취득세 · 이자 · 대출은 추정치입니다. 대출은 10·15 대책 · 대출 시점 시가 · 소득(DSR) 기준이며 1주택자는 처분 조건이 붙습니다. 향은 단지배치도 방위표 기준이며 조망은 모형도와 현장에서 확인합니다.</p></section>`);
   n.querySelector('#cf').addEventListener('input',e=>S.confirm.floor=e.target.value);
   n.querySelector('#cu').addEventListener('input',e=>S.confirm.unit=e.target.value);
@@ -695,7 +694,7 @@ function s7(){
    ${CAN?`<label class="field" for="ia">담당<input id="ia" value="${esc(S.info.agent)}" placeholder="${CONTACT.title}"></label>
    <label class="field" for="ip">연락처<input id="ip" value="${esc(S.info.phone)}" placeholder="${CONTACT.tel}"></label>`:''}</div>
    <p class="note">입력한 내용은 이 기기 브라우저에만 남고 다른 곳으로 보내지지 않습니다.</p></div>
-  <div class="nav"><button class="btn btn-s" data-go="1">처음부터 다시</button><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">인쇄용 저장 (HTML)</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
+  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:''}<button class="btn btn-s" data-go="1">조건부터 다시</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">인쇄용 저장 (HTML)</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
   <div class="sheet-wrap" id="sheet"></div></section>`);
   const refresh=()=>{
     const cl=n.querySelector('#cands');
@@ -747,7 +746,8 @@ document.addEventListener('click',async e=>{
   if(a==='next') go(S.step+1);
   if(a==='back') go(Math.max(0,S.step-1));
   if(a==='again'){ S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); }
-  if(a==='keep'){ if(S.cands.length>=3){toast('후보는 3개까지 담을 수 있습니다');return;} S.cands.push({dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}); save(); toast(S.cands.length+'순위로 담았습니다'); render(); }
+  if(a==='nextrank'){ S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); toast((S.cands.length+1)+'순위를 고릅니다 · 앞에서 정한 조건은 그대로입니다'); return; }
+  if(a==='keep'){ if(S.cands.length>=3){toast('후보는 3개까지 담을 수 있습니다');return;} if(S.cands.some(c=>c.dong===S.dong&&c.ho===S.ho&&c.band===S.band)){toast('이미 담은 호실입니다');return;} S.cands.push({dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}); save(); toast(S.cands.length+'순위로 담았습니다'); render(); }
   if(a==='clear'){ S.cands=[]; save(); render(); }
   if(a==='dl') saveHTML();
   if(a==='png') savePNG(b);

@@ -1,11 +1,9 @@
 :root{
   --bg:#F6F3EE; --surface:#FFFFFF; --ink:#0F1729; --muted:#5E6677; --line:#E6E0D5;
-  --navy:#0F1729; --navy-ink:#F5F1E8; --gold:#9A6410; --gold-soft:#FBE7B5; --gold-ink:#5A3700; --rust:#A4432F;
+  --navy:#0F1729; --navy-ink:#F5F1E8; --gold:#7A4F00; --gold-soft:#FBE7B5; --gold-ink:#4A2E00; --rust:#A4432F;
   --serif:'Noto Serif KR', Georgia, serif; --sans:'Noto Sans KR','Apple SD Gothic Neo',Arial,sans-serif;
 }
-@media (prefers-color-scheme: dark){:root{
-  --bg:#11151F; --surface:#1A2030; --ink:#ECE7DC; --muted:#A8AFBF; --line:#2E3648;
-  --navy:#0C111C; --navy-ink:#F4F1EA; --gold:#D2AE6E; --gold-soft:#3A3122; --gold-ink:#F0DDB8; --rust:#E08B76; color-scheme:dark}}
+
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;padding-bottom:110px;word-break:keep-all;overflow-wrap:break-word}
