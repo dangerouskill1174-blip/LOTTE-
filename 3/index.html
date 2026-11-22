@@ -5,7 +5,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처">
 <meta property="og:description" content="고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션 · 약 3분"><meta property="og:image" content="https://dangerouskill1174-blip.github.io/LOTTE-/assets/og.jpg"><meta property="og:url" content="https://dangerouskill1174-blip.github.io/LOTTE-/3/">
 <meta name="theme-color" content="#16203A">
-<script src="../assets/sig.js"></script><script src="../assets/qrcode.js"></script><script src="../assets/share.js"></script><script src="../assets/pdfsave.js"></script>
+<script src="../assets/sig.js"></script><script src="../assets/qrcode.js"></script>
 </head><body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
 <style>
@@ -196,10 +196,6 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .cmp thead td{font-family:var(--serif);font-weight:700;font-size:18px;background:var(--navy);color:var(--gold2)}
 .cmp thead th{background:var(--navy)}
 .cmp img{width:100%;max-width:220px;height:110px;object-fit:contain;background:#fff;border-radius:8px;border:1px solid var(--line)}
-.shtabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px}.shtabs:empty{display:none}.shtabs span{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.06em;margin-right:4px}
-.shtabs button{min-height:44px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;font-size:14.5px}
-.shtabs button.on{background:var(--navy);color:var(--navy-ink);border-color:var(--navy);box-shadow:inset 0 -3px 0 #F2C14E}
-.shtabs+.sheet-wrap{margin-top:10px}
 .sheet-wrap{overflow-x:auto;margin-top:20px;padding:14px;background:var(--line);border-radius:18px}
 .toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:var(--navy-ink);padding:12px 20px;border-radius:12px;font-size:14px;z-index:20;max-width:90vw;box-shadow:var(--sh2);border:1px solid rgba(232,181,71,.4)}
 .foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:32px;font-size:12px;color:var(--muted)}
@@ -736,17 +732,15 @@ function s7(){
    ${CAN?`<label class="field" for="ia">담당<input id="ia" value="${esc(S.info.agent)}" placeholder="${CONTACT.title}"></label>
    <label class="field" for="ip">연락처<input id="ip" value="${esc(S.info.phone)}" placeholder="${CONTACT.tel}"></label>`:''}</div>
    <p class="note">사양서 이미지를 저장하면 고른 순위가 등록하신 연락처와 함께 ${CONTACT.who}에게 전달되어 계약 가능 여부를 알려 드립니다.</p></div>
-  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:''}<button class="btn btn-s" data-go="1">조건부터 다시</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">A4 PDF 저장</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
-  <div class="shtabs" id="shtabs"></div><div class="sheet-wrap" id="sheet"></div></section>`);
+  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:''}<button class="btn btn-s" data-go="1">조건부터 다시</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">A4 인쇄 · PDF 저장</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
+  <div class="sheet-wrap" id="sheet"></div></section>`);
   const refresh=()=>{
     const cl=n.querySelector('#cands');
     cl.innerHTML=S.cands.length?S.cands.map((x,i)=>{const k=calc(x);return `<div class="cand"><span><b>${i+1}순위 · ${x.dong}동 ${esc(x.unit)||x.ho+'호'} ${x.type}</b> · ${esc(x.floor)?esc(x.floor)+'층':bandName(k.l,k.b)} · ${eok(k.P)}</span><span style="display:flex;gap:6px">${i?`<button class="btn btn-s" style="padding:6px 10px" data-up="${i}">위로</button>`:''}<button class="btn btn-s" style="padding:6px 10px" data-del="${i}">빼기</button></span></div>`}).join(''):(S.ho&&S.band?'<p class="sub">아직 담은 후보가 없어 지금 고른 호실로 확인서를 만듭니다. 결과 화면에서 ‘1순위로 담기’를 누르면 2 · 3순위까지 넣어 비교할 수 있습니다.</p>':'<p class="sub">아직 고른 호실이 없습니다. 처음부터 골라 주세요.</p>');
-    const L2=listForSheet(); if(!(S.shTab<L2.length)) S.shTab=0;
-    n.querySelector('#shtabs').innerHTML=L2.length>1?'<span>사양서 미리보기</span>'+L2.map((x,i)=>`<button class="${i===S.shTab?'on':''}" data-sht="${i}">${i+1}순위 · ${x.dong}동 ${x.type}</button>`).join(''):'';
-    n.querySelector('#sheet').innerHTML=sheetHTML(S.shTab)||'<p class="sub" style="padding:12px">호실을 고르면 확인서가 여기에 나타납니다.</p>';
+    n.querySelector('#sheet').innerHTML=sheetHTML()||'<p class="sub" style="padding:12px">호실을 고르면 확인서가 여기에 나타납니다.</p>';
   };
   refresh();
-  [['ic','cust'],['ia','agent'],['ip','phone']].filter(([id])=>n.querySelector('#'+id)).forEach(([id,k])=>n.querySelector('#'+id).addEventListener('input',e=>{S.info[k]=e.target.value; save(); n.querySelector('#sheet').innerHTML=sheetHTML(S.shTab||0);}));
+  [['ic','cust'],['ia','agent'],['ip','phone']].filter(([id])=>n.querySelector('#'+id)).forEach(([id,k])=>n.querySelector('#'+id).addEventListener('input',e=>{S.info[k]=e.target.value; save(); n.querySelector('#sheet').innerHTML=sheetHTML();}));
   return n;
 }
 
@@ -774,7 +768,6 @@ function pinView(){
 document.addEventListener('click',async e=>{
   const b=e.target.closest('button'); if(!b) return;
   const d=b.dataset;
-  if(d.sht!==undefined){ S.shTab=+d.sht; render(); return; }
   if(d.cell){ const [k,i]=d.cell.split('|'); const s=(STAFF_DRAFT.lines[k]||'yyyyyyy').split(''); const cur=s[+i]; s[+i]=cur==='y'||cur==='-'?'n':(cur==='n'?'u':'y'); STAFF_DRAFT.lines[k]=s.join(''); b.className='cell '+s[+i]; b.textContent=s[+i]==='y'?'○':(s[+i]==='n'?'✕':'?'); return; }
   if(d.house){ S.houses=+d.house; if(S.houses>=2 && S.loan===6) S.loan=4; S.dong=S.type=S.ho=S.band=null; render(); return; }
   if(d.lmode){ S.lmode=d.lmode; S.loan=null; S.dong=S.type=S.ho=S.band=null; render(); setTimeout(()=>{const x=document.getElementById('inc'); if(x) x.focus();},50); return; }
@@ -794,13 +787,12 @@ document.addEventListener('click',async e=>{
   if(a==='nextrank'){ S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); toast((S.cands.length+1)+'순위를 고릅니다 · 앞에서 정한 조건은 그대로입니다'); return; }
   if(a==='keep'){ if(S.cands.length>=3){toast('후보는 3개까지 담을 수 있습니다');return;} if(S.cands.some(c=>c.dong===S.dong&&c.ho===S.ho&&c.band===S.band)){toast('이미 담은 호실입니다');return;} S.cands.push({dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}); save(); toast(S.cands.length+'순위로 담았습니다'); render(); }
   if(a==='clear'){ S.cands=[]; save(); render(); }
-  if(a==='dl'){ pdfAll(b); return; }
+  if(a==='dl'){ window.open(simBase()+'?view=sheet&c='+candCode(),'_blank'); return; }
   if(a==='png') savePNG(b);
   if(a==='req'){ const L=SIG.lead(); if(!L) return; b.disabled=true; await SIG.submit({name:L.name,tel:L.tel,interest:d.req||'시뮬레이터 상담 요청',route:'시뮬레이터'}); b.disabled=false; b.textContent='요청 완료 ✓'; toast(`${CONTACT.who}에게 확인 요청을 보냈습니다. 곧 연락드리겠습니다`); }
   if(a==='famshare'){ const list=listForSheet(); if(!list.length){ toast('먼저 후보를 담아 주세요'); return; }
     const u=simBase()+'?view=sheet&from=ref&c='+candCode(); const fl=window.SIG?new URL('../flyer/',location.href).href:'';
     const k=calc(list[0]); const t='[상동역 롯데캐슬 시그니처] 우리 가족 후보 집 '+list.length+'곳 · 1순위 '+k.l.dong+'동 '+k.l.ho+'호 '+k.l.type+' '+bandName(k.l,k.b)+' '+eok(k.P)+'\n\n· 순위별 A4 사양서 (인쇄 가능)\n'+u+(fl?'\n\n· 단지 안내 A4 전단\n'+fl:'');
-    if(window.SHARE){ SHARE.open({title:'가족에게 보내기',sub:'1 · 2 · 3순위 A4 사양서와 단지 안내 전단 링크가 함께 갑니다',text:t.split('\n')[0]+(fl?'\n· 단지 안내 A4 전단: '+fl:'')+'\n· 순위별 A4 사양서 (PDF 저장 · 인쇄 가능):',url:u}); return; }
     if(navigator.share){ navigator.share({title:'우리 가족 후보 집',text:t}).catch(()=>{}); } else { try{ await navigator.clipboard.writeText(t); toast('사양서와 전단 링크를 복사했습니다. 카카오톡에 붙여 넣어 보내세요'); }catch(e){ toast(u); } } }
   if(a==='pinok'){ const v=$('#pin').value; if(v!==PIN){toast('비밀번호가 맞지 않습니다');return;} STAFF_DRAFT={asof:ASOF||new Date().toISOString().slice(0,10),lines:JSON.parse(JSON.stringify(AV||{}))}; S.staff=true; render(); window.scrollTo({top:0}); }
   if(a==='stexit'){ S.staff=false; render(); }
@@ -847,14 +839,6 @@ async function savePNG(btn){
   finally{ box.remove(); btn.disabled=false; btn.textContent=old; }
 }
 async function deliverPNG(items){ showImgs(items); }
-async function pdfAll(btn){ const list=listForSheet(); if(!list.length){toast('먼저 호실을 골라 주세요');return;}
-  if(window.GATE&&!GATE.ok()){ GATE.open(()=>pdfAll(btn),'사양서를 저장하려면 성함과 연락처를 남겨 주세요'); return; }
-  if(!window.PDFSAVE){ toast('잠시 후 다시 눌러 주세요'); return; }
-  if(window.SHARE&&SHARE.inApp()) SHARE.banner('카카오톡 안에서는 파일 저장이 안 될 수 있어요');
-  const old=btn.textContent; btn.disabled=true;
-  try{ await PDFSAVE.save(list.map((x,i)=>sheetHTML(i)),'우리가족시그니처사양서_'+(list.length>1?'1~'+list.length+'순위':'1순위')+'.pdf',{onStep:(i,n)=>{btn.textContent='PDF 만드는 중… '+i+'/'+n;}}); toast('PDF로 저장했습니다 · 다운로드 폴더를 확인하세요'); if(window.GATE) GATE.notify('사양서 PDF 저장'); }
-  catch(e){ toast('저장하지 못했습니다 · 크롬에서 열어 다시 눌러 주세요'); }
-  finally{ btn.disabled=false; btn.textContent=old; } }
 
 // ---------- 현황판 연결 ----------
 (async()=>{
@@ -913,15 +897,12 @@ function sheetView(){
   const list=listForSheet(); document.documentElement.classList.add('sv');
   const fl=new URL('../flyer/',location.href).href, self=simBase()+'?from=sheet&c='+candCode();
   const r=document.createElement('div'); r.className='svroot';
-  r.innerHTML=list.length?`<div class="svbar"><div class="svt"><b>우리 가족 시그니처 사양서</b><span>1 · 2 · 3순위 · A4 ${list.length}장 · 상동역 롯데캐슬 시그니처</span></div><div class="svb"><button class="btn btn-g" type="button" id="svp">PDF 파일 저장</button><button class="btn btn-s svw" type="button" id="svq">인쇄</button><button class="btn btn-s svw" type="button" id="svs">가족에게 보내기</button><a class="btn btn-p" style="text-decoration:none" href="${self}">휴대폰에서 직접 골라 보기</a><a class="btn btn-s svw" style="text-decoration:none" href="${fl}">단지 안내 전단</a></div><p class="svpv">‘직접 골라 보기’는 성함 · 연락처와 개인정보 동의 후 열립니다. 원하지 않으시면 이 사양서만 보셔도 됩니다.</p></div><div class="svpages">${list.map((x,i)=>`<div class="svpg">${sheetHTML(i)}</div>`).join('')}</div>`
+  r.innerHTML=list.length?`<div class="svbar"><div class="svt"><b>우리 가족 시그니처 사양서</b><span>1 · 2 · 3순위 · A4 ${list.length}장 · 상동역 롯데캐슬 시그니처</span></div><div class="svb"><button class="btn btn-g" type="button" id="svp">인쇄 · PDF 저장</button><a class="btn btn-p" style="text-decoration:none" href="${self}">휴대폰에서 직접 골라 보기</a><a class="btn btn-s svw" style="text-decoration:none" href="${fl}">단지 안내 전단</a></div><p class="svpv">‘직접 골라 보기’는 성함 · 연락처와 개인정보 동의 후 열립니다. 원하지 않으시면 이 사양서만 보셔도 됩니다.</p></div><div class="svpages">${list.map((x,i)=>`<div class="svpg">${sheetHTML(i)}</div>`).join('')}</div>`
    :`<div class="svbar"><div class="svt"><b>사양서를 찾지 못했습니다</b><span>링크가 잘렸을 수 있습니다. 상담팀장에게 다시 받아 주세요 · ${CONTACT.who} ${CONTACT.tel}</span></div></div>`;
   document.body.appendChild(r);
   const fit=()=>{ const w=Math.min(innerWidth,document.documentElement.clientWidth||innerWidth); const z=w<820?Math.max(.3,(w-16)/794):1; r.querySelectorAll('.svpg').forEach(p=>p.style.zoom=z); };
   fit(); addEventListener('resize',fit); addEventListener('beforeprint',()=>r.querySelectorAll('.svpg').forEach(p=>p.style.zoom=1)); addEventListener('afterprint',fit);
-  const pb=r.querySelector('#svp'); if(pb) pb.onclick=async()=>{ const o=pb.textContent; pb.disabled=true; try{ await PDFSAVE.save(list.map((x,i)=>sheetHTML(i)),'우리가족시그니처사양서_'+(list.length>1?'1~'+list.length+'순위':'1순위')+'.pdf',{onStep:(i,n)=>{pb.textContent='만드는 중… '+i+'/'+n;}}); SHARE.toast('PDF로 저장했습니다 · 다운로드 폴더를 확인하세요'); }catch(e){ SHARE.toast('저장하지 못했습니다 · 크롬에서 열어 다시 눌러 주세요'); } pb.disabled=false; pb.textContent=o; };
-  const pq=r.querySelector('#svq'); if(pq) pq.onclick=()=>{ if(SHARE.inApp()){ SHARE.toast('인쇄는 크롬에서 됩니다'); SHARE.external(location.href); return; } window.print(); };
-  const ps=r.querySelector('#svs'); if(ps) ps.onclick=()=>SHARE.open({title:'가족에게 보내기',sub:'1 · 2 · 3순위 A4 사양서와 단지 안내 전단 링크가 함께 갑니다',text:'[상동역 롯데캐슬 시그니처] 우리 가족 후보 집 '+list.length+'곳 사양서입니다.\n· 단지 안내 A4 전단: '+fl+'\n· 순위별 A4 사양서:',url:location.href});
-  if(window.SHARE) SHARE.banner('카카오톡 안에서는 PDF 저장 · 인쇄가 안 될 수 있어요');
+  const pb=r.querySelector('#svp'); if(pb) pb.onclick=()=>window.print();
   document.title='우리 가족 시그니처 사양서 · 상동역 롯데캐슬 시그니처';
 }
 if(SHEETVIEW) sheetView(); else { if(!GATE.ok()&&S.step>0){ const pend=S.step; S.step=0; setTimeout(()=>GATE.open(()=>go(pend),'상담에서 고른 후보를 보시려면 성함과 연락처를 남겨 주세요'),250); } render(); }
