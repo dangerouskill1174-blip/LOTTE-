@@ -17,7 +17,7 @@
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] || null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
 
-  var ROUTES = { visit: '방문고객', ad: '광고', sim: '시뮬레이터', ref: '지인 소개', flyer: '전단', kakao: '카톡 안내' };
+  var ROUTES = { visit: '방문고객', ad: '광고', sim: '시뮬레이터', ref: '지인 소개', flyer: '전단', kakao: '카톡 안내', sheet: '사양서 QR' };
   (function () {
     var m = /[?&]from=([a-z]+)/.exec(location.search);
     if (m && ROUTES[m[1]] && !get('sig-S00-route')) set('sig-S00-route', ROUTES[m[1]]);

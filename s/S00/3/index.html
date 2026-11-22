@@ -5,7 +5,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처">
 <meta property="og:description" content="고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션 · 약 3분"><meta property="og:image" content="https://dangerouskill1174-blip.github.io/LOTTE-/s/S00/assets/og.jpg"><meta property="og:url" content="https://dangerouskill1174-blip.github.io/LOTTE-/s/S00/3/">
 <meta name="theme-color" content="#16203A">
-<script src="../assets/sig.js"></script><script>SIG.guard('../');</script>
+<script src="../assets/sig.js"></script><script src="../assets/qrcode.js"></script>
 </head><body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
 <style>
@@ -228,10 +228,34 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .cell.u{background:var(--gold-soft);color:var(--gold-ink)}
 .cell.x{background:transparent;color:var(--line);cursor:default}
 .stf-wrap{overflow-x:auto}
+.gate{position:fixed;inset:0;z-index:50;background:rgba(12,17,28,.78);display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow:auto}
+.gate-in{background:var(--surface);border-radius:16px;padding:22px 20px;max-width:560px;width:100%;margin:auto 0;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.gate-in h2{font-family:'Noto Serif KR',serif;font-size:22px;margin:6px 0 6px}
+.gate-f{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.gate-f .field input{width:100%}
+.gate-pv{margin-top:14px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.6}
+.gate-pv ul{margin:6px 0 0;padding-left:18px}
+.gate-ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:15px;line-height:1.5;cursor:pointer}
+.gate-ck input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:#0F1729}
+.gate-err{color:#B42318;font-weight:700;min-height:20px;margin:10px 0 0;font-size:14px}
+.gate-b{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.gate-b .btn-g{flex:1 1 220px}
+@media (max-width:520px){.gate-f{grid-template-columns:1fr}.gate-in{padding:18px 16px}}
+html.sv body>*:not(.svroot):not(style):not(script){display:none!important}
+html.sv body{background:#E9E5DD;padding:0!important}
+.svbar{position:sticky;top:0;z-index:5;background:#0F1729;color:#F5F1E8;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.svt b{display:block;font-size:17px}.svt span{display:block;font-size:13px;opacity:.75}
+.svb{display:flex;gap:8px;flex-wrap:wrap}.svb .btn{min-height:44px;font-size:15px}.svb .svw{color:#F5F1E8;border-color:rgba(245,241,232,.45)}.svb .btn-p{background:#24345A;border:1.5px solid rgba(242,193,78,.6)}
+.svpv{width:100%;margin:0;font-size:12.5px;color:rgba(245,241,232,.78)}
+.svpages{padding:16px 8px}
+.svpg{width:794px;margin:0 auto 16px;box-shadow:0 8px 24px rgba(15,23,41,.15);background:#fff}
+@media print{html.sv body{background:#fff}.svbar{display:none!important}.svpages{padding:0}.svpg{margin:0;box-shadow:none;zoom:1!important;break-after:page;page-break-after:always}.svpg:last-child{break-after:auto;page-break-after:auto}@page{size:A4;margin:0}}
 body{word-break:keep-all;overflow-wrap:break-word}
 .imgov{position:fixed;inset:0;z-index:40;background:rgba(12,17,28,.82);display:flex;align-items:center;justify-content:center;padding:16px}
 .imgov-in{background:var(--surface);border-radius:14px;padding:14px;max-width:560px;width:100%;max-height:92vh;overflow:auto;text-align:center}
 .imgov-in img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;margin-top:8px}
+.imgone{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.imgl{font-weight:800;color:var(--gold);margin:0}
 /* bottom bar (phone / portrait tablet) */
 .pbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--navy);color:var(--navy-ink);padding:12px max(18px,env(safe-area-inset-left,0px)) calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(232,181,71,.35);box-shadow:0 -10px 30px rgba(15,23,41,.18)}
 .pbar-in{max-width:1240px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between}
@@ -419,6 +443,7 @@ const CHECK = ['자금조달 · 입주계획서: 계약일부터 30일 안에 �
 const S = {step:0, houses:null, loan:null, lmode:null, inc:'', debt:'', prior:[], dong:null, type:null, ho:null, band:null, cands:[], confirm:{floor:'',unit:''}, info:{cust:'',agent:'',phone:''}, staff:false};
 try{ const s=JSON.parse(localStorage.getItem('hosil')||'null'); if(s&&s.cands) {S.cands=s.cands.filter(c=>c&&c.band&&BANDS.some(b=>b.id===c.band)); S.info=s.info||S.info;} }catch(e){}
 function save(){ try{ localStorage.setItem('hosil',JSON.stringify({cands:S.cands,info:S.info})); }catch(e){} }
+const SMEMO=(()=>{ try{ const m=/[?&]s=([^&#]*)/.exec(location.search); return m?decodeURIComponent(m[1]):''; }catch(e){ return ''; } })();
 // 상담 후 고객에게 보낸 링크(?c=동.호.타입.층구간,…)로 열면 그 후보로 바로 비교 · 사양서 화면
 try{ const m=/[?&]c=([^&#]+)/.exec(location.search); if(m){ const cs=decodeURIComponent(m[1]).split(',').map(x=>{ const p=x.split('.'); return {dong:p[0],ho:+p[1],type:p[2],band:p[3],floor:'',unit:''}; }).filter(c=>L.some(l=>l.dong===c.dong&&l.ho===c.ho&&l.type===c.type)&&BANDS.some(b=>b.id===c.band)).slice(0,3); if(cs.length){ S.cands=cs; S.step=7; save(); } if(/[?&]s=/.test(location.search)) history.replaceState(null,'',location.href.replace(/&s=[^&#]*/,'')); } }catch(e){}
 const STEPS=['시작','① 조건 · 대출','② 동','③ 타입','④ 호수 · 향','⑤ 층','⑥ 결과','⑦ 비교 · 사양서'];
@@ -461,7 +486,7 @@ function side(){
    ${row('주택 수',S.houses!=null?HOUSE[S.houses].name:'')}${row('잔금대출',S.loan?(S.houses>=2?'제한 · 자기자금':(S.loan===6?'6억 호실':'모든 호실')):'')}${row('동',S.dong?S.dong+'동':'')}${row('타입',S.type?S.type+' · 실사용 약 '+TYPE[S.type].use+'평':'')}${row('호수 · 향',l?l.ho+'호 · '+l.dir+'향':'')}${row('층',l&&bd?bandName(l,bd):'')}
    ${S.type?`<img class="plan" src="plans/${S.type}.jpg" alt="${S.type} 평면도">`:''}${price}</div>`;
 }
-function go(n){ S.step=n; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function go(n){ if(n>0&&window.GATE&&!GATE.ok()){ GATE.open(()=>go(n)); return; } S.step=n; render(); window.scrollTo({top:0,behavior:'smooth'}); }
 function nav(nextOK,nextLabel){ return `<div class="nav"><button class="btn btn-s" data-act="back">← 이전</button><button class="btn btn-p" data-act="next" ${nextOK?'':'disabled'}>${nextLabel||'다음 →'}</button></div>`; }
 function compass(dir){
   const a=ANG[dir];
@@ -634,16 +659,21 @@ function cmpHTML(list){
   ${row('가까운 커뮤니티',k=>DONG[k.l.dong].comm)}
   </table></div>`;
 }
-function sheetHTML(){
-  const list=listForSheet(); if(!list.length) return '';
+function candCode(list){ return (list||listForSheet()).map(x=>[x.dong,x.ho,x.type,x.band].join('.')).join(','); }
+function simBase(){ try{ return new URL('./',document.baseURI).href; }catch(e){ return location.origin+location.pathname; } }
+function sheetLink(){ return simBase()+'?from=sheet&c='+candCode(); }
+function sheetQR(){ try{ if(!window.qrcode) return ''; const q=qrcode(0,'M'); q.addData(sheetLink()); q.make(); return q.createDataURL(4,1); }catch(e){ return ''; } }
+function sheetHTML(idx=0){
+  const list=listForSheet(); if(!list.length) return ''; idx=Math.max(0,Math.min(idx,list.length-1));
+  const LD=(window.SIG&&SIG.lead&&SIG.lead())||{}; const cust=esc(S.info.cust||LD.name||''), ctel=esc(LD.tel||''); const qri=sheetQR();
   const date=new Date(); const ds=`${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일`;
-  const c=calc(list[0]); const l=c.l; const T=TYPE[l.type];
-  const u0=esc(list[0].unit), f0=esc(list[0].floor);
+  const c=calc(list[idx]); const l=c.l; const T=TYPE[l.type];
+  const u0=esc(list[idx].unit), f0=esc(list[idx].floor);
   const code=`SIG-${l.dong}-${l.type}-${l.ho}호-${bandName(l,c.b).replace('층','F').replace(' 이상','+')}`;
-  const payName = u0 ? `${l.dong}${u0.replace(/[^0-9]/g,'').padStart(4,'0')}${esc(S.info.cust)||'성명'}` : `${l.dong}○○○○${esc(S.info.cust)||'성명'}`;
-  const row=(x,i)=>{const k=calc(x); return `<tr><td>${i+1}순위</td><td>${x.dong}동</td><td>${x.type}</td><td>${esc(x.unit)||x.ho+'호 라인'}</td><td>${esc(x.floor)?esc(x.floor)+'층':bandName(k.l,k.b)}</td><td>${k.l.dir}</td><td>${eok(k.P)}</td><td>${k.ln===0?'어려움':(k.ln==='check'?'6/4억':k.ln+'억')}</td><td>약 ${eok(k.mine)}</td></tr>`;};
+  const payName = u0 ? `${l.dong}${u0.replace(/[^0-9]/g,'').padStart(4,'0')}${cust||'성명'}` : `${l.dong}○○○○${cust||'성명'}`;
+  const row=(x,i)=>{const k=calc(x); return `<tr${i===idx?' class="on"':''}><td>${i+1}순위</td><td>${x.dong}동</td><td>${x.type}</td><td>${esc(x.unit)||x.ho+'호 라인'}</td><td>${esc(x.floor)?esc(x.floor)+'층':bandName(k.l,k.b)}</td><td>${k.l.dir}</td><td>${eok(k.P)}</td><td>${k.ln===0?'어려움':(k.ln==='check'?'6/4억':k.ln+'억')}</td><td>약 ${eok(k.mine)}</td></tr>`;};
   return `<div class="sh" id="sh"><style>
-.sh{width:794px;height:1123px;overflow:hidden;margin:0 auto;background:#fff;color:#16203A;font-family:'Noto Sans KR','Apple SD Gothic Neo',Arial,sans-serif;font-size:11px;line-height:1.45;padding:34px 38px;box-sizing:border-box}
+.sh{width:794px;height:1123px;overflow:hidden;margin:0 auto;background:#fff;color:#16203A;font-family:'Noto Sans KR','Apple SD Gothic Neo',Arial,sans-serif;font-size:11px;line-height:1.45;padding:30px 38px 26px;box-sizing:border-box}
 .sh h1{font-family:'Noto Serif KR',Georgia,serif;font-size:22px;margin:2px 0 0;color:#16203A}
 .sh p{margin:0}
 .sh .top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #16203A;padding-bottom:8px}
@@ -664,22 +694,30 @@ function sheetHTML(){
 .sh .box{border:1px solid #DDD6C8;border-radius:7px;padding:6px 9px}
 .sh .acc{background:#16203A;color:#F4F1EA;border-radius:7px;padding:7px 10px;margin-top:6px}
 .sh .acc b{font-size:12.5px}
-.sh .plan{width:100%;height:170px;object-fit:contain;border:1px solid #DDD6C8;border-radius:7px;background:#fff}
+.sh .plan{width:100%;height:116px;object-fit:contain;border:1px solid #DDD6C8;border-radius:7px;background:#fff}
 .sh .sig{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
 .sh .sig div{border:1px dashed #9A6410;border-radius:7px;padding:7px 9px;min-height:42px}
-.sh .fine{font-size:9.3px;color:#6B6F78;margin-top:8px;line-height:1.4}
+.sh .fine{font-size:9px;color:#6B6F78;margin-top:6px;line-height:1.38}
+.sh tr.on td{background:#FBE3A6;font-weight:700}
+.sh .qrb{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center;margin-top:8px;border:1.5px solid #16203A;border-radius:8px;padding:7px 10px}
+.sh .qrb img{width:92px;height:92px;image-rendering:pixelated;display:block}
+.sh .qrb b{font-size:12px}
+.sh .qrb p{font-size:9.6px;line-height:1.45;margin-top:2px;color:#333}
+.sh .qrb .pv{color:#555;margin-top:4px}
+.sh .qrb .pv strong{color:#16203A}
 @page{size:A4;margin:0}
 </style>
-<div class="top"><div><p class="ey">상동역 롯데캐슬 시그니처 · 나만의 시그니처 만들기</p><h1>우리 가족 시그니처 사양서</h1></div><div class="meta">${code}<br>작성일 ${ds} · 고객 ${esc(S.info.cust)||'__________'}</div></div>
+<div class="top"><div><p class="ey">상동역 롯데캐슬 시그니처 · 나만의 시그니처 만들기</p><h1>우리 가족 시그니처 사양서${list.length>1?` · <span style="color:#9A6410">${idx+1}순위</span>`:''}</h1></div><div class="meta">${code}<br>작성일 ${ds} · 고객 ${cust||'__________'}${ctel?' · '+ctel:''}</div></div>
 <div class="big"><div><span>동 · 호수</span><b>${l.dong}동 ${u0||l.ho+'호'}</b></div><div><span>타입 · 향</span><b>${l.type} · ${l.dir}향</b></div><div><span>층</span><b>${f0?f0+'층':bandName(l,c.b)}</b></div><div><span>분양가</span><b>${eok(c.P)}</b></div><div><span>잔금대출</span><b>${c.ln===0?'어려움':(c.ln==='check'?'6억/4억':'최대 '+c.ln+'억')}</b></div><div><span>입주 때 내 돈</span><b>약 ${eok(c.mine)}</b></div></div>
 <h2>1 · 2 · 3순위 (1순위가 계약되면 바로 다음 순위로 진행)</h2><table><tr><th>순위</th><th>동</th><th>타입</th><th>호수</th><th>층</th><th>향</th><th>분양가</th><th>대출</th><th>내 돈</th></tr>${list.map(row).join('')}${list.length<3?Array.from({length:3-list.length},(_,i)=>`<tr><td>${list.length+i+1}순위</td><td>____</td><td>____</td><td>____</td><td>____</td><td>__</td><td>______</td><td>____</td><td>______</td></tr>`).join(''):''}</table>
-<div class="two"><div><h2>1순위 금액 · 납부 일정 (추정)</h2><table class="m">${moneyRows(c)}<tr><td><b>입주 때 내 돈 (${c.loan?'잔금대출 '+c.loan+'억':'잔금대출 없이'})</b></td><td>약 ${eok(c.mine)}</td></tr></table>
+<div class="two"><div><h2>${idx+1}순위 금액 · 납부 일정 (추정)</h2><table class="m">${moneyRows(c)}<tr><td><b>입주 때 내 돈 (${c.loan?'잔금대출 '+c.loan+'억':'잔금대출 없이'})</b></td><td>약 ${eok(c.mine)}</td></tr></table>
 <div class="acc"><b>계약금 입금 · ${ACC.bank} ${ACC.no}</b><br>예금주 ${ACC.holder} · 입금자명 ${payName}<br><span style="font-size:10px;opacity:.85">현금 · 개인 계좌 입금 불가 · 중도금 · 잔금은 세대별 가상계좌</span></div>
 <h2>계약 때 준비물</h2><div class="box"><p><b>본인</b> 신분증 · 도장 · 주민등록등본 · 가족관계증명서</p><p style="margin-top:2px"><b>대리</b> 계약자 인감도장 · 인감증명서(본인 발급) · 위임장 · 대리인 신분증</p><p style="margin-top:2px"><b>공동명의</b> 두 분 서류 모두 · 지분 비율은 계약일에 정함</p></div></div>
 <div><h2>${l.type} 평면 · 실사용 약 ${T.use}평 · 발코니 확장 무상</h2><img class="plan" src="plans/${l.type}.jpg" alt="${l.type} 평면도"><p style="font-size:10px;color:#6B6F78;margin-top:2px">전용 ${T.ex}평 + 발코니 확장 ${T.bal}평 · 공급 ${T.sup.toFixed(2)}㎡ · 계약 ${T.con.toFixed(2)}㎡${T.model?' · 견본주택 건립':''}</p>
 <h2>이 호실의 좋은 점</h2><ul>${features(c).map(x=>`<li>${x}</li>`).join('')}</ul>
 <h2>계약할 때 놓치기 쉬운 것</h2><ul>${CHECK.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
 <div class="sig"><div><b>가능 여부 확인 (상담팀장)</b><br>확인 (&nbsp;&nbsp;&nbsp;&nbsp;) · 확정 ${u0||'______'}</div><div><b>가족 동의</b><br>(&nbsp;&nbsp;&nbsp;&nbsp;)</div><div><b>${esc(S.info.agent)||CONTACT.who}</b><br>${esc(S.info.phone)||CONTACT.tel}</div></div>
+${qri?`<div class="qrb"><img src="${qri}" alt="휴대폰으로 이어 보기 QR"><div><b>휴대폰으로 이어 보기 · 카메라로 QR을 찍어 주세요</b><p>성함과 연락처를 남기시면 이 1 · 2 · 3순위 그대로 휴대폰에서 다시 보고 바꿀 수 있고, 고른 순위가 담당 ${CONTACT.title}에게 바로 전달되어 계약 가능 여부를 알려 드립니다.</p><p class="pv"><strong>개인정보 안내</strong> 수집 항목 성함 · 연락처 · 목적 분양 상담 연락과 계약 가능 여부 회신 · 보유 기간 수집일부터 6개월 후 파기 · 제3자 제공 없음. <strong>동의하지 않으시면 QR을 찍지 않으셔도 됩니다.</strong> 이 사양서에 상담 내용이 모두 담겨 있습니다.</p></div></div>`:''}
 <p class="fine">※ 계약 가능 여부와 층 · 호수는 선착순이라 상담팀장 확인 후 확정되며, 이 사양서는 계약서가 아닙니다. 금액은 입주자모집공고 공급금액 기준이고 취득세 · 이자는 추정치이며, 대출은 10·15 대책 · 대출 시점 시가 · 소득(DSR) 기준으로 달라질 수 있으며 1주택자는 처분 조건이 붙고 수도권 다주택자는 주택담보대출이 제한됩니다. 취득세는 잔금(취득) 때 보유 주택 수에 따라 달라집니다. 향은 단지배치도 방위표 기준이며 조망은 동 · 층 · 호수별로 달라 모형도와 현장에서 확인합니다. 평면도는 이해를 돕기 위한 것으로 일부 세대는 좌우 대칭으로 시공됩니다. 단지 주변 시설로 소음 등 영향이 있을 수 있으니 입주자모집공고를 확인하세요. 구비서류는 현장 기준으로 다시 확인합니다.</p></div>`;
 }
 function s7(){
@@ -693,8 +731,8 @@ function s7(){
    <label class="field" for="ic">고객<input id="ic" value="${esc(S.info.cust)}" placeholder="이름 (선택)"></label>
    ${CAN?`<label class="field" for="ia">담당<input id="ia" value="${esc(S.info.agent)}" placeholder="${CONTACT.title}"></label>
    <label class="field" for="ip">연락처<input id="ip" value="${esc(S.info.phone)}" placeholder="${CONTACT.tel}"></label>`:''}</div>
-   <p class="note">입력한 내용은 이 기기 브라우저에만 남고 다른 곳으로 보내지지 않습니다.</p></div>
-  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:''}<button class="btn btn-s" data-go="1">조건부터 다시</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">인쇄용 저장 (HTML)</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
+   <p class="note">사양서 이미지를 저장하면 고른 순위가 등록하신 연락처와 함께 ${CONTACT.who}에게 전달되어 계약 가능 여부를 알려 드립니다.</p></div>
+  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:''}<button class="btn btn-s" data-go="1">조건부터 다시</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">A4 인쇄 · PDF 저장</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
   <div class="sheet-wrap" id="sheet"></div></section>`);
   const refresh=()=>{
     const cl=n.querySelector('#cands');
@@ -749,13 +787,13 @@ document.addEventListener('click',async e=>{
   if(a==='nextrank'){ S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); toast((S.cands.length+1)+'순위를 고릅니다 · 앞에서 정한 조건은 그대로입니다'); return; }
   if(a==='keep'){ if(S.cands.length>=3){toast('후보는 3개까지 담을 수 있습니다');return;} if(S.cands.some(c=>c.dong===S.dong&&c.ho===S.ho&&c.band===S.band)){toast('이미 담은 호실입니다');return;} S.cands.push({dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}); save(); toast(S.cands.length+'순위로 담았습니다'); render(); }
   if(a==='clear'){ S.cands=[]; save(); render(); }
-  if(a==='dl') saveHTML();
+  if(a==='dl'){ window.open(simBase()+'?view=sheet&c='+candCode(),'_blank'); return; }
   if(a==='png') savePNG(b);
   if(a==='req'){ const L=SIG.lead(); if(!L) return; b.disabled=true; await SIG.submit({name:L.name,tel:L.tel,interest:d.req||'시뮬레이터 상담 요청',route:'시뮬레이터'}); b.disabled=false; b.textContent='요청 완료 ✓'; toast(`${CONTACT.who}에게 확인 요청을 보냈습니다. 곧 연락드리겠습니다`); }
   if(a==='famshare'){ const list=listForSheet(); if(!list.length){ toast('먼저 후보를 담아 주세요'); return; }
-    const c=list.map(x=>[x.dong,x.ho,x.type,x.band].join('.')).join(','); const u=location.origin+location.pathname+'?from=ref&c='+encodeURIComponent(c);
-    const k=calc(list[0]); const t='[상동역 롯데캐슬 시그니처] 우리 가족 후보 집 · 1순위 '+k.l.dong+'동 '+k.l.ho+'호 '+k.l.type+' '+bandName(k.l,k.b)+' '+eok(k.P);
-    if(navigator.share){ navigator.share({title:'우리 가족 후보 집',text:t,url:u}).catch(()=>{}); } else { try{ await navigator.clipboard.writeText(t+' '+u); toast('링크를 복사했습니다. 카카오톡에 붙여 넣어 보내세요'); }catch(e){ toast(u); } } }
+    const u=simBase()+'?view=sheet&from=ref&c='+candCode(); const fl=window.SIG?new URL('../flyer/',location.href).href:'';
+    const k=calc(list[0]); const t='[상동역 롯데캐슬 시그니처] 우리 가족 후보 집 '+list.length+'곳 · 1순위 '+k.l.dong+'동 '+k.l.ho+'호 '+k.l.type+' '+bandName(k.l,k.b)+' '+eok(k.P)+'\n\n· 순위별 A4 사양서 (인쇄 가능)\n'+u+(fl?'\n\n· 단지 안내 A4 전단\n'+fl:'');
+    if(navigator.share){ navigator.share({title:'우리 가족 후보 집',text:t}).catch(()=>{}); } else { try{ await navigator.clipboard.writeText(t); toast('사양서와 전단 링크를 복사했습니다. 카카오톡에 붙여 넣어 보내세요'); }catch(e){ toast(u); } } }
   if(a==='pinok'){ const v=$('#pin').value; if(v!==PIN){toast('비밀번호가 맞지 않습니다');return;} STAFF_DRAFT={asof:ASOF||new Date().toISOString().slice(0,10),lines:JSON.parse(JSON.stringify(AV||{}))}; S.staff=true; render(); window.scrollTo({top:0}); }
   if(a==='stexit'){ S.staff=false; render(); }
   if(a==='stsave'){ if(!DB){toast('저장소에 연결되지 않았습니다');return;} STAFF_DRAFT.asof=$('#asof').value.trim(); b.disabled=true;
@@ -769,11 +807,11 @@ const PIN='1859';
 // ---------- 저장 ----------
 async function dataURL(src){ try{ const r=await fetch(src); const bl=await r.blob(); return await new Promise(res=>{const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=()=>res(src); fr.readAsDataURL(bl);}); }catch(e){ return src; } }
 async function getDL(){ return {save: async ({filename,data})=>{ const blob = data instanceof Blob ? data : new Blob([data],{type:'text/html;charset=utf-8'}); const u=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=u; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),60000); return {status:'saved'}; }}; }
-function showImg(blob){ const u=URL.createObjectURL(blob); const o=document.createElement('div'); o.className='imgov'; o.innerHTML=`<div class="imgov-in"><p><b>사양서 이미지</b> · 휴대폰은 이미지를 길게 눌러 저장하세요</p><img src="${u}" alt="우리 가족 시그니처 사양서"><div style="display:flex;gap:8px;justify-content:center;margin-top:10px"><a class="btn btn-g" style="text-decoration:none" href="${u}" download="${fileBase()}.png">파일로 저장</a><button class="btn btn-s" type="button">닫기</button></div></div>`; o.querySelector('button').onclick=()=>o.remove(); o.addEventListener('click',e=>{ if(e.target===o) o.remove(); }); document.body.appendChild(o); }
-function fileBase(){ const list=listForSheet(); const c=calc(list[0]); return `우리가족시그니처사양서_${c.l.dong}동_${c.l.type}`; }
+function showImgs(items){ const us=items.map(it=>URL.createObjectURL(it.blob)); const o=document.createElement('div'); o.className='imgov'; o.innerHTML=`<div class="imgov-in"><p><b>사양서 이미지 ${items.length}장</b> · 순위마다 따로 저장됩니다. 휴대폰은 이미지를 길게 눌러 저장해도 됩니다.</p>${items.map((it,i)=>`<div class="imgone"><p class="imgl">${it.label}</p><img src="${us[i]}" alt="우리 가족 시그니처 사양서 ${it.label}"><a class="btn btn-g" style="text-decoration:none;margin-top:8px" href="${us[i]}" download="${it.name}">${it.label} 저장</a></div>`).join('')}<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">${items.length>1?'<button class="btn btn-p" type="button" data-all>모두 저장</button>':''}<button class="btn btn-s" type="button" data-x>닫기</button></div></div>`; o.querySelector('[data-x]').onclick=()=>o.remove(); const al=o.querySelector('[data-all]'); if(al) al.onclick=async()=>{ for(const a of o.querySelectorAll('a[download]')){ a.click(); await new Promise(r=>setTimeout(r,600)); } }; o.addEventListener('click',e=>{ if(e.target===o) o.remove(); }); document.body.appendChild(o); }
+function fileBase(i){ const list=listForSheet(); const c=calc(list[i||0]); return `우리가족시그니처사양서_${i==null?'':(i+1)+'순위_'}${c.l.dong}동_${c.l.type}`; }
 async function saveHTML(){
   let body=sheetHTML(); if(!body){toast('먼저 호실을 골라 주세요');return;}
-  const t=listForSheet()[0].type; body=body.replace(`plans/${t}.jpg`, await dataURL(`plans/${t}.jpg`));
+  body=listForSheet().map((x,i)=>sheetHTML(i)).join('<div style="page-break-after:always"></div>'); for(const t of [...new Set(listForSheet().map(x=>x.type))]) body=body.split(`plans/${t}.jpg`).join(await dataURL(`plans/${t}.jpg`));
   const doc=`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>우리 가족 시그니처 사양서</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@700&display=swap"><style>body{margin:0;background:#fff}</style></head><body>${body}</body></html>`;
   const dl=await getDL(); if(!dl){ toast('이 화면에서는 저장할 수 없습니다. 확인서를 화면으로 보여 주세요'); return; }
   try{ await dl.save({filename:fileBase()+'.html',data:doc}); toast('저장했습니다. 파일을 열어 인쇄하세요'); }
@@ -781,16 +819,26 @@ async function saveHTML(){
 }
 function loadH2C(){ return new Promise((res,rej)=>{ if(window.html2canvas) return res(window.html2canvas); const s=document.createElement('script'); s.src='../assets/html2canvas.min.js'; s.onload=()=>res(window.html2canvas); s.onerror=rej; document.head.appendChild(s); }); }
 async function savePNG(btn){
-  const sh=$('#sh'); if(!sh){toast('먼저 호실을 골라 주세요');return;}
+  const list=listForSheet(); if(!list.length){toast('먼저 호실을 골라 주세요');return;}
+  if(window.GATE && !GATE.ok()){ GATE.open(()=>savePNG(btn),'사양서 이미지를 저장하려면 성함과 연락처를 남겨 주세요'); return; }
   btn.disabled=true; const old=btn.textContent; btn.textContent='만드는 중…';
+  const box=document.createElement('div'); box.style.cssText='position:absolute;left:-12000px;top:0;width:794px;pointer-events:none'; document.body.appendChild(box);
   try{
     const h2c=await loadH2C(); if(document.fonts&&document.fonts.ready) await document.fonts.ready;
-    const cv=await h2c(sh,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,width:794,height:1123,windowWidth:1100});
-    const blob=await new Promise(r=>cv.toBlob(r,'image/png'));
-    showImg(blob);
-  }catch(err){ if(!(err&&err.code==='declined')) toast('이미지를 만들지 못했습니다. HTML 저장을 이용해 주세요'); }
-  finally{ btn.disabled=false; btn.textContent=old; }
+    const items=[];
+    for(let i=0;i<list.length;i++){
+      btn.textContent=`만드는 중… ${i+1}/${list.length}`;
+      box.innerHTML=sheetHTML(i); const sh=box.querySelector('.sh');
+      await Promise.all([...sh.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r;})));
+      const cv=await h2c(sh,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,width:794,height:1123,windowWidth:1100,scrollX:0,scrollY:0});
+      items.push({blob:await new Promise(r=>cv.toBlob(r,'image/png')),name:fileBase(i)+'.png',label:(i+1)+'순위'});
+    }
+    await deliverPNG(items);
+    if(window.GATE) GATE.notify('사양서 이미지 저장');
+  }catch(err){ if(!(err&&err.code==='declined')) toast('이미지를 만들지 못했습니다. 인쇄 저장을 이용해 주세요'); }
+  finally{ box.remove(); btn.disabled=false; btn.textContent=old; }
 }
+async function deliverPNG(items){ showImgs(items); }
 
 // ---------- 현황판 연결 ----------
 (async()=>{
@@ -808,7 +856,56 @@ async function savePNG(btn){
     }
   }catch(e){}
 })();
-render();
+const SHEETVIEW=/[?&]view=sheet/.test(location.search);
+const GATE=window.GATE=(function(){
+  const ok=()=>!!(window.SIG&&SIG.lead());
+  const ranks=()=>listForSheet().map((x,i)=>{ try{ const k=calc(x); return (i+1)+'순위 '+x.dong+'동 '+x.ho+'호 '+x.type+' '+bandName(k.l,k.b)+' '+eok(k.P); }catch(e){ return ''; } }).filter(Boolean).join(' / ');
+  function close(){ const o=document.getElementById('gate'); if(o) o.remove(); }
+  function open(cb,why){
+    close(); const o=document.createElement('div'); o.id='gate'; o.className='gate';
+    o.innerHTML=`<form class="gate-in" novalidate><p class="eyebrow">나만의 시그니처 만들기 · 시작 전 한 번</p><h2>성함과 연락처를 남겨 주세요</h2>
+<p class="sub">${why||'남겨 주시면 바로 시작됩니다.'} 고른 호실은 담당 ${CONTACT.who}에게 전달되어 계약 가능 여부를 알려 드립니다.</p>
+<div class="gate-f"><label class="field" for="gnm">성함<input id="gnm" autocomplete="name" required></label><label class="field" for="gtl">연락처<input id="gtl" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" required></label></div>
+<div class="gate-pv"><b>개인정보 수집 · 이용 안내</b><ul><li>수집하는 곳: 상동역 롯데캐슬 시그니처 분양 ${CONTACT.who} (${CONTACT.tel})</li><li>목적: 나만의 시그니처 열람, 고른 호실의 계약 가능 여부 회신과 분양 상담 연락</li><li>항목: 성함, 연락처 (고른 호실 정보가 함께 전달됩니다)</li><li>보유 기간: 수집일부터 6개월, 이후 즉시 파기 · 제3자 제공 없음</li><li><b>동의하지 않으셔도 됩니다.</b> 이 경우 휴대폰 화면은 열리지 않지만 전화 상담이나 종이 사양서로 같은 내용을 안내받으실 수 있습니다.</li></ul></div>
+<label class="gate-ck"><input type="checkbox" id="gc1"><span><b>[필수]</b> 위 개인정보 수집 · 이용에 동의합니다</span></label>
+<label class="gate-ck"><input type="checkbox" id="gc2"><span>[선택] 분양 소식 문자 수신에 동의합니다 (오전 9시~오후 6시, 언제든 수신거부)</span></label>
+<p class="gate-err" id="gerr" role="alert"></p>
+<div class="gate-b"><button class="btn btn-g" type="submit" id="ggo">동의하고 시작하기</button><button class="btn btn-s" type="button" data-gx>다음에 할게요</button><a class="btn btn-s" style="text-decoration:none" href="tel:${CONTACT.raw}">전화 상담</a></div></form>`;
+    document.body.appendChild(o);
+    const f=o.querySelector('form'), er=o.querySelector('#gerr');
+    o.querySelector('[data-gx]').onclick=close;
+    if(S.info.cust) o.querySelector('#gnm').value=S.info.cust;
+    f.addEventListener('submit',async e=>{ e.preventDefault();
+      const n=o.querySelector('#gnm').value.trim(), t=o.querySelector('#gtl').value.trim();
+      if(!n){ er.textContent='성함을 적어 주세요'; return; }
+      if(!SIG.validTel(t)){ er.textContent='연락처를 확인해 주세요 (예: 010-1234-5678)'; return; }
+      if(!o.querySelector('#gc1').checked){ er.textContent='[필수] 개인정보 수집 · 이용에 동의하셔야 시작할 수 있습니다'; return; }
+      er.textContent=''; const b=o.querySelector('#ggo'); b.disabled=true; b.textContent='보내는 중…';
+      const rk=ranks(); const memo=[SMEMO, rk?'[후보] '+rk:''].filter(Boolean).join(' / ');
+      await SIG.register({name:n,tel:SIG.fmtTel(t),mkt:o.querySelector('#gc2').checked,interest:rk?'사양서 열람 · '+rk.split(' / ')[0]:'나만의 시그니처 만들기 시작',memo});
+      S.info.cust=n; save(); close(); toast('등록되었습니다 · '+CONTACT.who+'에게 전달했습니다'); if(cb) cb(); });
+    setTimeout(()=>{ const x=o.querySelector('#gnm'); if(x&&!x.value) x.focus(); },60);
+  }
+  function notify(kind){ if(!ok()) return; const rk=ranks(); if(!rk) return; const key=kind+'|'+candCode();
+    let sent=[]; try{ sent=JSON.parse(localStorage.getItem('hosil-sent')||'[]'); }catch(e){}
+    if(sent.includes(key)) return; const L=SIG.lead();
+    SIG.submit({name:L.name,tel:L.tel,interest:kind+' · '+rk.split(' / ')[0],memo:'['+kind+'] '+rk});
+    sent.push(key); try{ localStorage.setItem('hosil-sent',JSON.stringify(sent.slice(-20))); }catch(e){} }
+  return {ok,open,notify,close};
+})();
+function sheetView(){
+  const list=listForSheet(); document.documentElement.classList.add('sv');
+  const fl=new URL('../flyer/',location.href).href, self=simBase()+'?from=sheet&c='+candCode();
+  const r=document.createElement('div'); r.className='svroot';
+  r.innerHTML=list.length?`<div class="svbar"><div class="svt"><b>우리 가족 시그니처 사양서</b><span>1 · 2 · 3순위 · A4 ${list.length}장 · 상동역 롯데캐슬 시그니처</span></div><div class="svb"><button class="btn btn-g" type="button" id="svp">인쇄 · PDF 저장</button><a class="btn btn-p" style="text-decoration:none" href="${self}">휴대폰에서 직접 골라 보기</a><a class="btn btn-s svw" style="text-decoration:none" href="${fl}">단지 안내 전단</a></div><p class="svpv">‘직접 골라 보기’는 성함 · 연락처와 개인정보 동의 후 열립니다. 원하지 않으시면 이 사양서만 보셔도 됩니다.</p></div><div class="svpages">${list.map((x,i)=>`<div class="svpg">${sheetHTML(i)}</div>`).join('')}</div>`
+   :`<div class="svbar"><div class="svt"><b>사양서를 찾지 못했습니다</b><span>링크가 잘렸을 수 있습니다. 상담팀장에게 다시 받아 주세요 · ${CONTACT.who} ${CONTACT.tel}</span></div></div>`;
+  document.body.appendChild(r);
+  const fit=()=>{ const w=Math.min(innerWidth,document.documentElement.clientWidth||innerWidth); const z=w<820?Math.max(.3,(w-16)/794):1; r.querySelectorAll('.svpg').forEach(p=>p.style.zoom=z); };
+  fit(); addEventListener('resize',fit); addEventListener('beforeprint',()=>r.querySelectorAll('.svpg').forEach(p=>p.style.zoom=1)); addEventListener('afterprint',fit);
+  const pb=r.querySelector('#svp'); if(pb) pb.onclick=()=>window.print();
+  document.title='우리 가족 시그니처 사양서 · 상동역 롯데캐슬 시그니처';
+}
+if(SHEETVIEW) sheetView(); else { if(!GATE.ok()&&S.step>0){ const pend=S.step; S.step=0; setTimeout(()=>GATE.open(()=>go(pend),'상담에서 고른 후보를 보시려면 성함과 연락처를 남겨 주세요'),250); } render(); }
 </script>
 
 </body></html>
