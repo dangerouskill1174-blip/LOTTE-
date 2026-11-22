@@ -36,3 +36,20 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:var(--navy-ink);padding:10px 18px;border-radius:10px;font-size:14px;z-index:20;max-width:90vw}
 @media (max-width:560px){.bar .who{display:none}.bar .num{font-size:16px}.bar a{padding:0 12px;font-size:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.sl{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sl figcaption{display:flex;gap:10px;align-items:baseline;padding:12px 14px 10px;font-weight:700;font-size:16px;line-height:1.4}
+.sl figcaption b{flex:none;font-family:var(--serif);color:var(--gold);font-size:15px}
+.sl button{position:relative;display:block;width:100%;padding:0;border:none;background:#fff;cursor:zoom-in}
+.sl button img{display:block;width:100%;height:auto;border-top:1px solid var(--line)}
+.sl .zm{position:absolute;right:10px;bottom:10px;background:rgba(15,23,41,.82);color:#fff;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px}
+.slides{gap:16px}
+.lbx{position:fixed;inset:0;z-index:50;background:#0B0F18;display:flex;flex-direction:column}
+.lbx[hidden]{display:none}
+.lbt,.lbf{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;color:#F5F1E8;font-size:14px}
+.lbt{padding-top:calc(10px + env(safe-area-inset-top,0px))}.lbf{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.lbt span{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbt button,.lbf button{flex:none;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid rgba(245,241,232,.35);background:transparent;color:#fff;font-weight:700;font-size:15px;font-family:inherit}
+.lbf span{font-size:12.5px;color:rgba(245,241,232,.7);text-align:center}
+.lbs{flex:1;position:relative;overflow:hidden;touch-action:none}
+.lbs img{position:absolute;left:50%;top:50%;transform-origin:center center;background:#fff;border-radius:4px;user-select:none;-webkit-user-select:none}

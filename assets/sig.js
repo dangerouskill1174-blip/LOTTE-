@@ -9,7 +9,7 @@
     form: 'https://docs.google.com/forms/d/e/1FAIpQLScoww7vWO-2Gkv2I73mLapcq1bywkjSalua_2MlVA6X8tvm-Q/',
     entry: {
       name: 'entry.554849393', tel: 'entry.1056892691', interest: 'entry.845129582', route: 'entry.129554350',
-      consent: 'entry.1190781317', mkt: '%%E_MKT%%'
+      consent: 'entry.1190781317', mkt: '%%E_MKT%%', memo: 'entry.894674831'
     }
   };
   var mem = {};
@@ -36,7 +36,7 @@
       function add(k, v) { if (!k || k.indexOf('%%') >= 0 || v == null || v === '') return; var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; form.appendChild(i); }
       var mktKnown = C.entry.mkt && C.entry.mkt.indexOf('%%') < 0;
       add(C.entry.name, f.name); add(C.entry.tel, f.tel); add(C.entry.interest, (f.interest || '') + (f.mkt && !mktKnown ? ' · 문자수신 동의' : ''));
-      add(C.entry.route, f.route || C.route()); add(C.entry.consent, '동의합니다'); if (f.mkt) add(C.entry.mkt, '동의합니다');
+      add(C.entry.route, f.route || C.route()); add(C.entry.consent, '동의합니다'); if (f.memo) add(C.entry.memo, f.memo); if (f.mkt) add(C.entry.mkt, '동의합니다');
       document.body.appendChild(form);
       var done = false; function fin() { if (done) return; done = true; resolve(true); setTimeout(function () { form.remove(); ifr.remove(); }, 2000); }
       ifr.addEventListener('load', fin); setTimeout(fin, 4000);

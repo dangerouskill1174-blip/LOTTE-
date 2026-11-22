@@ -138,7 +138,8 @@ a.card:hover{border-color:var(--gold)}
     if(!S.validTel(t)){err.textContent='휴대폰 번호를 확인해 주세요 (예: 010-1234-5678).';$('tl').focus();return;}
     if(!$('c1').checked){err.textContent='필수 동의에 체크해 주세요.';return;}
     err.textContent=''; var b=$('go'); b.disabled=true; b.textContent='등록 중…';
-    S.register({name:n,tel:S.fmtTel(t),mkt:$('c2').checked,interest:/[?&]c=/.test((function(){try{return localStorage.getItem('sig-return')||''}catch(e){return ''}})())?'상담 사양서 열람':'자료 열람 등록'}).then(function(){ if(S.afterUnlock()) return; paint(); toast('등록되었습니다. 2 · 3단계가 열렸습니다'); $('c2card').scrollIntoView({behavior:'smooth',block:'center'}); });
+    var rt=(function(){try{return localStorage.getItem('sig-return')||''}catch(e){return ''}})(), sm=/[?&]s=([^&#]*)/.exec(rt);
+    S.register({name:n,tel:S.fmtTel(t),mkt:$('c2').checked,memo:sm?decodeURIComponent(sm[1]):'',interest:/[?&]c=/.test((function(){try{return localStorage.getItem('sig-return')||''}catch(e){return ''}})())?'상담 사양서 열람':'자료 열람 등록'}).then(function(){ if(S.afterUnlock()) return; paint(); toast('등록되었습니다. 2 · 3단계가 열렸습니다'); $('c2card').scrollIntoView({behavior:'smooth',block:'center'}); });
   });
   $('code').addEventListener('input',function(){ this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length===4){ if(this.value===S.code){ S.unlock(); if(S.afterUnlock()) return; paint(); toast('초대 코드 확인 · 2 · 3단계가 열렸습니다'); } else { toast('코드가 맞지 않습니다'); this.value=''; } } });
 })();
