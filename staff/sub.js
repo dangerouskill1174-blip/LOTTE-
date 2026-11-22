@@ -1,6 +1,7 @@
 /* 구독 확인 · 구독이 끝나면 이 태블릿의 상담 자료를 잠그고 지웁니다 */
 (function () {
-  var KEY = 'sig-sub', DAY = 864e5;
+  var KEY = 'sig-sub', PFX = 'desk-', DAY = 864e5;
+  function mine(k) { return k.indexOf(PFX) === 0 && /^\d/.test(k.slice(PFX.length)); }
   function get() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   function set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
   function endOf(d) { return Date.parse(d + 'T23:59:59+09:00'); }
@@ -9,7 +10,7 @@
 
   function wipe() {
     try { ['sig-staff-k', 'hosil', 'sig-lead', 'sig-board', 'sig-help-seen'].forEach(function (k) { localStorage.removeItem(k); sessionStorage.removeItem(k); }); } catch (e) {}
-    try { if (window.caches) caches.keys().then(function (ks) { ks.forEach(function (k) { if (k.indexOf('desk-') === 0) caches.delete(k); }); }); } catch (e) {}
+    try { if (window.caches) caches.keys().then(function (ks) { ks.forEach(function (k) { if (mine(k)) caches.delete(k); }); }); } catch (e) {}
   }
   function judge(st, now) {
     if (!st || !st.sub) return { ok: false, why: 'first' };
@@ -38,7 +39,7 @@
         return judge(st, now);
       }).then(function (res) {
         if (!res.ok && (res.why === 'stopped' || res.why === 'expired')) wipe();
-        if (res.ok) { try { if (window.caches && navigator.serviceWorker && navigator.serviceWorker.controller) caches.keys().then(function (ks) { if (!ks.some(function (k) { return k.indexOf('desk-') === 0; })) navigator.serviceWorker.controller.postMessage('precache'); }); } catch (e) {} }
+        if (res.ok) { try { if (window.caches && navigator.serviceWorker && navigator.serviceWorker.controller) caches.keys().then(function (ks) { if (!ks.some(function (k) { return mine(k); })) navigator.serviceWorker.controller.postMessage('precache'); }); } catch (e) {} }
         SUB.last = res; return res; });
     },
     screen: function (res) {

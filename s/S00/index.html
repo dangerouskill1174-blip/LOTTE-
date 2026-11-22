@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>상동역 롯데캐슬 시그니처 · 우리 가족 집 안내</title>
+<meta name="description" content="상동역 롯데캐슬 시그니처 · 우리 가족 집 알아보기부터 호실 고르는 법, 나만의 시그니처 만들기까지. 상담팀장 김성태 010-8315-9602">
+<meta property="og:type" content="website">
+<meta property="og:title" content="상동역 롯데캐슬 시그니처 · 우리 가족 집 안내">
+<meta property="og:description" content="우리 가족 집 알아보기 · 호실 고르는 법 · 나만의 시그니처 만들기 | 상담팀장 김성태 010-8315-9602">
+<meta property="og:image" content="https://dangerouskill1174-blip.github.io/LOTTE-/s/S00/assets/og.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="400">
+<meta property="og:url" content="https://dangerouskill1174-blip.github.io/LOTTE-/s/S00/">
+<meta name="theme-color" content="#16203A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/sig.css">
+<style>
+.hero{position:relative;min-height:min(70vh,540px);display:flex;align-items:flex-end;color:#F4F1EA;background:#16203A url(assets/hero.jpg) center 30%/cover no-repeat}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,17,28,.1) 0%,rgba(12,17,28,.35) 45%,rgba(12,17,28,.9) 100%)}
+.hero-in{position:relative;z-index:1;width:100%;max-width:880px;margin:0 auto;padding:max(28px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-left,0px)) 36px}
+.ey{font-size:13px;letter-spacing:.14em;color:#E3C690;font-weight:700}
+.hero h1{font-size:clamp(32px,7vw,54px);line-height:1.15;margin-top:8px;color:#fff}
+.hero .lead{font-size:17px;margin-top:12px;max-width:40ch;color:#E9E4DA}
+.cap{position:absolute;right:12px;top:10px;z-index:1;font-size:11px;color:rgba(255,255,255,.7)}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.facts span{font-size:13px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.steps{display:grid;gap:14px;margin-top:-18px;position:relative;z-index:2}
+.card{display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:center;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 6px 18px rgba(22,32,58,.08)}
+a.card:hover{border-color:var(--gold)}
+.card .no{width:56px;height:56px;border-radius:14px;background:var(--gold-soft);color:var(--gold-ink);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:26px;font-weight:700}
+.card h2{font-size:22px;color:var(--ink)}
+.card .d{color:var(--muted);font-size:15px;margin-top:4px}
+.card .go{font-weight:700;color:var(--gold-ink);white-space:nowrap}
+.card.main{background:var(--navy);border-color:var(--navy);color:var(--navy-ink)}
+.card.main h2{color:#fff}
+.card.main .d{color:#D9D3C7}
+.card.main .no{background:var(--gold);color:#1B1408}
+.card.main .go{color:#E3C690}
+.card.lock{opacity:.7;cursor:pointer}
+.card.lock .no{background:var(--line);color:var(--muted)}
+.card.lock .go{color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--gold);color:#1B1408;margin-left:6px;vertical-align:middle;font-family:var(--sans)}
+.reg{background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:22px;margin-top:-4px}
+.reg h3{font-size:21px}
+.reg .sub{color:var(--muted);font-size:15px;margin-top:6px}
+.fld{display:flex;flex-direction:column;gap:6px;margin-top:14px;font-weight:700;font-size:14px}
+.fld input{font:inherit;font-size:17px;font-weight:400;min-height:48px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:15px}
+.ck input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--navy)}
+.ck details{font-size:13px;color:var(--muted);margin-top:4px}
+.ck summary{cursor:pointer;text-decoration:underline}
+.err{color:var(--rust);font-size:14px;min-height:20px;margin-top:8px}
+.trust{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:13px;color:var(--muted)}
+.ok{background:var(--gold-soft);color:var(--gold-ink);border-radius:12px;padding:16px;margin-top:4px;font-weight:700}
+.codebox{margin-top:12px;font-size:14px;color:var(--muted)}
+.codebox input{font:inherit;font-size:18px;letter-spacing:.4em;width:120px;min-height:44px;text-align:center;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.how{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.how b{display:block;font-family:var(--serif);font-size:17px}
+.how p{color:var(--muted);font-size:14px;margin-top:2px}
+@media (max-width:560px){.card{grid-template-columns:44px 1fr;padding:16px}.card .no{width:44px;height:44px;font-size:21px;border-radius:12px}.card .go{grid-column:2}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero"><span class="cap">조감도 · 이해를 돕기 위한 이미지로 실제와 다를 수 있습니다</span>
+ <div class="hero-in">
+  <p class="ey">상동역 롯데캐슬 시그니처</p>
+  <h1>우리 가족 집,<br>여기서 시작하세요</h1>
+  <p class="lead">세 단계로 이 집을 알아보고, 우리 가족 호실을 직접 만들어 보세요.</p>
+  <div class="facts"><span>1,859세대 · 최고 49층</span><span>7호선 상동역 1번 출구</span><span>전 세대 발코니 확장 무상</span><span>2032년 3월 입주 예정</span></div>
+ </div>
+</header>
+
+<main class="wrap">
+ <div class="steps">
+  <a class="card" href="1/"><span class="no">1</span><span><h2>우리 가족 집 알아보기</h2><p class="d">입지 · 단지 · 타입 · 대출과 자금까지, 처음 알아볼 때 필요한 내용</p></span><span class="go">보기 →</span></a>
+
+  <section class="reg" id="reg" aria-labelledby="regt">
+   <div id="regForm">
+    <h3 id="regt">관심고객 등록하고 2 · 3단계 열기</h3>
+    <p class="sub">이름과 연락처만 남겨 주시면 <b>호실 고르는 법</b>과 <b>나만의 시그니처 만들기</b>가 바로 열리고, 상담팀장이 궁금한 점을 직접 안내해 드립니다.</p>
+    <form id="f" novalidate>
+     <div class="two">
+      <label class="fld" for="nm">성함<input id="nm" name="name" autocomplete="name" required></label>
+      <label class="fld" for="tl">연락처<input id="tl" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" required></label>
+     </div>
+     <label class="ck"><input type="checkbox" id="c1"><span><b>[필수]</b> 개인정보 수집 · 이용에 동의합니다
+      <details><summary>내용 보기</summary>수집자: 상동역 롯데캐슬 시그니처 분양 상담팀장 김성태(010-8315-9602) · 목적: 자료 열람 안내와 분양 상담 연락 · 항목: 성함, 연락처 · 보유기간: 수집일부터 6개월, 이후 즉시 파기 · 제3자 제공 없음 · 동의하지 않을 수 있으며, 이 경우 전화로 상담을 받으실 수 있습니다.</details></span></label>
+     <label class="ck"><input type="checkbox" id="c2"><span>[선택] 분양 소식 · 이벤트 문자 수신에 동의합니다
+      <details><summary>내용 보기</summary>오전 9시~오후 6시에만 보냅니다. 동의하지 않아도 자료 열람과 상담을 받으실 수 있으며, 언제든 ‘수신거부’ 문자로 철회할 수 있습니다.</details></span></label>
+     <p class="err" id="err" role="alert"></p>
+     <button class="btn btn-g" type="submit" id="go" style="width:100%">등록하고 2 · 3단계 열기</button>
+    </form>
+    <div class="trust"><span>✓ 개인정보 6개월 후 파기</span><span>✓ 문자는 오전 9시~오후 6시만</span><span>✓ 상담팀장 김성태 직접 연락</span></div>
+    <div class="codebox">상담 때 초대 코드를 받으셨나요? <input id="code" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="초대 코드 네 자리"></div>
+   </div>
+   <div id="regDone" class="ok" hidden>등록되었습니다. 2 · 3단계가 열렸습니다. 상담팀장이 곧 연락드리겠습니다.</div>
+  </section>
+
+  <a class="card lock" id="c2card" href="2/"><span class="no" id="n2">2</span><span><h2>우리 가족 호실 고르는 법</h2><p class="d">대출 → 동 → 타입 → 호수 → 층, 결정하는 순서대로 한 장씩 따라가는 7단계 안내</p></span><span class="go" id="g2">🔒 등록 후 열림</span></a>
+  <a class="card main lock" id="c3card" href="3/"><span class="no" id="n3">3</span><span><h2>나만의 시그니처 만들기 <span class="tag">약 3분</span></h2><p class="d">고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션. 동 → 타입 → 호수 → 층을 고르면 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 ‘우리 집 사양서’로 완성됩니다.</p></span><span class="go" id="g3">🔒 등록 후 열림</span></a>
+ </div>
+
+ <div class="how">
+  <div><b>① 알아보고</b><p>이 단지와 우리 가족에게 맞는 타입을 봅니다</p></div>
+  <div><b>② 순서대로 고르고</b><p>대출 → 동 → 타입 → 호수 → 층 순서로 정합니다</p></div>
+  <div><b>③ 사양서로 정리하고</b><p>1 · 2 · 3순위를 나란히 놓고 가족과 상의합니다</p></div>
+  <div><b>④ 상담팀장 확인</b><p>선착순이라 가능 여부와 정확한 동 · 호수는 확인 후 확정합니다</p></div>
+ </div>
+
+ <p class="fine">상동역 롯데캐슬 시그니처 · 분양 상담 상담팀장 김성태 010-8315-9602<br>금액은 입주자모집공고 공급금액 기준이며 대출 · 세금은 2026년 11월 기준 추정으로 개인별로 달라집니다. 조감도 · 평면도 등 이미지는 이해를 돕기 위한 것으로 실제와 다를 수 있습니다. 조망 등은 동 · 층 · 호수별로 다르며, 단지 주변 시설로 소음 등 영향이 있을 수 있으니 계약 전 입주자모집공고와 모형도로 꼭 확인하세요. 계약 가능 여부와 동 · 호수는 선착순으로 상담 시 확인합니다.</p>
+</main>
+
+<div class="bar"><div class="bar-in"><div><p class="who">상동역 롯데캐슬 시그니처 · 분양 상담</p><p class="num">상담팀장 김성태 010-8315-9602</p></div><div class="acts"><a class="t" href="tel:01083159602">전화</a><a class="r" id="smsBtn" href="#">문자</a></div></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="assets/sig.js"></script>
+<script>
+(function(){
+  var S=window.SIG, $=function(i){return document.getElementById(i);};
+  $('smsBtn').href=S.sms('상담 문의드립니다. 성함: ');
+  function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){t.hidden=true;},2600);}
+  function paint(){
+    var u=S.unlocked();
+    ['2','3'].forEach(function(n){var c=$('c'+n+'card'); c.classList.toggle('lock',!u); $('g'+n).textContent=u?(n==='3'?'만들기 →':'보기 →'):'🔒 등록 후 열림';});
+    $('regForm').hidden=u; $('regDone').hidden=!u;
+  }
+  paint();
+  ['c2card','c3card'].forEach(function(id){ $(id).addEventListener('click',function(e){ if(!S.unlocked()){ e.preventDefault(); $('reg').scrollIntoView({behavior:'smooth',block:'start'}); setTimeout(function(){$('nm').focus();},400); toast('관심고객 등록 후 열립니다'); } }); });
+  if(/need=1/.test(location.search)) toast('관심고객 등록 후 이용하실 수 있습니다');
+  $('tl').addEventListener('blur',function(){ if(S.validTel(this.value)) this.value=S.fmtTel(this.value); });
+  $('f').addEventListener('submit',function(e){
+    e.preventDefault(); var n=$('nm').value.trim(), t=$('tl').value.trim(), err=$('err');
+    if(n.length<2){err.textContent='성함을 입력해 주세요.';$('nm').focus();return;}
+    if(!S.validTel(t)){err.textContent='휴대폰 번호를 확인해 주세요 (예: 010-1234-5678).';$('tl').focus();return;}
+    if(!$('c1').checked){err.textContent='필수 동의에 체크해 주세요.';return;}
+    err.textContent=''; var b=$('go'); b.disabled=true; b.textContent='등록 중…';
+    var rt=(function(){try{return localStorage.getItem('sig-S00-return')||''}catch(e){return ''}})(), sm=/[?&]s=([^&#]*)/.exec(rt);
+    S.register({name:n,tel:S.fmtTel(t),mkt:$('c2').checked,memo:sm?decodeURIComponent(sm[1]):'',interest:/[?&]c=/.test((function(){try{return localStorage.getItem('sig-S00-return')||''}catch(e){return ''}})())?'상담 사양서 열람':'자료 열람 등록'}).then(function(){ if(S.afterUnlock()) return; paint(); toast('등록되었습니다. 2 · 3단계가 열렸습니다'); $('c2card').scrollIntoView({behavior:'smooth',block:'center'}); });
+  });
+  $('code').addEventListener('input',function(){ this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length===4){ if(this.value===S.code){ S.unlock(); if(S.afterUnlock()) return; paint(); toast('초대 코드 확인 · 2 · 3단계가 열렸습니다'); } else { toast('코드가 맞지 않습니다'); this.value=''; } } });
+})();
+</script>
+</body>
+</html>

@@ -113,6 +113,11 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .box{list-style:none;margin:8px 0 0;padding:0}.box li{padding:8px 0 8px 34px;position:relative;border-bottom:1px dashed var(--line)}.box li::before{content:"";position:absolute;left:2px;top:11px;width:20px;height:20px;border:2px solid var(--line2);border-radius:5px}
 .warn.big li{font-size:17px;margin:8px 0}
 .bend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.kitsec{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--sh1)}.kitsec h2{font-size:22px}
+.kt{margin-top:14px;border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--surface2)}.kh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.kh b{font-family:var(--serif);font-size:18px}.kh span{font-size:13px;color:var(--muted)}
+.ktx{margin:10px 0 12px;font-size:15px;line-height:1.6;word-break:break-all}.kt .acts{display:flex;gap:8px;flex-wrap:wrap}
+.qrs{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:14px}.qri{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--surface2)}
+.qri img{width:100%;aspect-ratio:1;border-radius:10px;background:#fff;border:1px solid var(--line)}.qri b{font-size:16px}.qri span{font-size:13px;color:var(--muted)}.sm{font-size:13px;color:var(--muted)}
 .tips{margin-top:22px;padding:20px 24px;border-radius:20px;border:1px dashed var(--line2)}
 .tips h3{font-size:18px}.tips ol{margin:10px 0 0;padding-left:20px;color:var(--muted)}.tips li{margin:4px 0}.tips b{color:var(--ink)}
 @media (max-width:700px){.send{grid-template-columns:1fr}.qrbox{max-width:240px}}
@@ -138,7 +143,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 <div id="root"><p class="loading">여는 중…</p></div>
 <script>
 (function(){
-var PAGES={hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1};
+var PAGES={hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,kit:1,admin:1};
 var te=new TextEncoder(), td=new TextDecoder();
 var K=null, KEY=null, $=function(q){return document.querySelector(q)};
 function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
@@ -206,7 +211,8 @@ document.addEventListener('click',function(e){
   if(a==='present')present(0);
   if(a==='qr'){var q=$('.qrbox img');if(q&&q.src){var o=document.createElement('div');o.className='pv';o.style.background='#fff';o.innerHTML='<img alt="방문고객용 QR" style="width:min(80vw,80vh);height:auto"><div class="bar" style="background:none"><span style="color:#0F1729;font-weight:700">휴대폰 카메라로 찍어 주세요</span><button data-x="close" style="background:#0F1729">닫기 ✕</button></div>';o.querySelector('img').src=q.src;o.addEventListener('click',function(){o.remove()});document.body.appendChild(o)}}
   if(a==='copy')copy(b.dataset.url);
-  if(a==='share'){var t='[상동역 롯데캐슬 시그니처] 상담팀장 김성태입니다. 우리 가족 집 알아보기 안내를 보내 드립니다.';
+  if(a==='dlimg'){var im=document.getElementById(b.dataset.for);if(im&&im.src){var l=document.createElement('a');l.href=im.src;l.download=b.dataset.name||'qr.png';document.body.appendChild(l);l.click();l.remove();}return}
+  if(a==='share'){var t=b.dataset.text||'[상동역 롯데캐슬 시그니처] 상담팀장 김성태입니다. 우리 가족 집 알아보기 안내를 보내 드립니다.';
     if(navigator.share){navigator.share({title:'상동역 롯데캐슬 시그니처',text:t,url:b.dataset.url}).catch(function(){})}else copy(t+' '+b.dataset.url)}
   if(a==='next'){try{localStorage.removeItem('sig-lead');localStorage.removeItem('hosil')}catch(_){}toast('앞 고객 기록을 지웠습니다. 다음 고객을 맞이하세요')}
   if(a==='lock'){sdel('sig-staff-k');KEY=null;lockView('잠갔습니다')}

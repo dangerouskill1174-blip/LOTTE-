@@ -6,6 +6,7 @@
     tel: '010-8315-9602',
     raw: '01083159602',
     code: '4321',
+    sub: '',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLScoww7vWO-2Gkv2I73mLapcq1bywkjSalua_2MlVA6X8tvm-Q/',
     entry: {
       name: 'entry.554849393', tel: 'entry.1056892691', interest: 'entry.845129582', route: 'entry.129554350',
@@ -16,7 +17,7 @@
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] || null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
 
-  var ROUTES = { visit: '방문고객', ad: '광고', sim: '시뮬레이터', ref: '지인 소개' };
+  var ROUTES = { visit: '방문고객', ad: '광고', sim: '시뮬레이터', ref: '지인 소개', flyer: '전단', kakao: '카톡 안내' };
   (function () {
     var m = /[?&]from=([a-z]+)/.exec(location.search);
     if (m && ROUTES[m[1]] && !get('sig-route')) set('sig-route', ROUTES[m[1]]);
@@ -36,7 +37,9 @@
       function add(k, v) { if (!k || k.indexOf('%%') >= 0 || v == null || v === '') return; var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; form.appendChild(i); }
       var mktKnown = C.entry.mkt && C.entry.mkt.indexOf('%%') < 0;
       add(C.entry.name, f.name); add(C.entry.tel, f.tel); add(C.entry.interest, (f.interest || '') + (f.mkt && !mktKnown ? ' · 문자수신 동의' : ''));
-      add(C.entry.route, f.route || C.route()); add(C.entry.consent, '동의합니다'); if (f.memo) add(C.entry.memo, f.memo); if (f.mkt) add(C.entry.mkt, '동의합니다');
+      var rt = f.route || C.route(), ok = ['방문고객', '광고', '시뮬레이터', '지인 소개', '기타'].indexOf(rt) >= 0;
+      add(C.entry.route, ok ? rt : '기타'); add(C.entry.consent, '동의합니다');
+      var memo = (C.sub ? '[구독자 ' + C.sub + '] ' : '') + (ok ? '' : '[유입 ' + rt + '] ') + (f.memo || ''); if (memo) add(C.entry.memo, memo); if (f.mkt) add(C.entry.mkt, '동의합니다');
       document.body.appendChild(form);
       var done = false; function fin() { if (done) return; done = true; resolve(true); setTimeout(function () { form.remove(); ifr.remove(); }, 2000); }
       ifr.addEventListener('load', fin); setTimeout(fin, 4000);
