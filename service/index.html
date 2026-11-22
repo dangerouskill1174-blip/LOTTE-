@@ -172,6 +172,12 @@ ol.flow{padding:0;margin-left:0;margin-right:0}
 footer{background:#0A101D;color:rgba(245,241,232,.55);font-size:13.5px;padding:26px 0 calc(26px + env(safe-area-inset-bottom))}
 footer p{margin:4px 0}
 
+.nw{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.nwc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.nwc b{display:block;font-size:18px;margin-bottom:6px}.nwc p{margin:0;color:var(--sub);font-size:15.5px}
+.nwc.wide{grid-column:1/-1;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;background:#fff}
+.nwc.wide b{font-family:'Noto Serif KR',serif;font-size:24px}
+@media (max-width:1000px){.nw{grid-template-columns:1fr}.nwc.wide{grid-template-columns:1fr}}
 /* lightbox */
 .lb{position:fixed;inset:0;background:rgba(5,8,15,.94);z-index:50;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 .lb.on{display:flex}
@@ -235,7 +241,7 @@ footer p{margin:4px 0}
   <h1>고객과 같은 화면을 보며<br><em>우리 가족 집</em>을 함께 고릅니다</h1>
   <p class="lead">니즈 파악부터 입지, 동 · 타입 · 호실, 자금 계획, 사양서까지 7단계. 자료를 찾느라 고객을 기다리게 하지 않고, 상담이 끝나면 고객 휴대폰에 우리 집 사양서가 남습니다.</p>
   <div class="cta"><a class="btn g" href="tel:01083159602">전화로 도입 상담</a><a class="btn o" href="sms:01083159602?body=%EB%B6%84%EC%96%91%20%EC%83%81%EB%8B%B4%20%EB%8D%B0%EC%8A%A4%ED%81%AC%20%EB%8F%84%EC%9E%85%20%EB%AC%B8%EC%9D%98%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4.%20%ED%98%84%EC%9E%A5%EB%AA%85%3A%20">문자로 문의</a></div>
-  <div class="chips"><span>안드로이드탭 · 펜 지원</span><span>현장 자료 맞춤 제작</span><span>상담사 개인 전용</span><span>인터넷 끊겨도 상담 가능</span></div>
+  <div class="chips"><span>안드로이드탭 · 펜 지원</span><span>현장 자료 맞춤 제작</span><span>상담사 개인 전용</span><span>인터넷 끊겨도 상담 가능</span><span>이 화면 설명 · 옵션 견적</span></div>
  </div>
  <div class="device">
   <div class="tab"><img src="img/result.jpg" alt="태블릿 상담 화면 예시 · 후보 호실과 자금 계획" width="1600" height="1000"></div>
@@ -272,7 +278,7 @@ footer p{margin:4px 0}
 
 <section id="feat" style="padding-top:0"><div class="wrap">
  <p class="ey">핵심 기능</p>
- <h2>상담사가 가장 자주 쓰는 여섯 장면</h2>
+ <h2>상담사가 가장 자주 쓰는 여덟 장면</h2>
 
  <div class="feat">
   <div class="shot" data-z="img/need.jpg"><img src="img/need.jpg" alt="니즈 파악 화면" loading="lazy" width="1600" height="1000"></div>
@@ -310,6 +316,31 @@ footer p{margin:4px 0}
   <div><p class="n">06 · 자료 찾기</p><h3>고객의 갑작스러운 질문에도 3초 안에</h3><p>“대출은요?”, “학교는요?” 질문이 나오면 아래 자료 칸이나 ‘자료 찾기’에서 바로 꺼냅니다. 보여주고 나면 하던 단계로 돌아옵니다.</p>
    <ul><li>위치 · 학교 · 커뮤니티 · 대출 · 계약 절차</li><li>현재 단계에 맞는 자료가 먼저 보임</li></ul></div>
  </div>
+
+ <div class="feat">
+  <div class="shot" data-z="img/explain.jpg"><img src="img/explain.jpg" alt="이 화면 설명 패널" loading="lazy" width="1600" height="1000"></div>
+  <div><p class="n">07 · 이 화면 설명</p><h3>“이건 뭐예요?” 한 번 누르면 설명이 열립니다</h3><p>고객이 지금 보는 화면에 대해 물으면 위쪽 ‘💬 이 화면 설명’을 누릅니다. 고른 동 · 타입 · 호실 · 금액에 맞춘 정리와 핵심, 자주 묻는 질문과 답, 관련 자료가 오른쪽에 열립니다.</p>
+   <ul><li>질문을 누르면 답이 펼쳐져 그대로 읽어 드려도 됨</li><li>자료를 누르면 크게 열리고 설명도 그 자료에 맞게 바뀜</li><li>포터블 연결형에서는 상담사 화면에만 보이게 전환</li></ul></div>
+ </div>
+
+ <div class="feat r">
+  <div class="shot" data-z="img/option.jpg"><img src="img/option.jpg" alt="유상옵션 견적 화면" loading="lazy" width="1600" height="1000"></div>
+  <div><p class="n">08 · 옵션 견적</p><h3>유상옵션은 체크만 하면 견적서가 나옵니다</h3><p>타입을 고르고 현관 · 거실 · 주방 · 조명 · 에어컨 · 가전을 체크하면 공고 공급금액으로 합계와 계약 시 10%, 입주지정일 90%가 바로 계산됩니다.</p>
+   <ul><li>조명 1안 · 2안 자동 전환, 같은 묶음은 하나만 · 계산 실수 없이</li><li>A4 견적서 PDF 저장 · 고객에게 링크 · QR로 전달</li><li>옵션 계약금 계좌가 분양대금 계좌와 다르다는 경고까지</li></ul>
+   <div class="say"><b>안내</b>옵션 내용은 상담사 화면에만 있고, 고객용 사이트에는 나오지 않습니다. 견적서는 상담사가 보낸 링크로만 열립니다.</div></div>
+ </div>
+</div></section>
+
+<section id="new" style="padding-top:0"><div class="wrap">
+ <p class="ey">새로 들어간 기능</p>
+ <h2>상담 뒤까지 챙기는 네 가지</h2>
+ <p class="lead">현장에서 바로 써 본 의견을 받아 더한 기능입니다.</p>
+ <div class="nw">
+  <div class="nwc wide"><div class="shot" data-z="img/quote.jpg"><img src="img/quote.jpg" alt="옵션 견적서 미리보기" loading="lazy" width="1600" height="1000"></div><div><b>유상옵션 견적서</b><p>타입을 고르고 품목을 체크하면 합계 · 계약 시 10% · 입주지정일 90%가 바로 나옵니다. A4 견적서를 PDF · 이미지로 저장하고, 고객에게는 카톡 · 문자 링크나 QR로 보냅니다. 고객 이름은 견적서 파일에만 들어가고 링크에는 들어가지 않습니다.</p></div></div>
+  <div class="nwc"><b>1 · 2 · 3순위 사양서 미리보기</b><p>결론 화면 아래 순위 탭을 누르면 A4 인쇄 화면과 같은 내용으로 그 순위의 납부 일정 · 좋은 점 · 평면이 보입니다.</p></div>
+  <div class="nwc"><b>카톡 · 문자 보내기 창</b><p>가족에게 보내기를 누르면 카카오톡 · 문자 · 다른 앱 · 링크 복사 중에서 고릅니다. 순위별 사양서와 단지 안내 전단 링크가 함께 갑니다.</p></div>
+  <div class="nwc"><b>A4 PDF 바로 저장</b><p>1 · 2 · 3순위 사양서가 3쪽짜리 PDF 파일로 바로 저장됩니다. 카카오톡 안에서 열었을 때는 ‘크롬에서 열기’ 띠가 나와 막힘 없이 저장합니다.</p></div>
+ </div>
 </div></section>
 
 <section class="dark" id="ex"><div class="wrap exgrid">
@@ -341,8 +372,8 @@ footer p{margin:4px 0}
  <h2>상담이 끝나도 고객 손에 남습니다</h2>
  <p class="lead">고객은 앱 설치 없이 휴대폰 카메라로 QR만 찍으면 됩니다. 처음 한 번 이름과 연락처를 남기면 호실 고르기까지 모두 열립니다.</p>
  <div class="cust">
-  <div class="c"><div><p class="ic">▣</p><h3>QR 한 번에 사양서</h3><p>상담에서 고른 1 · 2 · 3순위와 금액이 고객 휴대폰에 그대로 열립니다.</p></div><div class="ph" data-z="img/phone_sheet.jpg"><img src="img/phone_sheet.jpg" alt="고객 휴대폰 사양서" loading="lazy"></div></div>
-  <div class="c"><div><p class="ic">♡</p><h3>가족에게 보내기</h3><p>집에 가서 배우자 · 부모님께 링크 하나로 공유합니다. 가족이 같은 화면을 보고 이야기합니다.</p></div><div class="ph" data-z="img/phone_lb.jpg"><img src="img/phone_lb.jpg" alt="고객 휴대폰 자료 크게 보기" loading="lazy"></div></div>
+  <div class="c"><div><p class="ic">▣</p><h3>QR 한 번에 사양서</h3><p>상담에서 고른 1 · 2 · 3순위와 금액이 고객 휴대폰에 그대로 열리고, 순위별 A4 사양서를 PDF로 저장합니다.</p></div><div class="ph" data-z="img/phone_sheet.jpg"><img src="img/phone_sheet.jpg" alt="고객 휴대폰 사양서" loading="lazy"></div></div>
+  <div class="c"><div><p class="ic">♡</p><h3>가족에게 보내기</h3><p>카카오톡 · 문자로 사양서와 단지 안내 전단 링크를 함께 보냅니다. 가족이 같은 화면을 보고 이야기합니다.</p></div><div class="ph" data-z="img/phone_lb.jpg"><img src="img/phone_lb.jpg" alt="고객 휴대폰 자료 크게 보기" loading="lazy"></div></div>
   <div class="c"><div><p class="ic">✉</p><h3>상담사에게 자동 연결</h3><p>고객이 등록하거나 다시 문의하면 상담사 본인 이메일로 알림이 갑니다. 연락처에는 상담사 이름과 번호만 나옵니다.</p></div></div>
  </div>
 </div></section>
@@ -366,7 +397,7 @@ footer p{margin:4px 0}
  <h2>기본형으로 시작하고, 포터블 옵션은 따로</h2>
  <div class="plans">
   <div class="plan main"><span class="tag">기본형</span><h3>같이 보는 태블릿 상담</h3><p class="pr">구독료는 현장 규모에 따라 상담 후 안내</p>
-   <ul><li>담당 현장 자료로 맞춤 제작 (평면도 · 배치도 · 조감도 · 입지 · 분양가 · 대출)</li><li>7단계 상담 화면 · 펜 설명 · 나란히 비교</li><li>고객 휴대폰 사양서 QR · 가족 공유</li><li>관심고객 자동 기록 · 이메일 알림</li><li>고객 배포 키트 (문자 문구 · 채널별 QR · A4 전단)</li><li>왕초보 사용법 가이드</li></ul></div>
+   <ul><li>담당 현장 자료로 맞춤 제작 (평면도 · 배치도 · 조감도 · 입지 · 분양가 · 대출)</li><li>7단계 상담 화면 · 펜 설명 · 나란히 비교</li><li>고객 휴대폰 사양서 QR · 1 · 2 · 3순위 A4 PDF · 카톡 · 문자 가족 공유</li><li>💬 이 화면 설명 · 화면마다 핵심 · 자주 묻는 질문 · 관련 자료</li><li>유상옵션 자동 견적서 (PDF · 링크 · QR)</li><li>관심고객 자동 기록 · 이메일 알림</li><li>고객 배포 키트 (문자 문구 · 채널별 QR · A4 전단)</li><li>왕초보 사용법 가이드</li></ul></div>
   <div class="plan opt"><span class="tag">옵션 · 실증 후 출시</span><h3>포터블 모니터 연결형</h3><p class="pr">현장 실증 후 옵션으로 출시 예정</p>
    <ul><li>상담사는 태블릿, 고객은 포터블 모니터로 보는 2화면 상담</li><li>상담사만 보는 메모와 고객 화면을 분리</li><li>모델하우스 상담석 고정 설치에 적합</li></ul></div>
  </div>
@@ -401,6 +432,7 @@ footer p{margin:4px 0}
   <details><summary>팀원과 같이 써도 되나요?</summary><p>안 됩니다. 구독은 상담사 한 분 기준이고, 화면에 구독자 이름과 연락처가 들어갑니다. 팀원은 각자 구독하시면 각자의 연락처로 만들어집니다.</p></details>
   <details><summary>구독이 끝나면 고객에게 준 사양서도 사라지나요?</summary><p>잠기는 것은 상담사 태블릿의 상담 화면입니다. 고객 휴대폰 화면 운영 방식은 도입 상담 때 현장 일정에 맞춰 정합니다.</p></details>
   <details><summary>분양가나 대출 규정이 바뀌면요?</summary><p>공고 변경이나 새 대책이 나오면 반영해 다시 배포합니다. 태블릿은 다음에 인터넷에 연결될 때 자동으로 새 내용으로 바뀝니다.</p></details>
+  <details><summary>유상옵션 견적도 되나요?</summary><p>됩니다. 타입을 고르고 품목을 체크하면 공고 금액으로 합계와 계약금 · 잔금이 바로 나오고, A4 견적서를 PDF로 저장하거나 고객에게 링크로 보낼 수 있습니다. 옵션 금액은 현장 공고를 받아 그대로 넣습니다.</p></details>
   <details><summary>컴퓨터를 잘 못 다뤄도 쓸 수 있나요?</summary><p>왕초보용 사용법이 화면 안에 들어 있습니다. 실제 상담 예시와 함께 어떤 말을 하며 무엇을 누르는지 순서대로 안내합니다.</p></details>
   <details><summary>고객 정보는 어디에 저장되나요?</summary><p>고객이 동의하고 남긴 이름 · 연락처는 운영 시트에 구독자 표시와 함께 저장되고, 해당 상담사 이메일로만 알림이 갑니다. 다른 구독자는 그 고객 정보를 볼 수 없습니다.</p></details>
  </div>
