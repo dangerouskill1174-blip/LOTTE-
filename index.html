@@ -69,7 +69,7 @@ a.card:hover{border-color:var(--gold)}
  <div class="hero-in">
   <p class="ey">상동역 롯데캐슬 시그니처</p>
   <h1>우리 가족 집,<br>여기서 시작하세요</h1>
-  <p class="lead">세 단계로 이 집을 알아보고, 우리 가족 호실을 직접 만들어 보세요.</p>
+  <p class="lead">1 · 2단계는 바로 보실 수 있고, 3단계에서 우리 가족 호실을 직접 만들어 봅니다.</p>
   <div class="facts"><span>1,859세대 · 최고 49층</span><span>7호선 상동역 1번 출구</span><span>전 세대 발코니 확장 무상</span><span>2032년 3월 입주 예정</span></div>
  </div>
 </header>
@@ -78,30 +78,9 @@ a.card:hover{border-color:var(--gold)}
  <div class="steps">
   <a class="card" href="1/"><span class="no">1</span><span><h2>우리 가족 집 알아보기</h2><p class="d">입지 · 단지 · 타입 · 대출과 자금까지, 처음 알아볼 때 필요한 내용</p></span><span class="go">보기 →</span></a>
 
-  <section class="reg" id="reg" aria-labelledby="regt">
-   <div id="regForm">
-    <h3 id="regt">관심고객 등록하고 2 · 3단계 열기</h3>
-    <p class="sub">이름과 연락처만 남겨 주시면 <b>호실 고르는 법</b>과 <b>나만의 시그니처 만들기</b>가 바로 열리고, 상담팀장이 궁금한 점을 직접 안내해 드립니다.</p>
-    <form id="f" novalidate>
-     <div class="two">
-      <label class="fld" for="nm">성함<input id="nm" name="name" autocomplete="name" required></label>
-      <label class="fld" for="tl">연락처<input id="tl" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" required></label>
-     </div>
-     <label class="ck"><input type="checkbox" id="c1"><span><b>[필수]</b> 개인정보 수집 · 이용에 동의합니다
-      <details><summary>내용 보기</summary>수집자: 상동역 롯데캐슬 시그니처 분양 상담팀장 김성태(010-8315-9602) · 목적: 자료 열람 안내와 분양 상담 연락 · 항목: 성함, 연락처 · 보유기간: 수집일부터 6개월, 이후 즉시 파기 · 제3자 제공 없음 · 동의하지 않을 수 있으며, 이 경우 전화로 상담을 받으실 수 있습니다.</details></span></label>
-     <label class="ck"><input type="checkbox" id="c2"><span>[선택] 분양 소식 · 이벤트 문자 수신에 동의합니다
-      <details><summary>내용 보기</summary>오전 9시~오후 6시에만 보냅니다. 동의하지 않아도 자료 열람과 상담을 받으실 수 있으며, 언제든 ‘수신거부’ 문자로 철회할 수 있습니다.</details></span></label>
-     <p class="err" id="err" role="alert"></p>
-     <button class="btn btn-g" type="submit" id="go" style="width:100%">등록하고 2 · 3단계 열기</button>
-    </form>
-    <div class="trust"><span>✓ 개인정보 6개월 후 파기</span><span>✓ 문자는 오전 9시~오후 6시만</span><span>✓ 상담팀장 김성태 직접 연락</span></div>
-    <div class="codebox">상담 때 초대 코드를 받으셨나요? <input id="code" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="초대 코드 네 자리"></div>
-   </div>
-   <div id="regDone" class="ok" hidden>등록되었습니다. 2 · 3단계가 열렸습니다. 상담팀장이 곧 연락드리겠습니다.</div>
-  </section>
 
-  <a class="card lock" id="c2card" href="2/"><span class="no" id="n2">2</span><span><h2>우리 가족 호실 고르는 법</h2><p class="d">대출 → 동 → 타입 → 호수 → 층, 결정하는 순서대로 한 장씩 따라가는 7단계 안내</p></span><span class="go" id="g2">🔒 등록 후 열림</span></a>
-  <a class="card main lock" id="c3card" href="3/"><span class="no" id="n3">3</span><span><h2>나만의 시그니처 만들기 <span class="tag">약 3분</span></h2><p class="d">고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션. 동 → 타입 → 호수 → 층을 고르면 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 ‘우리 집 사양서’로 완성됩니다.</p></span><span class="go" id="g3">🔒 등록 후 열림</span></a>
+  <a class="card" id="c2card" href="2/"><span class="no" id="n2">2</span><span><h2>우리 가족 호실 고르는 법</h2><p class="d">대출 → 동 → 타입 → 호수 → 층, 결정하는 순서대로 한 장씩 따라가는 7단계 안내</p></span><span class="go" id="g2">보기 →</span></a>
+  <a class="card main" id="c3card" href="3/"><span class="no" id="n3">3</span><span><h2>나만의 시그니처 만들기 <span class="tag">약 3분</span></h2><p class="d">고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션. 동 → 타입 → 호수 → 층을 고르면 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 ‘우리 집 사양서’로 완성됩니다.</p><p class="d" style="margin-top:6px;font-size:13.5px">시작할 때 한 번 성함 · 연락처를 남기고 개인정보 수집 · 이용에 동의하면 열립니다. 고른 호실은 상담팀장이 계약 가능 여부를 확인해 드립니다.</p></span><span class="go" id="g3">만들기 →</span></a>
  </div>
 
  <div class="how">
@@ -123,25 +102,7 @@ a.card:hover{border-color:var(--gold)}
   var S=window.SIG, $=function(i){return document.getElementById(i);};
   $('smsBtn').href=S.sms('상담 문의드립니다. 성함: ');
   function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){t.hidden=true;},2600);}
-  function paint(){
-    var u=S.unlocked();
-    ['2','3'].forEach(function(n){var c=$('c'+n+'card'); c.classList.toggle('lock',!u); $('g'+n).textContent=u?(n==='3'?'만들기 →':'보기 →'):'🔒 등록 후 열림';});
-    $('regForm').hidden=u; $('regDone').hidden=!u;
-  }
-  paint();
-  ['c2card','c3card'].forEach(function(id){ $(id).addEventListener('click',function(e){ if(!S.unlocked()){ e.preventDefault(); $('reg').scrollIntoView({behavior:'smooth',block:'start'}); setTimeout(function(){$('nm').focus();},400); toast('관심고객 등록 후 열립니다'); } }); });
-  if(/need=1/.test(location.search)) toast('관심고객 등록 후 이용하실 수 있습니다');
-  $('tl').addEventListener('blur',function(){ if(S.validTel(this.value)) this.value=S.fmtTel(this.value); });
-  $('f').addEventListener('submit',function(e){
-    e.preventDefault(); var n=$('nm').value.trim(), t=$('tl').value.trim(), err=$('err');
-    if(n.length<2){err.textContent='성함을 입력해 주세요.';$('nm').focus();return;}
-    if(!S.validTel(t)){err.textContent='휴대폰 번호를 확인해 주세요 (예: 010-1234-5678).';$('tl').focus();return;}
-    if(!$('c1').checked){err.textContent='필수 동의에 체크해 주세요.';return;}
-    err.textContent=''; var b=$('go'); b.disabled=true; b.textContent='등록 중…';
-    var rt=(function(){try{return localStorage.getItem('sig-return')||''}catch(e){return ''}})(), sm=/[?&]s=([^&#]*)/.exec(rt);
-    S.register({name:n,tel:S.fmtTel(t),mkt:$('c2').checked,memo:sm?decodeURIComponent(sm[1]):'',interest:/[?&]c=/.test((function(){try{return localStorage.getItem('sig-return')||''}catch(e){return ''}})())?'상담 사양서 열람':'자료 열람 등록'}).then(function(){ if(S.afterUnlock()) return; paint(); toast('등록되었습니다. 2 · 3단계가 열렸습니다'); $('c2card').scrollIntoView({behavior:'smooth',block:'center'}); });
-  });
-  $('code').addEventListener('input',function(){ this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length===4){ if(this.value===S.code){ S.unlock(); if(S.afterUnlock()) return; paint(); toast('초대 코드 확인 · 2 · 3단계가 열렸습니다'); } else { toast('코드가 맞지 않습니다'); this.value=''; } } });
+  if(/need=1/.test(location.search)) toast('나만의 시그니처 만들기는 시작할 때 성함과 연락처를 받습니다');
 })();
 </script>
 </body>

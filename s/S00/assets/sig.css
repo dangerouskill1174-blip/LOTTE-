@@ -51,3 +51,12 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .lbf span{font-size:12.5px;color:rgba(245,241,232,.7);text-align:center}
 .lbs{flex:1;position:relative;overflow:hidden;touch-action:none}
 .lbs img{position:absolute;left:50%;top:50%;transform-origin:center center;background:#fff;border-radius:4px;user-select:none;-webkit-user-select:none}
+
+.lbs img{will-change:transform;-webkit-user-drag:none;touch-action:none;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.lbf{gap:8px}
+.lbf #lbp,.lbf #lbq{width:56px;min-height:52px;padding:0;font-size:30px;line-height:1;background:rgba(245,241,232,.08)}
+.lbm{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.lbm #lbk{font-weight:800;font-size:15px;color:#F2C14E}
+.lbm #lbh{font-size:12px;color:rgba(245,241,232,.7);text-align:center}
+.lbf .lbr{font-size:13px;padding:0 10px}
+.lbf .lbr[hidden]{display:none}
