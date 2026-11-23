@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처</title>
-<meta name="description" content="동 → 타입 → 호수 → 층을 고르면 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 우리 집 사양서로. 상담팀장 김성태 010-8315-9602">
+<meta name="description" content="동 → 타입 → 호수 → 층을 고르면 분양가와 입주 때 필요한 돈, 평면과 향까지 한 장의 우리 집 사양서로. (주)디어 010-8315-9602">
 <meta property="og:type" content="website"><meta property="og:title" content="나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처">
 <meta property="og:description" content="고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션 · 약 3분"><meta property="og:image" content="https://dangerouskill1174-blip.github.io/LOTTE-/assets/og.jpg"><meta property="og:url" content="https://dangerouskill1174-blip.github.io/LOTTE-/3/">
 <meta name="theme-color" content="#16203A">
-<script src="../assets/sig.js"></script><script src="../assets/qrcode.js"></script><script src="../assets/share.js"></script><script src="../assets/pdfsave.js"></script>
+<script src="../assets/sig.js"></script><script src="../assets/qrcode.js"></script><script src="../assets/share.js"></script><script src="../assets/pdfsave.js"></script><script src="../assets/ask.js" data-bottom="92"></script>
 </head><body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
 <style>
@@ -298,7 +298,7 @@ body{word-break:keep-all;overflow-wrap:break-word}
 <div class="wrap">
   <div class="rail" id="rail"><div class="rail-in" id="pills"></div><div class="picks" id="picks"></div></div>
   <div class="layout"><main id="app"></main><aside class="side" id="side" aria-label="우리 집 사양 요약"></aside></div>
-  <div class="foot"><span>상동역 롯데캐슬 시그니처 · 입주자모집공고 공급금액 기준 · 대출 · 세금은 2026.11 기준 추정<br>조망 등은 동 · 층 · 호수별로 다르며 단지 주변 시설로 소음 등 영향이 있을 수 있습니다. 계약 전 입주자모집공고와 모형도로 꼭 확인하세요. 이미지는 이해를 돕기 위한 것으로 실제와 다를 수 있습니다.</span><span>상담팀장 김성태 010-8315-9602</span></div>
+  <div class="foot"><span>상동역 롯데캐슬 시그니처 · 입주자모집공고 공급금액 기준 · 대출 · 세금은 2026.11 기준 추정 · 자료 기준일 2026-11-23 · 제공 디어 에듀테크<br>조망 등은 동 · 층 · 호수별로 다르며 단지 주변 시설로 소음 등 영향이 있을 수 있습니다. 계약 전 입주자모집공고와 모형도로 꼭 확인하세요. 이미지는 이해를 돕기 위한 것으로 실제와 다를 수 있습니다.</span><span>(주)디어 010-8315-9602</span></div>
 <div class="pbar" id="pbar"></div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -374,7 +374,7 @@ const BANDS = [
 const bandName=(l,b)=> b.id==='b40' ? `40~${l.top}층` : b.name;
 const MID = ['2027.10.28','2028.04.25','2029.01.23','2030.01.31','2030.07.23','2031.04.22'];
 const ACC = {bank:'수협은행',no:'1130-0065-2641',holder:'한국자산신탁주식회사'};
-const CONTACT = {title:'상담팀장', who:'상담팀장 김성태', tel:'010-8315-9602', raw:'01083159602'};
+const CONTACT = {title:'담당 상담사', who:'(주)디어', tel:'010-8315-9602', raw:'01083159602'};
 // 관심고객 등록 구글 폼 (링크를 받으면 채움). ENTRY: 미리 채우기 칸 번호
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScoww7vWO-2Gkv2I73mLapcq1bywkjSalua_2MlVA6X8tvm-Q/viewform';
 const ENTRY = {route:'entry.129554350', interest:'entry.845129582'};
@@ -604,7 +604,7 @@ function s5(){
     const tip = b.id==='b1019'?'10개 층이 같은 가격 · 19층에 가까울수록 이득':(b.id==='b69'?'같은 가격 구간 · 9층에 가까울수록 이득':(b.id==='b2025'?'고층부 시작 · 같은 가격 구간':(b.id==='b2739'?'26층은 피난층 · 27층부터 같은 가격':(b.id==='b40'?'최상층부 구간':'가장 적은 돈으로 시작'))));
     return `<button class="opt ${S.band===b.id?'sel':''}" data-band="${b.id}"><span class="k">${bandName(l,b)}</span><span class="t" style="font-size:22px">${eok(v)}</span><div class="pbarv"><div class="bar"><i style="width:${pmax>pmin?Math.round(25+75*(v-pmin)/(pmax-pmin)):60}%"></i></div><small>${v===pmin?'이 호수에서 가장 낮은 가격':'가장 낮은 구간보다 +'+man(v-pmin)}</small></div>${SHOWV?`<span class="ref">상담 참고 · ${vf[b.v]} (추정)</span>`:''}<span class="d">${tip}</span><span>${loanTag(ln)}${st==='u'?'<span class="tag tgold">층 현장 확인</span>':''}${!CAN?'<span class="tag tgold">가능 여부 상담 확인</span>':''}</span></button>`;}).join('');
   return el(`<section class="step"><p class="eyebrow">STEP ⑤ · 층</p><h2 class="q">몇 층에서 살고 싶으세요?</h2>
-  <p class="sub">${l.dong}동 ${l.ho}호 ${l.type} · ${l.dir}향. 같은 가격 구간이면 위층부터 보는 것이 유리합니다. ${CAN?'현황판 기준 상담 가능한 층 구간입니다.':'층 구간별 공급금액입니다. 계약 가능 여부는 선착순이라 상담팀장이 확인해 드립니다.'}</p>
+  <p class="sub">${l.dong}동 ${l.ho}호 ${l.type} · ${l.dir}향. 같은 가격 구간이면 위층부터 보는 것이 유리합니다. ${CAN?'현황판 기준 상담 가능한 층 구간입니다.':'층 구간별 공급금액입니다. 계약 가능 여부는 선착순이라 담당 상담사이 확인해 드립니다.'}</p>
   <div class="grid g3">${items||'<p class="sub">조건에 맞는 층은 상담사가 현황판으로 따로 안내합니다.</p>'}</div>${nav(!!S.band,'결과 보기 →')}</section>`);
 }
 function moneyRows(c){
@@ -720,9 +720,9 @@ function sheetHTML(idx=0){
 <div><h2>${l.type} 평면 · 실사용 약 ${T.use}평 · 발코니 확장 무상</h2><img class="plan" src="plans/${l.type}.jpg" alt="${l.type} 평면도"><p style="font-size:10px;color:#6B6F78;margin-top:2px">전용 ${T.ex}평 + 발코니 확장 ${T.bal}평 · 공급 ${T.sup.toFixed(2)}㎡ · 계약 ${T.con.toFixed(2)}㎡${T.model?' · 견본주택 건립':''}</p>
 <h2>이 호실의 좋은 점</h2><ul>${features(c).map(x=>`<li>${x}</li>`).join('')}</ul>
 <h2>계약할 때 놓치기 쉬운 것</h2><ul>${CHECK.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
-<div class="sig"><div><b>가능 여부 확인 (상담팀장)</b><br>확인 (&nbsp;&nbsp;&nbsp;&nbsp;) · 확정 ${u0||'______'}</div><div><b>가족 동의</b><br>(&nbsp;&nbsp;&nbsp;&nbsp;)</div><div><b>${esc(S.info.agent)||CONTACT.who}</b><br>${esc(S.info.phone)||CONTACT.tel}</div></div>
+<div class="sig"><div><b>가능 여부 확인 (담당 상담사)</b><br>확인 (&nbsp;&nbsp;&nbsp;&nbsp;) · 확정 ${u0||'______'}</div><div><b>가족 동의</b><br>(&nbsp;&nbsp;&nbsp;&nbsp;)</div><div><b>${esc(S.info.agent)||CONTACT.who}</b><br>${esc(S.info.phone)||CONTACT.tel}</div></div>
 ${qri?`<div class="qrb"><img src="${qri}" alt="휴대폰으로 이어 보기 QR"><div><b>휴대폰으로 이어 보기 · 카메라로 QR을 찍어 주세요</b><p>성함과 연락처를 남기시면 이 1 · 2 · 3순위 그대로 휴대폰에서 다시 보고 바꿀 수 있고, 고른 순위가 담당 ${CONTACT.title}에게 바로 전달되어 계약 가능 여부를 알려 드립니다.</p><p class="pv"><strong>개인정보 안내</strong> 수집 항목 성함 · 연락처 · 목적 분양 상담 연락과 계약 가능 여부 회신 · 보유 기간 수집일부터 6개월 후 파기 · 제3자 제공 없음. <strong>동의하지 않으시면 QR을 찍지 않으셔도 됩니다.</strong> 이 사양서에 상담 내용이 모두 담겨 있습니다.</p></div></div>`:''}
-<p class="fine">※ 계약 가능 여부와 층 · 호수는 선착순이라 상담팀장 확인 후 확정되며, 이 사양서는 계약서가 아닙니다. 금액은 입주자모집공고 공급금액 기준이고 취득세 · 이자는 추정치이며, 대출은 10·15 대책 · 대출 시점 시가 · 소득(DSR) 기준으로 달라질 수 있으며 1주택자는 처분 조건이 붙고 수도권 다주택자는 주택담보대출이 제한됩니다. 취득세는 잔금(취득) 때 보유 주택 수에 따라 달라집니다. 향은 단지배치도 방위표 기준이며 조망은 동 · 층 · 호수별로 달라 모형도와 현장에서 확인합니다. 평면도는 이해를 돕기 위한 것으로 일부 세대는 좌우 대칭으로 시공됩니다. 단지 주변 시설로 소음 등 영향이 있을 수 있으니 입주자모집공고를 확인하세요. 구비서류는 현장 기준으로 다시 확인합니다.</p></div>`;
+<p class="fine">※ 계약 가능 여부와 층 · 호수는 선착순이라 담당 상담사 확인 후 확정되며, 이 사양서는 계약서가 아닙니다. 금액은 입주자모집공고 공급금액 기준이고 취득세 · 이자는 추정치이며, 대출은 10·15 대책 · 대출 시점 시가 · 소득(DSR) 기준으로 달라질 수 있으며 1주택자는 처분 조건이 붙고 수도권 다주택자는 주택담보대출이 제한됩니다. 취득세는 잔금(취득) 때 보유 주택 수에 따라 달라집니다. 향은 단지배치도 방위표 기준이며 조망은 동 · 층 · 호수별로 달라 모형도와 현장에서 확인합니다. 평면도는 이해를 돕기 위한 것으로 일부 세대는 좌우 대칭으로 시공됩니다. 단지 주변 시설로 소음 등 영향이 있을 수 있으니 입주자모집공고를 확인하세요. 구비서류는 현장 기준으로 다시 확인합니다.</p></div>`;
 }
 function s7(){
   const list=listForSheet();
@@ -882,23 +882,21 @@ const GATE=window.GATE=(function(){
     o.innerHTML=`<form class="gate-in" novalidate><p class="eyebrow">나만의 시그니처 만들기 · 시작 전 한 번</p><h2>성함과 연락처를 남겨 주세요</h2>
 <p class="sub">${why||'남겨 주시면 바로 시작됩니다.'} 고른 호실은 담당 ${CONTACT.who}에게 전달되어 계약 가능 여부를 알려 드립니다.</p>
 <div class="gate-f"><label class="field" for="gnm">성함<input id="gnm" autocomplete="name" required></label><label class="field" for="gtl">연락처<input id="gtl" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" required></label></div>
-<div class="gate-pv"><b>개인정보 수집 · 이용 안내</b><ul><li>수집하는 곳: 상동역 롯데캐슬 시그니처 분양 ${CONTACT.who} (${CONTACT.tel})</li><li>목적: 나만의 시그니처 열람, 고른 호실의 계약 가능 여부 회신과 분양 상담 연락</li><li>항목: 성함, 연락처 (고른 호실 정보가 함께 전달됩니다)</li><li>보유 기간: 수집일부터 6개월, 이후 즉시 파기 · 제3자 제공 없음</li><li><b>동의하지 않으셔도 됩니다.</b> 이 경우 휴대폰 화면은 열리지 않지만 전화 상담이나 종이 사양서로 같은 내용을 안내받으실 수 있습니다.</li></ul></div>
-<label class="gate-ck"><input type="checkbox" id="gc1"><span><b>[필수]</b> 위 개인정보 수집 · 이용에 동의합니다</span></label>
-<label class="gate-ck"><input type="checkbox" id="gc2"><span>[선택] 분양 소식 문자 수신에 동의합니다 (오전 9시~오후 6시, 언제든 수신거부)</span></label>
+${SIG.consentHTML({id:'gc'})}
 <p class="gate-err" id="gerr" role="alert"></p>
 <div class="gate-b"><button class="btn btn-g" type="submit" id="ggo">동의하고 시작하기</button><button class="btn btn-s" type="button" data-gx>다음에 할게요</button><a class="btn btn-s" style="text-decoration:none" href="tel:${CONTACT.raw}">전화 상담</a></div></form>`;
     document.body.appendChild(o);
     const f=o.querySelector('form'), er=o.querySelector('#gerr');
-    o.querySelector('[data-gx]').onclick=close;
+    o.querySelector('[data-gx]').onclick=close; SIG.bindConsent(o,'gc');
     if(S.info.cust) o.querySelector('#gnm').value=S.info.cust;
     f.addEventListener('submit',async e=>{ e.preventDefault();
       const n=o.querySelector('#gnm').value.trim(), t=o.querySelector('#gtl').value.trim();
       if(!n){ er.textContent='성함을 적어 주세요'; return; }
       if(!SIG.validTel(t)){ er.textContent='연락처를 확인해 주세요 (예: 010-1234-5678)'; return; }
-      if(!o.querySelector('#gc1').checked){ er.textContent='[필수] 개인정보 수집 · 이용에 동의하셔야 시작할 수 있습니다'; return; }
+      const cs=SIG.readConsent(o,'gc'); if(!cs.ack){ er.textContent='[필수] 개인정보 수집 · 이용에 동의하셔야 시작할 수 있습니다'; return; }
       er.textContent=''; const b=o.querySelector('#ggo'); b.disabled=true; b.textContent='보내는 중…';
       const rk=ranks(); const memo=[SMEMO, rk?'[후보] '+rk:''].filter(Boolean).join(' / ');
-      await SIG.register({name:n,tel:SIG.fmtTel(t),mkt:o.querySelector('#gc2').checked,interest:rk?'사양서 열람 · '+rk.split(' / ')[0]:'나만의 시그니처 만들기 시작',memo});
+      await SIG.register({name:n,tel:SIG.fmtTel(t),consent:cs,interest:rk?'사양서 열람 · '+rk.split(' / ')[0]:'나만의 시그니처 만들기 시작',memo});
       S.info.cust=n; save(); close(); toast('등록되었습니다 · '+CONTACT.who+'에게 전달했습니다'); if(cb) cb(); });
     setTimeout(()=>{ const x=o.querySelector('#gnm'); if(x&&!x.value) x.focus(); },60);
   }
@@ -914,7 +912,7 @@ function sheetView(){
   const fl=new URL('../flyer/',location.href).href, self=simBase()+'?from=sheet&c='+candCode();
   const r=document.createElement('div'); r.className='svroot';
   r.innerHTML=list.length?`<div class="svbar"><div class="svt"><b>우리 가족 시그니처 사양서</b><span>1 · 2 · 3순위 · A4 ${list.length}장 · 상동역 롯데캐슬 시그니처</span></div><div class="svb"><button class="btn btn-g" type="button" id="svp">PDF 파일 저장</button><button class="btn btn-s svw" type="button" id="svq">인쇄</button><button class="btn btn-s svw" type="button" id="svs">가족에게 보내기</button><a class="btn btn-p" style="text-decoration:none" href="${self}">휴대폰에서 직접 골라 보기</a><a class="btn btn-s svw" style="text-decoration:none" href="${fl}">단지 안내 전단</a></div><p class="svpv">‘직접 골라 보기’는 성함 · 연락처와 개인정보 동의 후 열립니다. 원하지 않으시면 이 사양서만 보셔도 됩니다.</p></div><div class="svpages">${list.map((x,i)=>`<div class="svpg">${sheetHTML(i)}</div>`).join('')}</div>`
-   :`<div class="svbar"><div class="svt"><b>사양서를 찾지 못했습니다</b><span>링크가 잘렸을 수 있습니다. 상담팀장에게 다시 받아 주세요 · ${CONTACT.who} ${CONTACT.tel}</span></div></div>`;
+   :`<div class="svbar"><div class="svt"><b>사양서를 찾지 못했습니다</b><span>링크가 잘렸을 수 있습니다. 담당 상담사에게 다시 받아 주세요 · ${CONTACT.who} ${CONTACT.tel}</span></div></div>`;
   document.body.appendChild(r);
   const fit=()=>{ const w=Math.min(innerWidth,document.documentElement.clientWidth||innerWidth); const z=w<820?Math.max(.3,(w-16)/794):1; r.querySelectorAll('.svpg').forEach(p=>p.style.zoom=z); };
   fit(); addEventListener('resize',fit); addEventListener('beforeprint',()=>r.querySelectorAll('.svpg').forEach(p=>p.style.zoom=1)); addEventListener('afterprint',fit);

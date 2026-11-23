@@ -9,7 +9,7 @@
   var base = (document.currentScript && document.currentScript.src) ? new URL('./', document.currentScript.src).href : new URL('./', location.href).href;
 
   function wipe() {
-    try { ['sig-S00-staff-k', 'hosil', 'sig-S00-lead', 'sig-S00-board', 'sig-S00-help-seen'].forEach(function (k) { localStorage.removeItem(k); sessionStorage.removeItem(k); }); } catch (e) {}
+    try { ['sig-S00-staff-k', 'hosil', 'sig-S00-lead', 'sig-S00-board', 'sig-S00-help-seen', 'sig-S00-edu', 'sig-S00-kw', 'sig-S00-qseen'].forEach(function (k) { localStorage.removeItem(k); sessionStorage.removeItem(k); }); } catch (e) {}
     try { if (window.caches) caches.keys().then(function (ks) { ks.forEach(function (k) { if (mine(k)) caches.delete(k); }); }); } catch (e) {}
   }
   function judge(st, now) {

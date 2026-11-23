@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow">
+<title>광고 수신거부 · 상동역 롯데캐슬 시그니처</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@700&display=swap">
+<script src="../assets/sig.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F3F0EA;font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:#141B2D;word-break:keep-all;line-height:1.6}
+.top{background:#141B2D;color:#F5F1E8;padding:16px max(16px,env(safe-area-inset-left,0px)) 18px}
+.top p{margin:0;font-size:12.5px;letter-spacing:.12em;color:#E8C77A;font-weight:800}.top h1{margin:4px 0 0;font-family:'Noto Serif KR',serif;font-size:24px}
+.wrap{max-width:560px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 60px}
+.card{background:#fff;border:1px solid #E3DCCF;border-radius:16px;padding:18px;margin-top:14px}
+label.f{display:block;font-weight:700;font-size:14px;margin-top:4px}
+input[type=tel]{display:block;width:100%;margin-top:6px;min-height:52px;font-size:18px;padding:10px 12px;border:1.5px solid #D9D1C3;border-radius:10px;font-family:inherit}
+.md{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.md label{display:flex;gap:8px;align-items:center;border:1.5px solid #DDD5C6;border-radius:12px;padding:12px;font-weight:700;cursor:pointer}
+.md input{width:20px;height:20px;accent-color:#141B2D}
+button.go{width:100%;min-height:54px;margin-top:16px;border:0;border-radius:12px;background:#141B2D;color:#F6E7C1;font-weight:800;font-size:17px;font-family:inherit;cursor:pointer}
+.err{color:#A4432F;font-weight:700;min-height:1.3em;margin:10px 0 0}
+.c080{font-size:22px;font-weight:800;margin:4px 0 0}
+.fine{font-size:12.5px;color:#6A7180;margin-top:16px}
+</style></head><body>
+<header class="top"><p>상동역 롯데캐슬 시그니처</p><h1>광고 수신거부</h1></header>
+<main class="wrap">
+ <div class="card" id="c080" hidden><b>전화로 거부하기 (무료)</b><p class="c080" id="n080"></p><p style="margin:4px 0 0;color:#5A6170">안내에 따라 누르시면 바로 처리됩니다.</p></div>
+ <form class="card" id="f" novalidate>
+  <p style="margin:0 0 12px">분양 소식 · 혜택 등 <b>광고</b> 문자 · 카카오톡 · 전화를 더 받지 않으시려면 받으신 번호를 적어 주세요. 요금은 들지 않습니다.</p>
+  <label class="f" for="tl">휴대폰 번호</label><input id="tl" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000">
+  <div class="md">
+   <label><input type="radio" name="m" value="전체" checked> 모두 거부</label>
+   <label><input type="radio" name="m" value="문자"> 문자만</label>
+   <label><input type="radio" name="m" value="카톡"> 카카오톡만</label>
+   <label><input type="radio" name="m" value="전화"> 전화만</label>
+  </div>
+  <p class="err" id="er" role="alert"></p>
+  <button class="go" id="go">수신거부 하기</button>
+ </form>
+ <p class="fine" id="fine"></p>
+</main>
+<script>
+(function(){
+  var S=window.SIG;
+  if(S.optMode==='080'&&S.opt080){ document.getElementById('c080').hidden=false; document.getElementById('n080').innerHTML='<a href="tel:'+S.opt080.replace(/\D/g,'')+'" style="color:inherit">'+S.esc(S.opt080)+'</a>'; }
+  document.getElementById('fine').textContent='보낸 곳: '+S.collector+' ('+S.collectorTel+') · 처리 결과는 14일 안에 알려 드립니다. 요청하신 상담에 대한 답변 · 계약 관련 안내는 광고가 아니어서 계속 받으실 수 있습니다. 제공 '+S.operator;
+  var f=document.getElementById('f'), er=document.getElementById('er');
+  f.addEventListener('submit',function(e){ e.preventDefault();
+    var t=document.getElementById('tl').value.trim(), m=f.querySelector('input[name=m]:checked').value;
+    if(!S.validTel(t)){ er.textContent='휴대폰 번호를 확인해 주세요 (예: 010-1234-5678)'; return; }
+    er.textContent=''; var b=document.getElementById('go'); b.disabled=true; b.textContent='처리하는 중…';
+    S.optout({tel:S.fmtTel(t),media:m}).then(function(){
+      f.innerHTML='<h2 style="margin:0;font-family:\'Noto Serif KR\',serif">수신거부를 받았습니다</h2><p style="margin:8px 0 0">'+S.esc(S.fmtTel(t))+' 번호로 '+(m==='전체'?'광고 문자 · 카카오톡 · 전화를':'광고 '+m+'를')+' 더 보내지 않습니다. 처리 결과는 14일 안에 알려 드립니다.</p>';
+    }).catch(function(){ b.disabled=false; b.textContent='수신거부 하기'; er.textContent='처리하지 못했습니다. 잠시 뒤 다시 눌러 주시거나 '+S.collectorTel+'로 알려 주세요'; });
+  });
+})();
+</script>
+</body></html>
