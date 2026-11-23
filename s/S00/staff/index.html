@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="상담 데스크">
 <meta name="theme-color" content="#0F1729"><meta name="color-scheme" content="light">
 <script src="sub.js"></script>
+<script src="../assets/reg.js"></script><script src="../assets/site.js"></script>
 <script src="deskx.js"></script>
 <style>
 :root{--bg:#F6F3EE;--surface:#fff;--surface2:#FBF9F5;--ink:#0F1729;--muted:#5E6677;--line:#E6E0D5;--line2:#D9D1C3;--navy:#0F1729;--navy-ink:#F5F1E8;--gold:#7A4F00;--gold2:#E8B547;--gold-soft:#FBE7B5;--gold-ink:#4A2E00;--rust:#A4432F;
@@ -144,7 +145,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 <div id="root"><p class="loading">여는 중…</p></div>
 <script>
 (function(){
-var PAGES={hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,kit:1,admin:1,edu:1,qa:1,set:1,stat:1};
+var PAGES={hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,kit:1,admin:1,edu:1,qa:1,set:1,stat:1,src:1};
 var DCFG={api:'',sid:'S00'}, RAW=null, W=null;
 var te=new TextEncoder(), td=new TextDecoder();
 var K=null, KEY=null, $=function(q){return document.querySelector(q)};
@@ -160,6 +161,9 @@ async function unwrap(pw,w){var base=await crypto.subtle.importKey('raw',te.enco
   var kek=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(w.salt),iterations:w.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
   var u=b64(w.wrap);return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},kek,u.slice(12)))}
 async function useRaw(raw){RAW=raw;KEY=await crypto.subtle.importKey('raw',raw,{name:'AES-GCM'},true,['decrypt']);return check()}
+function isDemo(){try{return localStorage.getItem('sig-S00-demo')==='1'}catch(e){return false}}
+// 자리를 비우면 잠금 (시연판 제외) · 20분
+(function(){var t=Date.now();['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(){t=Date.now()},{passive:true,capture:true})});setInterval(function(){if(KEY&&!isDemo()&&Date.now()-t>20*60e3){sdel('sig-S00-staff-k');KEY=null;RAW=null;lockView('20분 동안 사용하지 않아 잠갔습니다')}},30e3)})();
 function hasApi(){return /^https?:\/\//.test(DCFG.api)}
 // 비밀번호를 바꿨으면 웹앱에 새 열쇠 감싸기가 있음 (없거나 연결이 안 되면 이 태블릿에 저장된 것 → 기본)
 async function pickWrap(){var base={salt:K.salt,iter:K.iter,wrap:K.wrap,kid:K.kid},c=null;try{c=JSON.parse(localStorage.getItem('sig-S00-kw')||'null')}catch(e){}
@@ -194,7 +198,7 @@ async function hydrate(){
 async function show(){
   var p=page();
   if(window.DESKX){
-    if(p==='edu'||p==='qa'||p==='set'||(p==='stat'&&DCFG.sid==='OWNER')){$('#root').innerHTML='';DESKX[p]($('#root'));return}
+    if(p==='edu'||p==='qa'||p==='set'||p==='src'||(p==='stat'&&DCFG.sid==='OWNER')){$('#root').innerHTML='';DESKX[p]($('#root'));return}
     if(!DESKX.trained()){$('#root').innerHTML='';DESKX.edu($('#root'),'first');return}
   }
   try{
@@ -245,6 +249,11 @@ var SUBRES=null;
   if(!SUBRES.ok){ $('#root').innerHTML=SIGSUB.screen(SUBRES); return; }
   try{K=await (await fetch('k.json',{cache:'no-cache'})).json()}catch(e){$('#root').innerHTML='<p class="loading">연결을 확인해 주세요</p>';return}
   if(!window.crypto||!crypto.subtle){lockView('이 브라우저에서는 열 수 없습니다');return}
+  // 시연 링크: #demo&k=열쇠 → 이 기기에 저장하고 주소에서 지움 (비밀번호 없이 열림)
+  try{var hm=/[#&]k=([A-Za-z0-9_-]+)/.exec(location.hash);if(hm){var raw0=b64(hm[1].replace(/-/g,'+').replace(/_/g,'/')+'==='.slice((hm[1].length+3)%4));
+    if(await useRaw(raw0)){localStorage.setItem('sig-S00-staff-k',K.kid+'|'+ub64(raw0));if(/demo/.test(location.hash))localStorage.setItem('sig-S00-demo','1');}
+    history.replaceState(null,'',location.pathname+location.search)}}catch(e){}
+  if(isDemo())document.querySelector('.bt').innerHTML='상담 데스크 <span style="background:#E8B547;color:#141B2D;border-radius:6px;padding:1px 7px;margin-left:6px;letter-spacing:0">시연판</span>';
   var s=sget('sig-S00-staff-k');
   if(s&&s.split('|')[0]===K.kid){try{if(await useRaw(b64(s.split('|')[1]))){deskObj();return show()}}catch(e){}}
   sdel('sig-S00-staff-k');lockView();

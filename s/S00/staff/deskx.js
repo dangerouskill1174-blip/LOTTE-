@@ -35,13 +35,14 @@
       '.dx .err{color:var(--rust);font-weight:700;min-height:1.4em;margin-top:8px}.dx .ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-weight:600}.dx .ck input{width:22px;height:22px;margin-top:2px}' +
       '.dx table{width:100%;border-collapse:collapse;font-size:14.5px}.dx th,.dx td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.dx th{background:var(--surface2);font-size:13px;color:var(--muted)}.dx td.n{text-align:right;font-variant-numeric:tabular-nums}' +
       '.dx .qi{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px;background:var(--surface)}.dx .qi.new{border-color:var(--gold2);box-shadow:0 0 0 3px var(--gold-soft)}.dx .qh{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}.dx .qq{font-size:17px;margin:8px 0;white-space:pre-wrap}.dx .qa{background:var(--surface2);border-radius:10px;padding:10px 12px;white-space:pre-wrap;font-size:15px}.dx .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.dx .pill{font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;background:var(--gold-soft);color:var(--gold-ink)}.dx .pill.done{background:#E3F2EA;color:#0F6B4F}' +
+      '.dx .demo{margin-top:12px;background:#FFF6DB;border:1.5px solid #E8B547;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.dx .demo b{background:#141B2D;color:#F6E7C1;border-radius:8px;padding:2px 8px;font-size:13px}.dx .alt{margin-top:12px;border:1px dashed var(--line2);border-radius:12px;padding:10px 12px}.dx .alt .btn[disabled]{opacity:.5}' +
       '.dx .cert{margin-top:14px;overflow:auto}.dx .note{font-size:14px;color:var(--muted);margin-top:10px}';
     document.head.appendChild(s);
   }
 
   /* ================= 개인정보 보안교육 ================= */
   var L = [
-    { t: '왜 지금 중요한가', p: ['분양 현장은 방문카드 · 관심고객 명단 · 광고 문자로 개인정보를 가장 많이 다루는 곳입니다.', '<b>2026년 10월 1일 이후</b> 위반부터 동의 없는 광고 전송의 과징금은 관련 매출액의 <b>6% 이하</b>, 개인정보 위반은 전체 매출액의 <b>3% 이하</b>까지 부과될 수 있습니다.', '프리랜서 상담사가 직접 고객에게 동의를 받고 직접 연락하면, <b>상담사 본인이 개인정보처리자이자 광고 전송자</b>입니다. 책임도 본인에게 있습니다.', '이 교육은 상담 데스크를 쓰기 전에 한 번, 이후 <b>분기(90일)마다</b> 다시 듣습니다.'], c: ['방문카드 명단 전체에 홍보 문자', '견본주택 방문카드에 연락처만 적은 고객 모두에게 분양 홍보 문자를 보냄 → 고객이 “광고에 동의한 적 없다”며 118에 신고 → 동의 증빙을 내지 못해 제재.'] },
+    { t: '왜 지금 중요한가', p: ['분양 현장은 방문카드 · 관심고객 명단 · 광고 문자로 개인정보를 가장 많이 다루는 곳입니다.', '개정 정보통신망법으로 불법스팸 전송자에게 관련 매출액의 <b>6% 이하</b> 과징금과 부당이익 몰수 · 추징이 생겼습니다 (방송미디어통신위원회 2026.3.24 발표 · 공포 6개월 뒤 시행). 개인정보 보호법 위반은 전체 매출액의 <b>3% 이하</b> 과징금입니다 (개인정보 보호법 제64조의2).', '프리랜서 상담사가 직접 고객에게 동의를 받고 직접 연락하면, <b>상담사 본인이 개인정보처리자이자 광고 전송자</b>입니다. 책임도 본인에게 있습니다.', '이 교육은 상담 데스크를 쓰기 전에 한 번, 이후 <b>분기(90일)마다</b> 다시 듣습니다.'], c: ['방문카드 명단 전체에 홍보 문자', '견본주택 방문카드에 연락처만 적은 고객 모두에게 분양 홍보 문자를 보냄 → 고객이 “광고에 동의한 적 없다”며 118에 신고 → 동의 증빙을 내지 못해 제재.'] },
     { t: '받을 때 · 필요한 것만, 알리고 받기', p: ['상담에 필요한 것(성함 · 연락처 · 관심 호실)만 받습니다. 주민등록번호 · 소득 · 재산 서류는 상담 단계에서 받지 않습니다.', '요청받은 상담에 답하는 범위는 <b>수집 안내</b>로 알리고, 광고 수신은 <b>따로 선택 동의</b>를 받습니다. 매체(문자 · 카톡 · 전화)마다, 밤 9시~아침 8시 수신은 또 따로.', '언제 · 어디서 · 어떤 문구로 동의했는지 <b>기록이 남아야</b> 합니다. 상담 데스크의 고객 등록 화면이 자동으로 남깁니다.', '광고 동의를 하지 않아도 상담은 똑같이 해 드립니다. 동의를 조건으로 걸지 않습니다.'], c: ['동의서 한 장에 전부 필수', '“상담 · 광고 · 제3자 제공에 모두 동의” 한 줄에 체크해야만 상담을 받게 함 → 선택 동의를 강요한 것으로 봄.'] },
     { t: '보관할 때 · 내 기기 · 내 계정 안에서만', p: ['태블릿 · 휴대폰에 화면 잠금을 켜고, 상담 데스크 암호는 다른 사람과 같이 쓰지 않습니다.', '고객카드 · 명단을 <b>사진으로 찍거나</b>, 카톡 단체방 · 개인 클라우드 · 개인 메일로 보내지 않습니다.', '상담이 끝나면 <b>‘다음 고객 맞이하기’</b>로 태블릿에서 앞 고객의 이름 · 연락처 · 후보 호실을 지웁니다.', '종이 고객카드는 잠금장치가 있는 곳에 보관하고, 파일은 비밀번호를 겁니다.'], c: ['단톡방에 고객카드 사진', '팀 단톡방에 “오늘 방문 고객”이라며 고객카드 사진을 올림 → 방에 있던 다른 현장 상담사에게까지 정보가 넘어가 유출로 신고.'] },
     { t: '광고 문자 · 카톡 · 다섯 가지 표기와 시간', p: ['광고는 <b>광고 수신에 동의한 고객</b>에게, <b>동의한 매체</b>로만 보냅니다.', '문구 맨 앞 <b>(광고)</b>, 보내는 사람 이름 · 연락처, <b>무료</b> 수신거부 방법(080 번호나 링크). “회신으로 거부”는 문자 요금이 들어 무료가 아닙니다.', '밤 9시~아침 8시 사이에 <b>도착</b>하는 광고는 야간 수신에 따로 동의한 고객에게만. 20시 50분에 보냈는데 21시 넘어 도착해도 위반입니다.', '중도금 · 계약 안내 문자에 홍보 한 줄을 붙이면 <b>문자 전체가 광고</b>가 됩니다.', '수신거부는 바로 반영하고 <b>처리 결과를 14일 안에</b> 알리며, 광고 수신 동의는 <b>2년마다</b> 고객에게 확인합니다. 대량 발송은 전송자격인증을 받은 문자 서비스만 씁니다.'], c: ['안내 문자에 홍보 한 줄', '계약자에게 보낸 중도금 납부 안내 끝에 「잔여세대 선착순 분양 중」을 덧붙임 → 문자 전체가 광고성 정보 → (광고) 표기 · 동의 없이 보낸 광고로 신고.'] },
@@ -77,6 +78,12 @@
     '[각자 전송자] 본인이 받은 연락처를 다른 사람에게 넘기려면 고객의 제3자 제공 동의를 먼저 받겠습니다.'
   ];
   var E = { i: 0, read: {}, ans: {}, quizOk: false, score: 0 };
+  function isDemo() { try { return localStorage.getItem('sig-S00-demo') === '1'; } catch (e) { return false; } }
+  function demoBar() { return isDemo() ? '<div class="demo"><b>시연판</b> 확인 문제는 정답 처리하고 바로 볼 수 있습니다. 서명 · 이수 기록은 저장하지 않습니다. <button class="btn btn-g" data-dx="demo">시연: 정답 처리하고 바로 보기</button></div>' : ''; }
+  function demoPass(root) {
+    var at = Date.now(); lset('sig-S00-edu', { person: '시연', tel: '', at: at, untilT: at + VALID_DAYS * 864e5, ver: EDU_VER, score: QZ.length, of: QZ.length, sig: '', cert: '시연판', sent: true, demo: true });
+    location.href = './';
+  }
   function rec() { return lget('sig-S00-edu'); }
   function trained() { var r = rec(); return !!(r && r.ver === EDU_VER && Date.now() < r.untilT); }
   function steps(cur) {
@@ -90,7 +97,7 @@
   }
   function edu(root, why) {
     css(); E.why = why || E.why;
-    var s = '<div class="dx">' + eduHead(0, E.why);
+    var s = '<div class="dx">' + eduHead(0, E.why) + demoBar();
     var x = L[E.i]; E.read[E.i] = 1;
     s += '<section class="dxb"><p class="eyebrow">' + (E.i + 1) + ' / ' + L.length + '강</p><h2>' + x.t + '</h2><ul class="pt">' + x.p.map(function (y) { return '<li>' + y + '</li>'; }).join('') + '</ul><div class="case"><b>실제로 이런 일이 · ' + x.c[0] + '</b><br>' + x.c[1] + '</div>' +
       '<div class="nav"><button class="btn" data-dx="prev"' + (E.i ? '' : ' disabled') + '>← 이전</button>' + (E.i < L.length - 1 ? '<button class="btn btn-p" data-dx="next">다음 강 →</button>' : '<button class="btn btn-g" data-dx="quiz">확인 문제 풀기 →</button>') + '</div></section>';
@@ -99,7 +106,7 @@
     bind(root);
   }
   function quiz(root) {
-    var s = '<div class="dx">' + eduHead(1) + '<section class="dxb"><h2>확인 문제 ' + QZ.length + '개</h2><p class="sub">' + PASS + '개 이상 맞히면 서약서로 넘어갑니다. 틀린 문제는 해설을 보고 다시 고를 수 있습니다.</p>';
+    var s = '<div class="dx">' + eduHead(1) + demoBar() + (isDemo() ? '<div class="nav" style="margin-top:10px"><span></span><button class="btn" data-dx="autofill">시연: 정답 자동 입력</button></div>' : '') + '<section class="dxb"><h2>확인 문제 ' + QZ.length + '개</h2><p class="sub">' + PASS + '개 이상 맞히면 서약서로 넘어갑니다. 틀린 문제는 해설을 보고 다시 고를 수 있습니다.</p>';
     QZ.forEach(function (q, i) {
       s += '<div class="q"><p>' + (i + 1) + '. ' + q[0] + '</p>' + q[1].map(function (o, j) { var a = E.ans[i]; var cls = a == null ? '' : (a === j ? (j === q[2] ? 'ok' : 'no') : ''); return '<label class="' + cls + '"><input type="radio" name="q' + i + '" value="' + j + '"' + (a === j ? ' checked' : '') + '><span>' + o + '</span></label>'; }).join('') + '</div>';
     });
@@ -124,6 +131,7 @@
       '<label class="field">성명<input id="pnm" autocomplete="name" value="' + esc(r.person || '') + '"></label><label class="field">휴대폰<input id="ptl" type="tel" inputmode="tel" placeholder="010-0000-0000" value="' + esc(r.tel || '') + '"></label>' +
       '<label class="ck"><input type="checkbox" id="pck"><span>위 서약 내용을 모두 읽었고, 지키겠습니다.</span></label>' +
       '<p class="field" style="margin-bottom:0">서명 <span class="sub" style="font-weight:500">(손가락이나 펜으로)</span> <button class="btn" style="min-height:34px;padding:0 12px;font-size:14px;float:right" data-dx="clr">지우기</button></p><canvas class="sig" id="psig"></canvas>' +
+      '<div class="alt"><p><b>간편인증 서명</b> <span class="pill">배포 시 제공</span></p><div class="row"><button class="btn" disabled>카카오 인증서로 서명</button><button class="btn" disabled>PASS 인증으로 서명</button><button class="btn" disabled>네이버 인증서로 서명</button></div><p class="note" style="margin-top:6px">실명 확인이 함께 되는 간편인증 서명은 정식 배포 때 전자서명 대행 서비스와 연결해 제공합니다. 지금은 손가락 서명으로 서약합니다.</p></div>' +
       '<p class="err" id="perr"></p><div class="nav"><button class="btn" data-dx="quiz">← 확인 문제</button><button class="btn btn-g" data-dx="sign">서약하고 이수 완료</button></div></section></div>';
     root.innerHTML = s; window.scrollTo(0, 0);
     sigPad($('#psig', root)); bind(root);
@@ -193,6 +201,8 @@
       else if (a === 'clr') $('#psig', root).clear();
       else if (a === 'sign') sign(root);
       else if (a === 'cert') cert(root);
+      else if (a === 'demo') demoPass(root);
+      else if (a === 'autofill') { QZ.forEach(function (q, i) { E.ans[i] = q[2]; var r0 = root.querySelector('input[name=q' + i + '][value="' + q[2] + '"]'); if (r0) r0.checked = true; }); grade(root); }
       else if (a === 'redo') { E = { i: 0, read: {}, ans: {}, quizOk: false, score: 0 }; edu(root); }
       else if (a === 'pdf') { b.disabled = true; var t = b.textContent; b.textContent = '만드는 중…'; load('../assets/pdfsave.js').then(function () { return PDFSAVE.save([certHTML(rec())], '보안교육_이수증_' + rec().person + '.pdf'); }).then(function () { toast('PDF로 저장했습니다 · 다운로드 폴더'); }).catch(function () { toast('저장하지 못했습니다'); }).then(function () { b.disabled = false; b.textContent = t; }); }
     };
@@ -245,11 +255,13 @@
       (hasApi() ? '<label class="field">지금 비밀번호<input id="pw0" type="password" autocomplete="current-password"></label><label class="field">새 비밀번호 (4자 이상)<input id="pw1" type="password" autocomplete="new-password"></label><label class="field">새 비밀번호 한 번 더<input id="pw2" type="password" autocomplete="new-password"></label><p class="err" id="pwerr"></p><div class="nav"><span></span><button class="btn btn-g" data-s="pw">비밀번호 바꾸기</button></div>' :
         '<p class="note">운영사가 웹앱을 연결하면 여기에서 바로 바꿀 수 있습니다. 그 전에는 운영사(디어 에듀테크)에 요청해 주세요.</p>') + '</section>' +
       '<section class="dxb"><h2>개인정보 보안교육</h2>' + (r ? '<p>' + esc(r.person) + ' · 이수 ' + day(r.at) + ' · ' + (trained() ? '<b>' + day(r.untilT) + '까지 유효</b>' : '<b style="color:var(--rust)">기한 지남</b>') + '</p>' : '<p>이수 기록이 없습니다.</p>') + '<div class="row"><a class="btn" style="text-decoration:none;display:inline-flex;align-items:center" href="?p=edu">이수증 보기 · 교육 다시 듣기</a></div></section>' +
+      (isDemo() ? '<section class="dxb"><h2>시연판</h2><p>이 기기는 시연 모드입니다. 비밀번호 없이 열리고 교육 확인 문제는 정답 처리됩니다.</p><div class="row"><button class="btn" data-s="demooff">시연 모드 끄기 · 잠그기</button></div></section>' : '') +
       '<section class="dxb"><h2>연결 상태</h2><p id="ping" class="sub">' + (hasApi() ? '확인 중…' : '웹앱 연결 전 · 고객 등록은 구글 폼으로, 질문은 문자로 받습니다.') + '</p></section></div>';
     root.innerHTML = s; window.scrollTo(0, 0);
     if (hasApi()) fetch(cfg().api + '?op=ping').then(function (x) { return x.json(); }).then(function (j) { $('#ping').textContent = j.ok ? '웹앱 연결됨 · 고객 등록 · 질문 · 교육 기록이 내 구글 시트로 들어갑니다.' : '웹앱 응답 이상'; }).catch(function () { $('#ping').textContent = '웹앱에 연결하지 못했습니다 · 인터넷 연결을 확인해 주세요'; });
     root.onclick = function (e) {
       var b = e.target.closest('[data-s]'); if (!b) return;
+      if (b.dataset.s === 'demooff') { try { localStorage.removeItem('sig-S00-demo'); localStorage.removeItem('sig-S00-edu'); localStorage.removeItem('sig-S00-staff-k'); sessionStorage.clear(); } catch (x) {} location.href = './'; return; }
       var p0 = $('#pw0').value, p1 = $('#pw1').value, p2 = $('#pw2').value, er = $('#pwerr');
       if (p1.length < 4) return (er.textContent = '새 비밀번호는 4자 이상으로 해 주세요');
       if (p1 !== p2) return (er.textContent = '새 비밀번호가 서로 다릅니다');
@@ -285,6 +297,17 @@
     }).catch(function (e) { $('#st').innerHTML = '<div class="dxb"><p>불러오지 못했습니다 (' + esc(e.message) + ')</p></div>'; });
   }
 
+  /* ================= 근거 자료 (공식 출처 목록) ================= */
+  function src(root) {
+    css(); var G = window.REG || { S: {} }, I = window.SITEINFO || { src: {} };
+    function row(x) { return '<tr><td>' + esc(x.t) + '</td><td>' + esc(x.o || '') + '</td><td>' + esc(x.d) + '</td><td>' + (x.u ? '<a href="' + esc(x.u) + '" target="_blank" rel="noopener">원문 ↗</a>' : '-') + '</td></tr>'; }
+    root.innerHTML = '<div class="dx"><header class="vtop"><div><a class="back" href="./">← 상담 데스크</a><p class="eyebrow">신뢰가 생명 · 공식 자료만</p><h1>근거 자료</h1><p class="sub">상담 화면과 고객 화면의 규제 · 대출 · 세금 · 단지 정보가 기대고 있는 공식 자료입니다. 규제 · 대출 기준일 ' + esc(G.asof || '') + ' · 단지 자료 기준일 ' + esc(I.asof || '') + '. 매일 아침 국토교통부 · 금융위원회 등 공식 발표를 점검해 바뀌면 운영사에 바로 알림이 갑니다.</p></div></header>' +
+      '<section class="dxb" style="overflow-x:auto"><h2>규제지역 · 대출 · 세금</h2><table><tr><th>내용</th><th>발표 기관</th><th>날짜</th><th>원문</th></tr>' + Object.keys(G.S || {}).map(function (k) { return row(G.S[k]); }).join('') + '</table></section>' +
+      '<section class="dxb" style="overflow-x:auto"><h2>단지 기본 설명</h2><table><tr><th>내용</th><th>발표 기관</th><th>날짜</th><th>원문</th></tr>' + Object.keys(I.src || {}).map(function (k) { var x = I.src[k]; return row({ t: x.t, o: '', d: x.d, u: x.u }); }).join('') + '</table>' +
+      '<p class="note">단지 사실은 입주자모집공고(2026.08.14)와 롯데건설 공식 홍보물을 따릅니다. 정부 계획(GTX-B 등)은 정부 발표 원문을 따르고 ‘예정 사항’으로 표시합니다. 원문으로 확인되지 않은 숫자는 화면에 넣지 않습니다.</p></section></div>';
+    window.scrollTo(0, 0);
+  }
+
   /* ================= 상담 데스크 첫 화면 꾸미기 ================= */
   function hubDecor() {
     var r = rec(), el = document.getElementById('eduStat');
@@ -297,5 +320,5 @@
     sendEdu();
   }
 
-  window.DESKX = { trained: trained, edu: function (root, why) { css(); if (trained() && why !== 'first') return cert(root); E.why = why; edu(root, why); }, qa: qa, set: set, stat: stat, hubDecor: hubDecor, rec: rec, api: api, hasApi: hasApi, VER: EDU_VER };
+  window.DESKX = { src: src, isDemo: isDemo, trained: trained, edu: function (root, why) { css(); if (trained() && why !== 'first') return cert(root); E.why = why; edu(root, why); }, qa: qa, set: set, stat: stat, hubDecor: hubDecor, rec: rec, api: api, hasApi: hasApi, VER: EDU_VER };
 })();

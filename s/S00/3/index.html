@@ -5,7 +5,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="나만의 시그니처 만들기 · 상동역 롯데캐슬 시그니처">
 <meta property="og:description" content="고를 때마다 금액이 바로 바뀌는 우리 집 시뮬레이션 · 약 3분"><meta property="og:image" content="https://dangerouskill1174-blip.github.io/LOTTE-/s/S00/assets/og.jpg"><meta property="og:url" content="https://dangerouskill1174-blip.github.io/LOTTE-/s/S00/3/">
 <meta name="theme-color" content="#16203A">
-<script src="../assets/sig.js"></script><script src="../assets/qrcode.js"></script><script src="../assets/share.js"></script><script src="../assets/pdfsave.js"></script><script src="../assets/ask.js" data-bottom="92"></script>
+<script src="../assets/sig.js"></script><script src="../assets/reg.js"></script><script src="../assets/qrcode.js"></script><script src="../assets/share.js"></script><script src="../assets/pdfsave.js"></script><script src="../assets/ask.js" data-bottom="92"></script>
 </head><body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
 <style>
@@ -253,7 +253,14 @@ html.sv body{background:#E9E5DD;padding:0!important}
 .svpv{width:100%;margin:0;font-size:12.5px;color:rgba(245,241,232,.78)}
 .svpages{padding:16px 8px}
 .svpg{width:794px;margin:0 auto 16px;box-shadow:0 8px 24px rgba(15,23,41,.15);background:#fff}
-@media print{html.sv body{background:#fff}.svbar{display:none!important}.svpages{padding:0}.svpg{margin:0;box-shadow:none;zoom:1!important;break-after:page;page-break-after:always}.svpg:last-child{break-after:auto;page-break-after:auto}@page{size:A4;margin:0}}
+@media print{html.sv body{background:#fff}.svbar{display:none!important}.svpages{padding:0}.svpg{margin:0;box-shadow:none;zoom:1!important;break-after:page;page-break-after:always}.svpg:last-child{break-after:auto;page-break-after:auto}@page{size:A4;margin:0}}.rgn{border:1.5px solid var(--line2,#DDD5C6);border-radius:16px;padding:14px;margin:4px 0 18px;background:var(--surface,#fff)}.rgnh{font-weight:800;font-size:16px}.rgnh span{display:block;font-weight:500;font-size:12.5px;color:var(--muted,#6A7180);margin-top:2px}
+.rgo{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.rgo button{min-height:46px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line2,#DDD5C6);background:var(--surface,#fff);font-weight:700;font-size:15px;color:var(--ink,#141B2D)}.rgo button.on{background:var(--ink,#141B2D);color:#fff;border-color:var(--ink,#141B2D)}
+.rgs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.rgs select,.rgs input{flex:1 1 140px;min-width:0;min-height:46px;font-size:16px;padding:0 10px;border:1.5px solid var(--line2,#DDD5C6);border-radius:10px;background:#fff;color:#141B2D;font-family:inherit}
+.rgq{font-size:14px;color:var(--muted,#6A7180);margin-top:10px}
+.rgn .rgc{display:grid;gap:8px;margin-top:12px}.rgn .rgi{border-radius:12px;padding:10px 12px;background:var(--surface2,#FAF8F4);border:1px solid var(--line,#E3DCCF)}.rgn .rgi.ok{border-left:5px solid #2F8F6A}.rgn .rgi.mid{border-left:5px solid #E8B547}.rgn .rgi.warn{border-left:5px solid #A4432F}
+.rgn .rgi .t{font-size:13px;color:var(--muted,#6A7180);font-weight:700;margin:0}.rgn .rgi .b{font-size:19px;font-weight:800;margin:2px 0 0}.rgn .rgi ul{margin:6px 0 0;padding-left:18px;font-size:14px;line-height:1.5}.rsrc{font-size:11.5px;color:var(--muted,#6A7180);margin:6px 0 0;word-break:break-all}.rsrc a{color:inherit}
+.rfine{font-size:12px;color:var(--muted,#6A7180);margin-top:8px}.rsh{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:14px}.rsh input{width:20px;height:20px;flex:none}
+
 body{word-break:keep-all;overflow-wrap:break-word}
 .imgov{position:fixed;inset:0;z-index:40;background:rgba(12,17,28,.82);display:flex;align-items:center;justify-content:center;padding:16px}
 .imgov-in{background:var(--surface);border-radius:14px;padding:14px;max-width:560px;width:100%;max-height:92vh;overflow:auto;text-align:center}
@@ -501,7 +508,7 @@ function compass(dir){
 function render(){
   rail(); pbar(); side(); const A=$('#app'); A.innerHTML='';
   if(S.staff){ A.appendChild(staffView()); return; }
-  const f=[s0,s1,s2,s3,s4,s5,s6,s7][S.step]; const node=f(); if(render.last===S.step && node.classList) node.classList.add('still'); render.last=S.step; A.appendChild(node);
+  const f=[s0,s1,s2,s3,s4,s5,s6,s7][S.step]; const node=f(); if(render.last===S.step && node.classList) node.classList.add('still'); render.last=S.step; A.appendChild(node); if(window.RGN) RGN.mount(node);
 }
 function s0(){
   return el(`<section class="step" style="background:transparent;border:none;padding-left:0;padding-right:0">
@@ -895,7 +902,7 @@ ${SIG.consentHTML({id:'gc'})}
       if(!SIG.validTel(t)){ er.textContent='연락처를 확인해 주세요 (예: 010-1234-5678)'; return; }
       const cs=SIG.readConsent(o,'gc'); if(!cs.ack){ er.textContent='[필수] 개인정보 수집 · 이용에 동의하셔야 시작할 수 있습니다'; return; }
       er.textContent=''; const b=o.querySelector('#ggo'); b.disabled=true; b.textContent='보내는 중…';
-      const rk=ranks(); const memo=[SMEMO, rk?'[후보] '+rk:''].filter(Boolean).join(' / ');
+      const rk=ranks(); const memo=[SMEMO, rk?'[후보] '+rk:'', window.RGN?RGN.memo():''].filter(Boolean).join(' / ');
       await SIG.register({name:n,tel:SIG.fmtTel(t),consent:cs,interest:rk?'사양서 열람 · '+rk.split(' / ')[0]:'나만의 시그니처 만들기 시작',memo});
       S.info.cust=n; save(); close(); toast('등록되었습니다 · '+CONTACT.who+'에게 전달했습니다'); if(cb) cb(); });
     setTimeout(()=>{ const x=o.querySelector('#gnm'); if(x&&!x.value) x.focus(); },60);
@@ -903,7 +910,7 @@ ${SIG.consentHTML({id:'gc'})}
   function notify(kind){ if(!ok()) return; const rk=ranks(); if(!rk) return; const key=kind+'|'+candCode();
     let sent=[]; try{ sent=JSON.parse(localStorage.getItem('hosil-sent')||'[]'); }catch(e){}
     if(sent.includes(key)) return; const L=SIG.lead();
-    SIG.submit({name:L.name,tel:L.tel,interest:kind+' · '+rk.split(' / ')[0],memo:'['+kind+'] '+rk});
+    SIG.submit({name:L.name,tel:L.tel,interest:kind+' · '+rk.split(' / ')[0],memo:['['+kind+'] '+rk, window.RGN?RGN.memo():''].filter(Boolean).join(' / ')});
     sent.push(key); try{ localStorage.setItem('hosil-sent',JSON.stringify(sent.slice(-20))); }catch(e){} }
   return {ok,open,notify,close};
 })();
@@ -922,6 +929,41 @@ function sheetView(){
   if(window.SHARE) SHARE.banner('카카오톡 안에서는 PDF 저장 · 인쇄가 안 될 수 있어요');
   document.title='우리 가족 시그니처 사양서 · 상동역 롯데캐슬 시그니처';
 }
+/* 고객 화면 · 사는 곳 · 가진 집 위치 → 규제 · 대출 · 세금 미리 보기 (이 휴대폰 안에서만 계산 · 선택해야 전달) */
+const RGN=window.RGN=(function(){
+  let st={rk:null,gu:'',dong:'',sido:'',sgg:'',odong:'',own:{sido:'',sgg:''},first:null,share:false};
+  try{ st=Object.assign(st,JSON.parse(localStorage.getItem('hosil-rgn')||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem('hosil-rgn',JSON.stringify(st)); }catch(e){} };
+  const E=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const opts=(l,c,ph)=>'<option value="">'+ph+'</option>'+l.map(x=>'<option'+(x===c?' selected':'')+'>'+E(x)+'</option>').join('');
+  const where=()=>st.rk==='local'?('부천 '+(st.gu||'')+(st.dong?' '+st.dong:'')).trim():(st.rk==='out'?[st.sido,st.sgg,st.odong].filter(Boolean).join(' '):'');
+  function html(){
+    const G=window.REG; if(!G) return '';
+    let h='<div class="rgn"><p class="rgnh">사시는 곳과 가진 집 위치 <span>규제 · 대출 · 세금 미리 보기용 · 이 휴대폰 안에서만 계산하고 보내지 않습니다</span></p><div class="rgo"><button type="button" class="'+(st.rk==='local'?'on':'')+'" data-rk="local">부천 시민</button><button type="button" class="'+(st.rk==='out'?'on':'')+'" data-rk="out">다른 지역</button></div>';
+    if(st.rk==='local') h+='<div class="rgs"><select data-rs="gu" aria-label="구">'+opts(Object.keys(G.BUCHEON),st.gu,'구')+'</select>'+(st.gu?'<select data-rs="dong" aria-label="동">'+opts(G.BUCHEON[st.gu],st.dong,'동')+'</select>':'')+'</div>';
+    if(st.rk==='out'){ const L2=G.SGG[st.sido]; h+='<div class="rgs"><select data-rs="sido" aria-label="시도">'+opts(G.SIDO,st.sido,'시 · 도')+'</select>'+(st.sido?(L2?'<select data-rs="sgg" aria-label="시군구">'+opts(L2,st.sgg,'시 · 군 · 구')+'</select>':'<input data-rt="sgg" placeholder="시 · 군 · 구" value="'+E(st.sgg)+'">')+'<input data-rt="odong" placeholder="동 (선택)" value="'+E(st.odong)+'">':'')+'</div>'; }
+    const h0=S.houses;
+    if(h0===0) h+='<div class="rgo"><button type="button" class="'+(st.first===true?'on':'')+'" data-fs="1">생애최초 (부부 모두 집을 가진 적 없음)</button><button type="button" class="'+(st.first===false?'on':'')+'" data-fs="0">예전에 가진 적 있음</button></div>';
+    if(h0>=1){ const L3=G.SGG[st.own.sido]; h+='<p class="rgq">가진 집(먼저 팔 집)은 어디에 있나요?</p><div class="rgs"><select data-ro="sido" aria-label="가진 집 시도">'+opts(G.SIDO,st.own.sido,'시 · 도')+'</select>'+(st.own.sido?(L3?'<select data-ro="sgg" aria-label="가진 집 시군구">'+opts(L3,st.own.sgg,'시 · 군 · 구')+'</select>':'<input data-rto="sgg" placeholder="시 · 군 · 구" value="'+E(st.own.sgg)+'">'):'')+'</div>'; }
+    if(h0==null) h+='<p class="rgq">아래에서 지금 가진 집 수를 고르면 취득세 · 잔금대출까지 보여 드립니다.</p>';
+    let price=null; try{ if(S.ho&&S.band) price=calc(S).P; }catch(e){}
+    const J=G.judge({houses:h0==null?null:h0,first:st.first===true,own:st.own,price});
+    h+='<div class="rgc">'+J.map(c=>'<div class="rgi '+c.tone+'"><p class="t">'+c.t+'</p><p class="b">'+c.b+'</p><ul>'+c.d.map(x=>'<li>'+x+'</li>').join('')+'</ul><p class="rsrc">출처 · '+G.srcHTML(c.src||[],E)+'</p></div>').join('')+'</div>';
+    h+='<p class="rfine">'+G.asof.replace(/-/g,'.')+' 기준 · 참고용입니다. 대출은 은행 심사, 세금은 세무사 확인으로 최종 확정됩니다.</p>';
+    h+='<label class="rsh"><input type="checkbox" data-share '+(st.share?'checked':'')+'> [선택] 사양서를 보낼 때 사는 곳 · 가진 집 정보를 담당 상담사에게 함께 보내기</label></div>';
+    return h;
+  }
+  function mount(node){
+    if(!node||S.step!==1||S.staff) return; const box=document.createElement('div'); box.innerHTML=html(); const q=node.querySelector('h2.q'); if(q) q.parentNode.insertBefore(box,q); else node.prepend(box);
+    box.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; if(b.dataset.rk){ st.rk=b.dataset.rk; } else if(b.dataset.fs){ st.first=b.dataset.fs==='1'; } else return; save(); box.innerHTML=html(); });
+    box.addEventListener('change',e=>{ const t=e.target; if(t.dataset.rs){ st[t.dataset.rs]=t.value; if(t.dataset.rs==='gu') st.dong=''; if(t.dataset.rs==='sido'){ st.sgg=''; st.odong=''; } }
+      else if(t.dataset.rt) st[t.dataset.rt]=t.value.trim(); else if(t.dataset.ro){ st.own[t.dataset.ro]=t.value; if(t.dataset.ro==='sido') st.own.sgg=''; } else if(t.dataset.rto) st.own.sgg=t.value.trim(); else if(t.hasAttribute('data-share')) { st.share=t.checked; save(); return; }
+      save(); box.innerHTML=html(); });
+  }
+  function memo(){ if(!st.share) return ''; const w=where(); const o=S.houses!=null?('가진 집 '+['없음','1채','2채','3채 이상'][S.houses]+(S.houses>=1&&st.own.sido?' ('+st.own.sido+' '+(st.own.sgg||'')+')':'')+(S.houses===0&&st.first?' · 생애최초':'')):''; return (w||o)?'[고객 정보 · 고객이 보내기를 고름] '+[w?'사는 곳 '+w:'',o].filter(Boolean).join(' · '):''; }
+  return {mount,memo,state:()=>st};
+})();
+
 if(SHEETVIEW) sheetView(); else { if(!GATE.ok()&&S.step>0){ const pend=S.step; S.step=0; setTimeout(()=>GATE.open(()=>go(pend),'상담에서 고른 후보를 보시려면 성함과 연락처를 남겨 주세요'),250); } render(); }
 </script>
 
