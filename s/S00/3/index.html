@@ -187,6 +187,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .acc{margin-top:16px;border-radius:18px;padding:18px 20px;background:var(--navy);color:var(--navy-ink)}
 .acc b{font-family:var(--serif);font-size:18px;color:var(--gold2)}
 .cands{display:grid;gap:8px;margin-top:14px}
+.cand .cbtn{display:flex;gap:6px;flex-wrap:wrap}.cand .cbtn .btn{padding:6px 10px;min-height:38px;font-size:14px}.cand.spare{opacity:.9;border-style:dashed}
 .cand{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 16px;border:1px solid var(--line);border-radius:14px;flex-wrap:wrap;background:var(--surface2)}
 .cand b{font-family:var(--serif)}
 .cmp-wrap{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:18px}
@@ -497,7 +498,7 @@ function side(){
    ${row('주택 수',S.houses!=null?HOUSE[S.houses].name:'')}${row('잔금대출',S.loan?(S.houses>=2?'제한 · 자기자금':(S.loan===6?'6억 호실':'모든 호실')):'')}${row('동',S.dong?S.dong+'동':'')}${row('타입',S.type?S.type+' · 실사용 약 '+TYPE[S.type].use+'평':'')}${row('호수 · 향',l?l.ho+'호 · '+l.dir+'향':'')}${row('층',l&&bd?bandName(l,bd):'')}
    ${S.type?`<img class="plan" src="plans/${S.type}.jpg" alt="${S.type} 평면도">`:''}${price}</div>`;
 }
-function go(n){ if(n>0&&window.GATE&&!GATE.ok()){ GATE.open(()=>go(n)); return; } S.step=n; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function go(n){ if(n>0&&window.GATE&&!GATE.ok()){ GATE.open(()=>go(n)); return; } S.step=n; if(n===7||n===0) S.edit=null; render(); window.scrollTo({top:0,behavior:'smooth'}); }
 function nav(nextOK,nextLabel){ return `<div class="nav"><button class="btn btn-s" data-act="back">← 이전</button><button class="btn btn-p" data-act="next" ${nextOK?'':'disabled'}>${nextLabel||'다음 →'}</button></div>`; }
 function compass(dir){
   const a=ANG[dir];
@@ -506,9 +507,12 @@ function compass(dir){
 
 // ---------- 화면 ----------
 function render(){
-  rail(); pbar(); side(); const A=$('#app'); A.innerHTML='';
+  const same=render.last===S.step, y=window.scrollY||document.documentElement.scrollTop||0;
+  rail(); pbar(); side(); const A=$('#app'); A.style.minHeight=A.offsetHeight+'px'; A.innerHTML='';
   if(S.staff){ A.appendChild(staffView()); return; }
   const f=[s0,s1,s2,s3,s4,s5,s6,s7][S.step]; const node=f(); if(render.last===S.step && node.classList) node.classList.add('still'); render.last=S.step; A.appendChild(node); if(window.RGN) RGN.mount(node);
+  A.style.minHeight=''; if(same){ window.scrollTo(0,y); const K=render.anchor; render.anchor=null;
+    if(K){ const e2=A.querySelector(K.sel); if(e2) window.scrollBy(0,e2.getBoundingClientRect().top-K.top); } }
 }
 function s0(){
   return el(`<section class="step" style="background:transparent;border:none;padding-left:0;padding-right:0">
@@ -644,13 +648,14 @@ function s6(){
    <div class="row">${reqLink(c,'이 집 가능한지 확인받기','btn btn-g')}<a class="btn btn-s" style="text-decoration:none" href="tel:${CONTACT.raw}">${CONTACT.who} ${CONTACT.tel} 전화</a></div>
    <p style="margin-top:10px">확인되면 아래에 적어 두세요.</p>
    <div class="row"><label class="field" for="cf">확정 층<input id="cf" placeholder="예: 19" value="${esc(S.confirm.floor)}"></label><label class="field" for="cu">확정 호수<input id="cu" placeholder="예: 1903" value="${esc(S.confirm.unit)}"></label></div></div>
-  <div class="nav"><button class="btn btn-s" data-act="back">← 층 다시 고르기</button><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length&&S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:`<button class="btn btn-s" data-act="again">다른 후보도 찾기</button>`}<button class="btn btn-g" data-act="keep">${S.cands.length<3?(S.cands.length+1)+'순위로 담기':'후보 3개 가득'}</button><button class="btn btn-p" data-go="7">비교 · 사양서 →</button></div></div>
+  <div class="nav"><button class="btn btn-s" data-act="back">← 층 다시 고르기</button><div style="display:flex;gap:10px;flex-wrap:wrap">${S.edit!=null?`<button class="btn btn-s" data-go="7">바꾸지 않고 돌아가기</button>`:(S.cands.length&&S.cands.length<MAXC?`<button class="btn btn-p" data-act="nextrank">${S.cands.length<3?(S.cands.length+1)+'순위':'예비 후보'} 이어서 고르기 →</button>`:`<button class="btn btn-s" data-act="again">다른 후보도 찾기</button>`)}<button class="btn btn-g" data-act="keep">${S.edit!=null?(S.edit<3?(S.edit+1)+'순위':'예비 후보')+'를 이 호실로 바꾸기':(S.cands.length<3?(S.cands.length+1)+'순위로 담기':(S.cands.length<MAXC?'예비 후보로 담기':'후보 '+MAXC+'개 가득'))}</button><button class="btn btn-p" data-go="7">비교 · 사양서 →</button></div></div>
   <p class="note">금액은 입주자모집공고 공급금액 기준이며 취득세 · 이자 · 대출은 추정치입니다. 대출은 10·15 대책 · 대출 시점 시가 · 소득(DSR) 기준이며 1주택자는 처분 조건이 붙습니다. 향은 단지배치도 방위표 기준이며 조망은 모형도와 현장에서 확인합니다.</p></section>`);
   n.querySelector('#cf').addEventListener('input',e=>S.confirm.floor=e.target.value);
   n.querySelector('#cu').addEventListener('input',e=>S.confirm.unit=e.target.value);
   return n;
 }
-function listForSheet(){ return S.cands.length?S.cands:(S.ho&&S.band?[{dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}]:[]); }
+const MAXC=5;
+function listForSheet(){ return S.cands.length?S.cands.slice(0,3):(S.ho&&S.band?[{dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}]:[]); }
 function cmpHTML(list){
   if(!list.length) return '';
   const ks=list.map(calc);
@@ -743,11 +748,11 @@ function s7(){
    ${CAN?`<label class="field" for="ia">담당<input id="ia" value="${esc(S.info.agent)}" placeholder="${CONTACT.title}"></label>
    <label class="field" for="ip">연락처<input id="ip" value="${esc(S.info.phone)}" placeholder="${CONTACT.tel}"></label>`:''}</div>
    <p class="note">사양서 이미지를 저장하면 고른 순위가 등록하신 연락처와 함께 ${CONTACT.who}에게 전달되어 계약 가능 여부를 알려 드립니다.</p></div>
-  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:''}<button class="btn btn-s" data-go="1">조건부터 다시</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="dl">A4 PDF 저장</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
+  <div class="nav"><div style="display:flex;gap:10px;flex-wrap:wrap">${S.cands.length<3?`<button class="btn btn-p" data-act="nextrank">${S.cands.length+1}순위 이어서 고르기 →</button>`:(S.cands.length<MAXC?`<button class="btn btn-p" data-act="nextrank">+ 후보 더 추가 (예비)</button>`:'')}<button class="btn btn-s" data-go="1">조건(주택 수 · 대출) 바꾸기</button></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-s" data-act="clear">후보 비우기</button><button class="btn btn-s" data-act="resetall">처음부터 다시 (초기화)</button><button class="btn btn-s" data-act="dl">A4 PDF 저장</button><button class="btn btn-s share-fam" data-act="famshare">가족에게 보내기</button><button class="btn btn-g" data-act="png">사양서 이미지 저장</button></div></div>
   <div class="shtabs" id="shtabs"></div><div class="sheet-wrap" id="sheet"></div></section>`);
   const refresh=()=>{
     const cl=n.querySelector('#cands');
-    cl.innerHTML=S.cands.length?S.cands.map((x,i)=>{const k=calc(x);return `<div class="cand"><span><b>${i+1}순위 · ${x.dong}동 ${esc(x.unit)||x.ho+'호'} ${x.type}</b> · ${esc(x.floor)?esc(x.floor)+'층':bandName(k.l,k.b)} · ${eok(k.P)}</span><span style="display:flex;gap:6px">${i?`<button class="btn btn-s" style="padding:6px 10px" data-up="${i}">위로</button>`:''}<button class="btn btn-s" style="padding:6px 10px" data-del="${i}">빼기</button></span></div>`}).join(''):(S.ho&&S.band?'<p class="sub">아직 담은 후보가 없어 지금 고른 호실로 확인서를 만듭니다. 결과 화면에서 ‘1순위로 담기’를 누르면 2 · 3순위까지 넣어 비교할 수 있습니다.</p>':'<p class="sub">아직 고른 호실이 없습니다. 처음부터 골라 주세요.</p>');
+    cl.innerHTML=S.cands.length?S.cands.map((x,i)=>{const k=calc(x);return `${i===3?'<p class="sub" style="margin:10px 0 4px">예비 후보 · 사양서에는 1 · 2 · 3순위만 들어갑니다. ‘위로’로 순위를 올릴 수 있어요</p>':''}<div class="cand${i>=3?' spare':''}"><span><b>${i<3?(i+1)+'순위':'예비'} · ${x.dong}동 ${esc(x.unit)||x.ho+'호'} ${x.type}</b> · ${esc(x.floor)?esc(x.floor)+'층':bandName(k.l,k.b)} · ${eok(k.P)}</span><span class="cbtn">${i?`<button class="btn btn-s" data-up="${i}">위로</button>`:''}<button class="btn btn-s" data-act="editfloor" data-i="${i}">층 바꾸기</button><button class="btn btn-s" data-act="editunit" data-i="${i}">호수 바꾸기</button><button class="btn btn-s" data-del="${i}">빼기</button></span></div>`}).join(''):(S.ho&&S.band?'<p class="sub">아직 담은 후보가 없어 지금 고른 호실로 확인서를 만듭니다. 결과 화면에서 ‘1순위로 담기’를 누르면 2 · 3순위까지 넣어 비교할 수 있습니다.</p>':'<p class="sub">아직 고른 호실이 없습니다. 처음부터 골라 주세요.</p>');
     const L2=listForSheet(); if(!(S.shTab<L2.length)) S.shTab=0;
     n.querySelector('#shtabs').innerHTML=L2.length>1?'<span>사양서 미리보기</span>'+L2.map((x,i)=>`<button class="${i===S.shTab?'on':''}" data-sht="${i}">${i+1}순위 · ${x.dong}동 ${x.type}</button>`).join(''):'';
     n.querySelector('#sheet').innerHTML=sheetHTML(S.shTab)||'<p class="sub" style="padding:12px">호실을 고르면 확인서가 여기에 나타납니다.</p>';
@@ -780,6 +785,7 @@ function pinView(){
 // ---------- 이벤트 ----------
 document.addEventListener('click',async e=>{
   const b=e.target.closest('button'); if(!b) return;
+  { const k=Object.keys(b.dataset)[0]; if(k&&k!=='act'&&k!=='go'){ const at='data-'+k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()); render.anchor={sel:'['+at+'="'+String(b.dataset[k]).replace(/"/g,'\\"')+'"]',top:b.getBoundingClientRect().top}; } else render.anchor=null; }
   const d=b.dataset;
   if(d.sht!==undefined){ S.shTab=+d.sht; render(); return; }
   if(d.cell){ const [k,i]=d.cell.split('|'); const s=(STAFF_DRAFT.lines[k]||'yyyyyyy').split(''); const cur=s[+i]; s[+i]=cur==='y'||cur==='-'?'n':(cur==='n'?'u':'y'); STAFF_DRAFT.lines[k]=s.join(''); b.className='cell '+s[+i]; b.textContent=s[+i]==='y'?'○':(s[+i]==='n'?'✕':'?'); return; }
@@ -798,8 +804,13 @@ document.addEventListener('click',async e=>{
   if(a==='next') go(S.step+1);
   if(a==='back') go(Math.max(0,S.step-1));
   if(a==='again'){ S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); }
-  if(a==='nextrank'){ S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); toast((S.cands.length+1)+'순위를 고릅니다 · 앞에서 정한 조건은 그대로입니다'); return; }
-  if(a==='keep'){ if(S.cands.length>=3){toast('후보는 3개까지 담을 수 있습니다');return;} if(S.cands.some(c=>c.dong===S.dong&&c.ho===S.ho&&c.band===S.band)){toast('이미 담은 호실입니다');return;} S.cands.push({dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit}); save(); toast(S.cands.length+'순위로 담았습니다'); render(); }
+  if(a==='nextrank'){ S.edit=null; S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; go(2); toast((S.cands.length<3?(S.cands.length+1)+'순위':'예비 후보')+'를 고릅니다 · 앞에서 정한 조건은 그대로입니다'); return; }
+  if(a==='keep'){ const nc={dong:S.dong,ho:S.ho,type:S.type,band:S.band,floor:S.confirm.floor,unit:S.confirm.unit};
+    if(S.edit!=null){ const ei=S.edit; if(S.cands.some((c,i)=>i!==ei&&c.dong===nc.dong&&c.ho===nc.ho&&c.band===nc.band)){toast('이미 담은 호실입니다');return;} S.cands[ei]=nc; S.edit=null; save(); toast((ei<3?(ei+1)+'순위':'예비 후보')+'를 바꿨습니다'); go(7); return; }
+    if(S.cands.length>=MAXC){toast('후보는 '+MAXC+'개(1 · 2 · 3순위 + 예비 2개)까지 담을 수 있습니다');return;} if(S.cands.some(c=>c.dong===nc.dong&&c.ho===nc.ho&&c.band===nc.band)){toast('이미 담은 호실입니다');return;} S.cands.push(nc); save(); toast(S.cands.length<=3?S.cands.length+'순위로 담았습니다':'예비 후보로 담았습니다 · 비교에서 순위를 올릴 수 있어요'); render(); }
+  if(a==='editfloor'||a==='editunit'){ const i=+b.dataset.i, c=S.cands[i]; if(!c) return; S.edit=i; S.dong=c.dong; S.type=c.type; S.ho=c.ho; S.band=a==='editfloor'?c.band:null; S.confirm={floor:c.floor||'',unit:c.unit||''}; if(a==='editunit'){ S.ho=null; } go(a==='editfloor'?5:4); toast((i<3?(i+1)+'순위':'예비 후보')+'를 바꿉니다 · 다 고르면 결과 화면에서 ‘바꾸기’를 누르세요'); return; }
+  if(a==='resetall'){ if(!b.dataset.sure){ b.dataset.sure='1'; b.textContent='정말 처음부터? 한 번 더 누르세요'; setTimeout(()=>{ if(b.isConnected){ delete b.dataset.sure; b.textContent='처음부터 다시 (초기화)'; } },3500); return; }
+    S.cands=[]; S.houses=null; S.loan=null; S.lmode=null; S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; S.edit=null; save(); try{ localStorage.removeItem('hosil-rgn'); }catch(e){} toast('처음부터 다시 시작합니다'); go(S.staff?1:1); return; }
   if(a==='clear'){ S.cands=[]; save(); render(); }
   if(a==='dl'){ pdfAll(b); return; }
   if(a==='png') savePNG(b);
@@ -948,8 +959,9 @@ const RGN=window.RGN=(function(){
     if(h0==null) h+='<p class="rgq">아래에서 지금 가진 집 수를 고르면 취득세 · 잔금대출까지 보여 드립니다.</p>';
     let price=null; try{ if(S.ho&&S.band) price=calc(S).P; }catch(e){}
     const J=G.judge({houses:h0==null?null:h0,first:st.first===true,own:st.own,price});
-    h+='<div class="rgc">'+J.map(c=>'<div class="rgi '+c.tone+'"><p class="t">'+c.t+'</p><p class="b">'+c.b+'</p><ul>'+c.d.map(x=>'<li>'+x+'</li>').join('')+'</ul><p class="rsrc">출처 · '+G.srcHTML(c.src||[],E)+'</p></div>').join('')+'</div>';
-    h+='<p class="rfine">'+G.asof.replace(/-/g,'.')+' 기준 · 참고용입니다. 대출은 은행 심사, 세금은 세무사 확인으로 최종 확정됩니다.</p>';
+    h+=G.statusHTML(G.status({houses:h0==null?null:h0,first:st.first===true,own:st.own,price},where()),E);
+    h+='<details class="rgd"'+(h0==null?' open':'')+'><summary>'+(h0==null?'규제지역 확인':'왜 그런지 · 근거 자세히 보기')+'</summary><div class="rgc">'+J.map(c=>'<div class="rgi '+c.tone+'"><p class="t">'+c.t+'</p><p class="b">'+c.b+'</p><ul>'+c.d.map(x=>'<li>'+x+'</li>').join('')+'</ul><p class="rsrc">출처 · '+G.srcHTML(c.src||[],E)+'</p></div>').join('')+'</div>';
+    h+='<p class="rfine">'+G.asof.replace(/-/g,'.')+' 기준 · 참고용입니다.</p></details>';
     h+='<label class="rsh"><input type="checkbox" data-share '+(st.share?'checked':'')+'> [선택] 사양서를 보낼 때 사는 곳 · 가진 집 정보를 담당 상담사에게 함께 보내기</label></div>';
     return h;
   }

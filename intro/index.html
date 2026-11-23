@@ -37,7 +37,7 @@
 (function(){
   var I=window.SITEINFO, S=window.SIG, esc=S.esc, A='../assets/';
   function src(keys){ return '<p class="src">출처 · '+keys.map(function(k){ var x=I.src[k]; return x.u?'<a href="'+x.u+'" target="_blank" rel="noopener">'+esc(x.t)+'</a> ('+esc(x.d)+')':esc(x.t)+' ('+esc(x.d)+')'; }).join(' · ')+'</p>'; }
-  var T={cover:'개요',who:'시행 · 시공',loc:'입지 · 교통',edu:'학교 · 생활',site:'배치 · 조경',comm:'커뮤니티',type:'타입',pay:'분양 조건'};
+  var T={cover:'개요',who:'시행 · 시공',loc:'입지 · 교통',edu:'학교 · 생활',site:'배치 · 조경',model:'모형도',comm:'커뮤니티',type:'타입',pay:'분양 조건'};
   document.getElementById('toc').innerHTML=I.slides.map(function(x){ return '<a href="#'+x.k+'">'+T[x.k]+'</a>'; }).join('');
   document.getElementById('sls').innerHTML=I.slides.map(function(x,i){
     var img=x.img?'<figure><button type="button" data-z="'+A+x.img+'" aria-label="'+esc(x.t)+' 크게 보기"><img src="'+A+x.img+'" alt="'+esc(x.t)+'" loading="'+(i<2?'eager':'lazy')+'"></button><figcaption>'+esc(x.cap)+'</figcaption></figure>':'';

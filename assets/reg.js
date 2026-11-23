@@ -74,6 +74,39 @@
     out.push({ k: 'fund', t: '자금조달계획서', b: reg ? '제출 대상' : pd, tone: 'mid', d: [reg ? '규제지역은 금액과 관계없이 제출하고 증빙도 냅니다.' : '비규제지역은 거래가 6억 이상이면 공급계약 신고 때 함께 냅니다.', '예금 · 주식 · 대출 · 증여 등 돈의 출처를 미리 정리해 두면 계약일이 편합니다.'], src: ['fund'] });
     return out;
   };
+  // 고른 내용으로 '나의 상태'를 한 줄 · 칸으로 (확정은 은행 · 세무사)
+  R.status = function (o, where) {
+    var h = o.houses, reg = R.hereReg(); if (h == null) return null;
+    var J = R.judge(o), g = function (k) { for (var i = 0; i < J.length; i++) if (J[i].k === k) return J[i]; return null; };
+    var hl = ['무주택', '1주택', '2주택', '3주택 이상'][Math.min(h, 3)] + (h === 0 && o.first ? ' · 생애최초' : '');
+    var tax = g('tax'), loan = g('loan'), own = g('own'), fund = g('fund');
+    var ltv = reg ? 0.4 : 0.7, cap = o.price == null ? 6 : (o.price <= 15 ? 6 : (o.price <= 25 ? 4 : 2));
+    var mx = o.price == null ? null : Math.min(cap, Math.floor(o.price * ltv * 10) / 10);
+    var amt = mx == null ? '최대 ' + cap + '억 (15억 이하 집)' : '이 호실 최대 약 ' + mx + '억';
+    var lv = h === 0 ? 'LTV ' + Math.round(ltv * 100) + '% · ' + amt : (h === 1 ? '6개월 안 기존 집 처분 조건 · ' + amt : '구입용 주담대 제한 · 자기자금');
+    var items = [
+      ['나', hl + (where ? ' · ' + where : ''), 'mid'],
+      ['이번 집', (reg ? '규제지역' : '비규제지역') + ' · 전매제한 1년', reg ? 'warn' : 'ok'],
+      ['취득세', tax.b + ' · 이 집이 ' + (h + 1) + '번째 집', tax.tone],
+      ['잔금대출', loan.b + ' · ' + lv, loan.tone]
+    ];
+    if (own) items.push(['가진 집', own.b + (h === 1 ? ' · 일시적 2주택 처분 기한 확인' : ''), own.tone]);
+    items.push(['자금조달계획서', fund.b, 'mid']);
+    var head = hl + ' 고객님은 상동(' + (reg ? '규제지역' : '비규제지역') + ')에서 취득세 ' + tax.b + ', 잔금대출 ' + (h === 0 ? amt : (h === 1 ? '처분 조건부 ' + amt : '제한')) + ' 구간입니다 (소득 DSR에 따라 줄 수 있음).';
+    return { head: head, items: items };
+  };
+  R.statusHTML = function (st, esc) {
+    if (!st) return '';
+    esc = esc || function (x) { return x; };
+    return '<div class="mys"><p class="myh">나의 상태 한눈에 <span>' + R.asof.replace(/-/g, '.') + ' 공식 발표 기준 · 참고용</span></p><p class="myl">' + esc(st.head) + '</p><div class="myc">' +
+      st.items.map(function (x) { return '<div class="' + x[2] + '"><span>' + esc(x[0]) + '</span><b>' + esc(x[1]) + '</b></div>'; }).join('') +
+      '</div><p class="myf">확정: 대출은 <b>은행 심사</b>, 세금은 <b>세무사 확인</b>으로 정해집니다. 대출 금액은 분양가 기준 추정이며 잔금 때 시세 · 감정가와 소득(DSR)으로 다시 정해집니다. 상담사는 확정하지 않고 기준을 안내합니다.</p></div>';
+  };
+  R.css = '.mys{border:2px solid #141B2D;border-radius:16px;padding:14px 16px;background:#fff;margin-top:12px}.myh{font-weight:800;font-size:15px;margin:0}.myh span{font-weight:500;font-size:12px;color:#6A7180;margin-left:6px}' +
+    '.myl{font-size:17px;font-weight:700;line-height:1.5;margin:8px 0 0;color:#141B2D}.myc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}' +
+    '.myc div{border-radius:12px;padding:9px 11px;background:#F7F4EE;border-top:4px solid #E8B547}.myc div.ok{border-top-color:#2F8F6A}.myc div.warn{border-top-color:#A4432F}.myc span{display:block;font-size:12px;color:#6A7180;font-weight:700}.myc b{display:block;font-size:15px;line-height:1.4;margin-top:2px;color:#141B2D}' +
+    '.myf{font-size:12.5px;color:#3D4454;margin:10px 0 0;background:#FFF6DB;border-radius:8px;padding:6px 9px}.rgd{margin-top:10px}.rgd>summary{cursor:pointer;font-weight:700;font-size:14px;color:#8A5A00;padding:6px 0}';
+  (function () { try { if (document.getElementById('reg-css')) return; var st = document.createElement('style'); st.id = 'reg-css'; st.textContent = R.css; (document.head || document.documentElement).appendChild(st); } catch (e) {} })();
   R.srcHTML = function (keys, esc) {
     esc = esc || function (x) { return x; };
     return keys.map(function (k) { var x = R.S[k]; return x ? '<a href="' + x.u + '" target="_blank" rel="noopener">' + esc(x.o) + ' · ' + esc(x.d) + '</a>' : ''; }).filter(Boolean).join(' · ');
