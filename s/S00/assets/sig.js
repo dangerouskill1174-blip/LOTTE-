@@ -16,7 +16,7 @@
     processor: v('디어 에듀테크 (상담 · 접수 · 알림 시스템 운영), Google LLC (고객 기록 저장 · 미국 등 국외 서버)'),
     cpo: v('(주)디어 체험판'),
     retention: v('수집일부터 6개월 (삭제를 요청하시면 바로 파기)') || '수집일부터 6개월 (삭제를 요청하시면 바로 파기)',
-    api: v(''),
+    api: v('https://script.google.com/macros/s/AKfycbw5Klo1YLrsJe_aLt5TnMqTTDV8JXAOFtrUd53f0x1ABgoE8t2qYG9IAcMGrh9XkyUi/exec'),
     sid: v('S00') || 'OWNER',
     cver: v('CV-20261124') || 'CV-20261123',
     optMode: v('link') || 'link',
