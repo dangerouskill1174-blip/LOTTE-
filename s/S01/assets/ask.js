@@ -6,7 +6,7 @@
   var S = window.SIG, esc = S.esc;
   function el(h) { var d = document.createElement('div'); d.innerHTML = h; return d.firstElementChild; }
   var css = document.createElement('style');
-  css.textContent = '.ask-fab{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(' + bottom + 'px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:7px;min-height:50px;padding:0 18px 0 14px;border-radius:999px;border:0;background:#141B2D;color:#F6E7C1;font:700 15px/1 "Noto Sans KR","Apple SD Gothic Neo",sans-serif;box-shadow:0 8px 24px rgba(20,27,45,.28);cursor:pointer}.ask-fab i{font-style:normal;font-size:19px}' +
+  css.textContent = '.ask-fab{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(' + bottom + 'px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:7px;min-height:50px;padding:0 18px 0 14px;border-radius:999px;border:0;background:#141B2D;color:#F6E7C1;font:700 15px/1 "Noto Sans KR","Apple SD Gothic Neo",sans-serif;box-shadow:0 8px 24px rgba(20,27,45,.28);cursor:pointer}.ask-fab i{font-style:normal;font-size:19px}.ask-fab{transition:width .2s,padding .2s,opacity .2s}.ask-fab.mini{padding:0;width:50px;justify-content:center;opacity:.85}.ask-fab.mini span{display:none}' +
     '.ask-ov{position:fixed;inset:0;z-index:70;background:rgba(12,17,28,.72);display:flex;align-items:flex-end;justify-content:center;padding:12px}@media (min-width:640px){.ask-ov{align-items:center}}' +
     '.ask-in{background:#fff;color:#141B2D;border-radius:18px;width:min(560px,100%);max-height:calc(100dvh - 24px);overflow:auto;padding:20px 18px calc(18px + env(safe-area-inset-bottom,0px));font-family:"Noto Sans KR","Apple SD Gothic Neo",sans-serif}' +
     '.ask-in h2{margin:0;font-size:21px;font-family:"Noto Serif KR",serif}.ask-in .sb{margin:6px 0 0;color:#5A6170;font-size:14.5px;line-height:1.5}.ask-in textarea,.ask-in input[type=text],.ask-in input[type=tel]{display:block;width:100%;box-sizing:border-box;margin-top:6px;border:1.5px solid #D9D1C3;border-radius:10px;padding:10px 12px;font-size:16px;line-height:1.5;font-family:inherit}.ask-in textarea{min-height:110px}' +
@@ -59,10 +59,12 @@
     setTimeout(function () { var x = o.querySelector('#askq'); if (x && !x.value) x.focus(); }, 60);
   }
   function mount() {
-    if (document.querySelector('.ask-fab')) return;
-    var b = el('<button class="ask-fab" type="button" aria-label="궁금한 점 물어보기"><i>💬</i>물어보기</button>');
+    if (document.querySelector('.ask-fab') || /[?&]embed=1/.test(location.search)) return;
+    var b = el('<button class="ask-fab" type="button" aria-label="궁금한 점 물어보기"><i>💬</i><span>물어보기</span></button>');
     b.addEventListener('click', function () { open(); });
     document.body.appendChild(b);
+    // 스크롤하는 동안은 작게 접어 글자를 가리지 않게
+    var t = 0; addEventListener('scroll', function () { b.classList.add('mini'); clearTimeout(t); t = setTimeout(function () { b.classList.remove('mini'); }, 1400); }, { passive: true });
   }
   window.SIGASK = { open: open, mount: mount };
   if (!(me && me.dataset.manual)) { if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount); }
