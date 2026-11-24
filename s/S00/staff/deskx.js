@@ -130,8 +130,8 @@
       '<div class="pledge"><p>본인은 「개인정보 보호법」과 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」을 지키며 다음 사항을 서약합니다.</p><ol>' + PLEDGE.map(function (p) { return '<li>' + p + '</li>'; }).join('') + '</ol></div>' +
       '<label class="field">성명<input id="pnm" autocomplete="name" value="' + esc(r.person || '') + '"></label><label class="field">휴대폰<input id="ptl" type="tel" inputmode="tel" placeholder="010-0000-0000" value="' + esc(r.tel || '') + '"></label>' +
       '<label class="ck"><input type="checkbox" id="pck"><span>위 서약 내용을 모두 읽었고, 지키겠습니다.</span></label>' +
-      '<p class="field" style="margin-bottom:0">서명 <span class="sub" style="font-weight:500">(손가락이나 펜으로)</span> <button class="btn" style="min-height:34px;padding:0 12px;font-size:14px;float:right" data-dx="clr">지우기</button></p><canvas class="sig" id="psig"></canvas>' +
-      '<div class="alt"><p><b>간편인증 서명</b> <span class="pill">배포 시 제공</span></p><div class="row"><button class="btn" disabled>카카오 인증서로 서명</button><button class="btn" disabled>PASS 인증으로 서명</button><button class="btn" disabled>네이버 인증서로 서명</button></div><p class="note" style="margin-top:6px">실명 확인이 함께 되는 간편인증 서명은 정식 배포 때 전자서명 대행 서비스와 연결해 제공합니다. 지금은 손가락 서명으로 서약합니다.</p></div>' +
+      '<p class="field" style="margin-bottom:0">확인 서명 <span class="sub" style="font-weight:500">(손가락이나 펜으로 · 서약 내용을 읽고 확인했다는 표시이며, 공인 · 간편인증 전자서명이 아닙니다)</span> <button class="btn" style="min-height:34px;padding:0 12px;font-size:14px;float:right" data-dx="clr">지우기</button></p><canvas class="sig" id="psig"></canvas>' +
+      '<div class="alt"><p><b>간편인증 서명</b> <span class="pill">준비 중 · 지금은 쓸 수 없음</span></p><div class="row"><button class="btn" disabled>카카오 인증서로 서명</button><button class="btn" disabled>PASS 인증으로 서명</button><button class="btn" disabled>네이버 인증서로 서명</button></div><p class="note" style="margin-top:6px">실명 확인이 함께 되는 간편인증 서명은 정식 배포 때 전자서명 대행 서비스와 연결해 제공합니다. 지금은 위 확인 서명으로 서약합니다.</p></div>' +
       '<p class="err" id="perr"></p><div class="nav"><button class="btn" data-dx="quiz">← 확인 문제</button><button class="btn btn-g" data-dx="sign">서약하고 이수 완료</button></div></section></div>';
     root.innerHTML = s; window.scrollTo(0, 0);
     sigPad($('#psig', root)); bind(root);
@@ -176,7 +176,7 @@
       '<p style="font-family:\'Noto Serif KR\',serif;font-size:34px;margin:16px 0 4px">' + esc(r.person) + '</p><p style="margin:0;color:#5A6170">' + esc(r.tel) + '</p>' +
       '<p style="font-size:18px;line-height:1.9;margin:44px auto 0;max-width:520px;word-break:keep-all">위 사람은 분양 상담사 개인정보 보호 교육 ' + L.length + '강을 마치고 확인 문제 ' + (r.of || QZ.length) + '문제 중 ' + r.score + '문제를 맞혔으며, 개인정보 보호 및 불법스팸 방지 서약서를 제출하였기에 이 증서를 드립니다.</p>' +
       '<table style="margin:46px auto 0;font-size:16px;border-collapse:collapse"><tr><td style="padding:6px 18px;color:#5A6170">이수일</td><td style="padding:6px 18px;font-weight:700">' + day(r.at) + '</td></tr><tr><td style="padding:6px 18px;color:#5A6170">유효 기한</td><td style="padding:6px 18px;font-weight:700">' + day(r.untilT) + ' (분기 갱신)</td></tr><tr><td style="padding:6px 18px;color:#5A6170">교육 버전</td><td style="padding:6px 18px;font-weight:700">' + esc(r.ver) + '</td></tr></table>' +
-      '<div style="margin:44px auto 0;display:flex;justify-content:center;gap:60px;align-items:flex-end"><div><img src="' + r.sig + '" style="width:180px;height:auto;display:block;margin:0 auto" alt="서명"><p style="border-top:1px solid #141B2D;margin:4px 0 0;padding-top:6px;font-size:14px;color:#5A6170">서약인 서명</p></div>' +
+      '<div style="margin:44px auto 0;display:flex;justify-content:center;gap:60px;align-items:flex-end"><div><img src="' + r.sig + '" style="width:180px;height:auto;display:block;margin:0 auto" alt="서명"><p style="border-top:1px solid #141B2D;margin:4px 0 0;padding-top:6px;font-size:14px;color:#5A6170">서약인 확인 서명</p></div>' +
       '<div><p style="font-family:\'Noto Serif KR\',serif;font-size:24px;font-weight:700;margin:0">디어 에듀테크</p><p style="border-top:1px solid #141B2D;margin:8px 0 0;padding-top:6px;font-size:14px;color:#5A6170">교육 주관</p></div></div>' +
       '</div></div>';
   }
@@ -251,9 +251,11 @@
   function set(root) {
     css(); var r = rec();
     var s = '<div class="dx"><header class="vtop"><div><a class="back" href="./">← 상담 데스크</a><p class="eyebrow">이 태블릿</p><h1>설정</h1></div></header>' +
-      '<section class="dxb"><h2>상담 데스크 비밀번호 바꾸기</h2><p class="sub">배포 전 비밀번호(1234)는 모든 구독자가 같습니다. 받으신 뒤 본인만 아는 비밀번호로 바꿔 주세요. 바꾼 비밀번호는 내 다른 태블릿에도 적용됩니다.</p>' +
-      (hasApi() ? '<label class="field">지금 비밀번호<input id="pw0" type="password" autocomplete="current-password"></label><label class="field">새 비밀번호 (4자 이상)<input id="pw1" type="password" autocomplete="new-password"></label><label class="field">새 비밀번호 한 번 더<input id="pw2" type="password" autocomplete="new-password"></label><p class="err" id="pwerr"></p><div class="nav"><span></span><button class="btn btn-g" data-s="pw">비밀번호 바꾸기</button></div>' :
-        '<p class="note">운영사가 웹앱을 연결하면 여기에서 바로 바꿀 수 있습니다. 그 전에는 운영사(디어 에듀테크)에 요청해 주세요.</p>') + '</section>' +
+      '<section class="dxb"><h2>이 태블릿 PIN</h2><p class="sub">상담 데스크는 사람마다 다른 <b>접속 코드</b>로 처음 한 번 열고, 그다음부터는 이 태블릿에만 저장되는 <b>PIN 숫자 6자리</b>로 엽니다. PIN을 5번 틀리면 이 태블릿에서 지워지고 접속 코드를 다시 넣어야 합니다.</p>' +
+      (D().hasPin() ? '<label class="field">지금 PIN<input id="pw0" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></label>' : '<p class="note">이 태블릿에는 아직 PIN이 없습니다. 지금 정하면 다음부터 PIN으로 엽니다.</p>') +
+      '<label class="field">새 PIN 숫자 6자리<input id="pw1" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></label><label class="field">새 PIN 한 번 더<input id="pw2" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></label><p class="err" id="pwerr"></p>' +
+      '<div class="nav"><button class="btn" data-s="pinclear">이 태블릿에서 PIN 지우기</button><button class="btn btn-g" data-s="pin">' + (D().hasPin() ? 'PIN 바꾸기' : 'PIN 정하기') + '</button></div></section>' +
+      '<section class="dxb"><h2>태블릿을 잃어버렸거나 반납할 때</h2><ul style="margin:8px 0 0;padding-left:20px;line-height:1.7"><li><b>잃어버렸을 때</b> 바로 운영사(디어 에듀테크)에 알려 주세요. 구독을 멈춰 그 태블릿의 상담 자료 · 고객 기록을 지우고(다음 인터넷 연결 때), 새 접속 코드를 드립니다.</li><li><b>반납 · 교체할 때</b> 위 \'PIN 지우기\'를 누르면 이 태블릿의 PIN과 진행 중이던 고객 기록이 함께 지워지고 잠깁니다. 접수된 고객 정보는 내 구글 시트에 남습니다.</li><li>접속 코드는 다른 사람에게 알려 주지 마세요. 사람마다 다르게 발급됩니다.</li></ul></section>' +
       '<section class="dxb"><h2>개인정보 보안교육</h2>' + (r ? '<p>' + esc(r.person) + ' · 이수 ' + day(r.at) + ' · ' + (trained() ? '<b>' + day(r.untilT) + '까지 유효</b>' : '<b style="color:var(--rust)">기한 지남</b>') + '</p>' : '<p>이수 기록이 없습니다.</p>') + '<div class="row"><a class="btn" style="text-decoration:none;display:inline-flex;align-items:center" href="?p=edu">이수증 보기 · 교육 다시 듣기</a></div></section>' +
       (isDemo() ? '<section class="dxb"><h2>시연판</h2><p>이 기기는 시연 모드입니다. 비밀번호 없이 열리고 교육 확인 문제는 정답 처리됩니다.</p><div class="row"><button class="btn" data-s="demooff">시연 모드 끄기 · 잠그기</button></div></section>' : '') +
       '<section class="dxb"><h2>연결 상태</h2><p id="ping" class="sub">' + (hasApi() ? '확인 중…' : '웹앱 연결 전 · 고객 등록은 구글 폼으로, 질문은 문자로 받습니다.') + '</p></section></div>';
@@ -262,24 +264,18 @@
     root.onclick = function (e) {
       var b = e.target.closest('[data-s]'); if (!b) return;
       if (b.dataset.s === 'demooff') { try { localStorage.removeItem('sig-S00-demo'); localStorage.removeItem('sig-S00-edu'); localStorage.removeItem('sig-S00-staff-k'); sessionStorage.clear(); } catch (x) {} location.href = './'; return; }
-      var p0 = $('#pw0').value, p1 = $('#pw1').value, p2 = $('#pw2').value, er = $('#pwerr');
-      if (p1.length < 4) return (er.textContent = '새 비밀번호는 4자 이상으로 해 주세요');
-      if (p1 !== p2) return (er.textContent = '새 비밀번호가 서로 다릅니다');
-      if (p1 === '1234') return (er.textContent = '1234가 아닌 비밀번호로 바꿔 주세요');
-      b.disabled = true; b.textContent = '바꾸는 중…'; er.textContent = '';
-      D().verify(p0).then(function (ok) {
+      var er = $('#pwerr');
+      if (b.dataset.s === 'pinclear') { try { ['sig-S00-lead', 'hosil', 'sig-S00-cust'].forEach(function (k) { localStorage.removeItem(k); }); } catch (x) {} D().clearPin(); D().lock(); return; }
+      var p0 = $('#pw0') ? $('#pw0').value : '', p1 = $('#pw1').value, p2 = $('#pw2').value;
+      if (!D().pinOk(p1)) return (er.textContent = '같은 숫자 반복 · 연속 숫자가 아닌 숫자 6자리로 정해 주세요');
+      if (p1 !== p2) return (er.textContent = '새 PIN이 서로 다릅니다');
+      b.disabled = true; er.textContent = '';
+      (D().hasPin() ? D().checkPin(p0) : Promise.resolve(true)).then(function (ok) {
         if (!ok) throw new Error('old');
-        var salt = crypto.getRandomValues(new Uint8Array(16)), iter = 250000, iv = crypto.getRandomValues(new Uint8Array(12));
-        return crypto.subtle.importKey('raw', new TextEncoder().encode(p1), 'PBKDF2', false, ['deriveKey']).then(function (base) {
-          return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
-        }).then(function (kek) { return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, kek, D().raw); }).then(function (ct) {
-          var u = new Uint8Array(12 + ct.byteLength); u.set(iv, 0); u.set(new Uint8Array(ct), 12);
-          var w = { kid: D().K.kid, salt: b64(salt), iter: iter, wrap: b64(u) };
-          return api('pw', w).then(function () { lset('sig-S00-kw', w); });
-        });
-      }).then(function () { er.innerHTML = '<span style="color:#0F6B4F">비밀번호를 바꿨습니다. 다음에 열 때부터 새 비밀번호를 씁니다.</span>'; $('#pw0').value = $('#pw1').value = $('#pw2').value = ''; })
-        .catch(function (x) { er.textContent = x.message === 'old' ? '지금 비밀번호가 맞지 않습니다' : '바꾸지 못했습니다 · 인터넷 연결을 확인해 주세요'; })
-        .then(function () { b.disabled = false; b.textContent = '비밀번호 바꾸기'; });
+        return D().setPin(p1);
+      }).then(function () { er.innerHTML = '<span style="color:#0F6B4F">PIN을 저장했습니다. 다음에 열 때부터 이 PIN을 씁니다.</span>'; ['pw0', 'pw1', 'pw2'].forEach(function (i) { if ($('#' + i)) $('#' + i).value = ''; }); })
+        .catch(function (x) { er.textContent = x.message === 'old' ? '지금 PIN이 맞지 않습니다' : '저장하지 못했습니다'; })
+        .then(function () { b.disabled = false; });
     };
   }
 

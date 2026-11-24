@@ -11,16 +11,17 @@
     code: '4321',
     sub: 'S00 (주)디어 체험판',
     operator: v('디어 에듀테크') || '디어 에듀테크',
-    collector: v('디어 에듀테크'),
+    collector: v('(주)디어 체험판'),
     collectorTel: v('010-8315-9602'),
-    processor: v(''),
+    processor: v('디어 에듀테크 (상담 · 접수 · 알림 시스템 운영), Google LLC (고객 기록 저장 · 미국 등 국외 서버)'),
+    cpo: v('(주)디어 체험판'),
     retention: v('수집일부터 6개월 (삭제를 요청하시면 바로 파기)') || '수집일부터 6개월 (삭제를 요청하시면 바로 파기)',
     api: v(''),
     sid: v('S00') || 'OWNER',
-    cver: v('CV-20261123') || 'CV-20261123',
+    cver: v('CV-20261124') || 'CV-20261123',
     optMode: v('link') || 'link',
     opt080: v(''),
-    dataDate: v('2026-11-23') || '2026-11-23',
+    dataDate: v('2026-11-24') || '2026-11-23',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLScoww7vWO-2Gkv2I73mLapcq1bywkjSalua_2MlVA6X8tvm-Q/',
     entry: {
       name: 'entry.554849393', tel: 'entry.1056892691', interest: 'entry.845129582', route: 'entry.129554350',
@@ -55,11 +56,12 @@
   C.consentHTML = function (o) {
     o = o || {}; var p = o.id || 'cs';
     return '<div class="cs-box"><b>개인정보 수집 · 이용 안내</b><ul>' +
-      '<li>받는 곳: ' + esc(C.collector) + ' (' + esc(C.collectorTel) + ') · ' + esc(C.site) + ' 분양 상담</li>' +
+      '<li>받는 사람(개인정보 처리자): ' + esc(C.collector) + ' (' + esc(C.collectorTel) + ') · ' + esc(C.site) + ' 분양 상담</li>' +
       '<li>목적: ' + esc(o.purpose || '요청하신 상담 화면 열람, 고르신 호실의 계약 가능 여부 회신과 분양 상담 연락') + '</li>' +
       '<li>항목: ' + esc(o.items || '성함, 연락처 (고르신 호실 정보가 함께 전달됩니다)') + '</li>' +
       '<li>보유 기간: ' + esc(C.retention) + ' · 제3자 제공 없음</li>' +
-      (C.processor ? '<li>처리 위탁: ' + esc(C.processor) + '</li>' : '') +
+      (C.processor ? '<li>맡아서 처리하는 곳(위탁): ' + esc(C.processor) + ' · 기록은 국외(미국 등) 서버에 저장됩니다</li>' : '') +
+      '<li><a href="' + C.base + 'privacy/" target="_blank" rel="noopener">개인정보 처리방침 전문 보기</a> · 열람 · 정정 · 삭제 · 처리정지를 언제든 요청하실 수 있습니다</li>' +
       '<li><b>동의하지 않으셔도 됩니다.</b> ' + esc(o.refuse || '이 경우 휴대폰 화면은 열리지 않지만 전화 상담이나 종이 사양서로 같은 내용을 안내받으실 수 있습니다.') + '</li></ul></div>' +
       '<label class="cs-ck"><input type="checkbox" id="' + p + '-ack"><span><b>[필수]</b> 위 개인정보 수집 · 이용에 동의합니다</span></label>' +
       (o.mkt === false ? '' :
@@ -161,7 +163,7 @@
   (function () {
     if (document.getElementById('cs-css')) return;
     var s = document.createElement('style'); s.id = 'cs-css';
-    s.textContent = '.cs-box{background:#F7F4EE;border:1px solid #E3DCCF;border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.55;color:#3D4454;margin-top:12px}.cs-box b{color:#141B2D}.cs-box ul{margin:6px 0 0;padding-left:18px}.cs-box li{margin:2px 0}' +
+    s.textContent = '.cs-box{background:#F7F4EE;border:1px solid #E3DCCF;border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.55;color:#3D4454;margin-top:12px}.cs-box b{color:#141B2D}.cs-box ul{margin:6px 0 0;padding-left:18px}.cs-box li{margin:2px 0}.cs-box a{color:#7A5A12;font-weight:700}' +
       '.cs-ck{display:flex;gap:9px;align-items:flex-start;margin-top:10px;font-size:14.5px;line-height:1.45;cursor:pointer}.cs-ck input,.cs-md input{width:20px;height:20px;flex:none;margin:1px 0 0;accent-color:#141B2D}' +
       '.cs-mkt{margin-top:10px;border-top:1px dashed #E3DCCF;padding-top:10px}.cs-mkt p{margin:0;font-size:14.5px}.cs-mkt p span{display:block;font-size:12.5px;color:#6A7180}' +
       '.cs-md{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.cs-md label{display:flex;gap:6px;align-items:center;border:1.5px solid #DDD5C6;border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer;background:#fff}' +

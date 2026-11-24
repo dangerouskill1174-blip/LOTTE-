@@ -44,7 +44,7 @@
     var tb=x.table==='types'?'<table class="tt"><tr><th>타입</th><th>전용면적</th><th style="text-align:right">세대수</th></tr>'+I.types.map(function(t){ return '<tr><td><b>'+t[0]+'</b></td><td>'+(t[1]?t[1].toFixed(4)+'㎡':'-')+'</td><td class="n">'+t[2].toLocaleString('ko-KR')+'</td></tr>'; }).join('')+'<tr><td><b>합계</b></td><td></td><td class="n"><b>1,859</b></td></tr></table>':'';
     return '<section class="sl" id="'+x.k+'">'+img+'<div class="in"><p class="no">'+String(i+1).padStart(2,'0')+' / '+String(I.slides.length).padStart(2,'0')+'</p><h2>'+x.t+'</h2><p class="s">'+x.s+'</p>'+tb+'<ul>'+x.pts.map(function(p){ return '<li>'+p+'</li>'; }).join('')+'</ul>'+src(x.src)+'</div></section>';
   }).join('');
-  document.getElementById('fine').innerHTML=I.notes.map(esc).join(' ')+'<br>자료 기준일 '+esc(I.asof)+' · '+esc(S.who)+' '+esc(S.tel)+' · 제공 '+esc(S.operator)+' · <a href="../optout/">광고 수신거부</a>';
+  document.getElementById('fine').innerHTML=I.notes.map(esc).join(' ')+'<br>자료 기준일 '+esc(I.asof)+' · '+esc(S.who)+' '+esc(S.tel)+' · 제공 '+esc(S.operator)+' · <a href="../optout/">광고 수신거부</a> · <a href="../privacy/">개인정보 처리방침</a>';
   document.addEventListener('click',function(e){ var b=e.target.closest('[data-z]'); if(!b) return; var o=document.createElement('div'); o.className='zoom'; o.innerHTML='<img alt="" src="'+b.dataset.z+'"><button type="button">닫기 ✕</button>'; o.querySelector('button').onclick=function(){ o.remove(); }; document.body.appendChild(o); var im=o.querySelector('img'); im.onload=function(){ o.scrollLeft=(im.width-o.clientWidth)/2; o.scrollTop=(im.height-o.clientHeight)/2; }; });
 })();
 </script>
