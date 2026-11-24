@@ -615,7 +615,7 @@ function s5(){
     const tip = b.id==='b1019'?'10개 층이 같은 가격 · 19층에 가까울수록 이득':(b.id==='b69'?'같은 가격 구간 · 9층에 가까울수록 이득':(b.id==='b2025'?'고층부 시작 · 같은 가격 구간':(b.id==='b2739'?'26층은 피난층 · 27층부터 같은 가격':(b.id==='b40'?'최상층부 구간':'가장 적은 돈으로 시작'))));
     return `<button class="opt ${S.band===b.id?'sel':''}" data-band="${b.id}"><span class="k">${bandName(l,b)}</span><span class="t" style="font-size:22px">${eok(v)}</span><div class="pbarv"><div class="bar"><i style="width:${pmax>pmin?Math.round(25+75*(v-pmin)/(pmax-pmin)):60}%"></i></div><small>${v===pmin?'이 호수에서 가장 낮은 가격':'가장 낮은 구간보다 +'+man(v-pmin)}</small></div>${SHOWV?`<span class="ref">상담 참고 · ${vf[b.v]} (추정)</span>`:''}<span class="d">${tip}</span><span>${loanTag(ln)}${st==='u'?'<span class="tag tgold">층 현장 확인</span>':''}${!CAN?'<span class="tag tgold">가능 여부 상담 확인</span>':''}</span></button>`;}).join('');
   return el(`<section class="step"><p class="eyebrow">STEP ⑤ · 층</p><h2 class="q">몇 층에서 살고 싶으세요?</h2>
-  <p class="sub">${l.dong}동 ${l.ho}호 ${l.type} · ${l.dir}향. 같은 가격 구간이면 위층부터 보는 것이 유리합니다. ${CAN?'현황판 기준 상담 가능한 층 구간입니다.':'층 구간별 공급금액입니다. 계약 가능 여부는 선착순이라 담당 상담사이 확인해 드립니다.'}</p>
+  <p class="sub">${l.dong}동 ${l.ho}호 ${l.type} · ${l.dir}향. 같은 가격 구간이면 위층부터 보는 것이 유리합니다. ${CAN?'현황판 기준 상담 가능한 층 구간입니다.':'층 구간별 공급금액입니다. 계약 가능 여부는 선착순이라 담당 상담사가 확인해 드립니다.'}</p>
   <div class="grid g3">${items||'<p class="sub">조건에 맞는 층은 상담사가 현황판으로 따로 안내합니다.</p>'}</div>${nav(!!S.band,'결과 보기 →')}</section>`);
 }
 function moneyRows(c){
@@ -810,7 +810,14 @@ document.addEventListener('click',async e=>{
     if(S.cands.length>=MAXC){toast('후보는 '+MAXC+'개(1 · 2 · 3순위 + 예비 2개)까지 담을 수 있습니다');return;} if(S.cands.some(c=>c.dong===nc.dong&&c.ho===nc.ho&&c.band===nc.band)){toast('이미 담은 호실입니다');return;} S.cands.push(nc); save(); toast(S.cands.length<=3?S.cands.length+'순위로 담았습니다':'예비 후보로 담았습니다 · 비교에서 순위를 올릴 수 있어요'); render(); }
   if(a==='editfloor'||a==='editunit'){ const i=+b.dataset.i, c=S.cands[i]; if(!c) return; S.edit=i; S.dong=c.dong; S.type=c.type; S.ho=c.ho; S.band=a==='editfloor'?c.band:null; S.confirm={floor:c.floor||'',unit:c.unit||''}; if(a==='editunit'){ S.ho=null; } go(a==='editfloor'?5:4); toast((i<3?(i+1)+'순위':'예비 후보')+'를 바꿉니다 · 다 고르면 결과 화면에서 ‘바꾸기’를 누르세요'); return; }
   if(a==='resetall'){ if(!b.dataset.sure){ b.dataset.sure='1'; b.textContent='정말 처음부터? 한 번 더 누르세요'; setTimeout(()=>{ if(b.isConnected){ delete b.dataset.sure; b.textContent='처음부터 다시 (초기화)'; } },3500); return; }
-    S.cands=[]; S.houses=null; S.loan=null; S.lmode=null; S.dong=S.type=S.ho=S.band=null; S.confirm={floor:'',unit:''}; S.edit=null; save(); try{ localStorage.removeItem('hosil-rgn'); }catch(e){} toast('처음부터 다시 시작합니다'); go(S.staff?1:1); return; }
+    // 완전 초기화: 상담 화면 안이면 상담 화면째 새로 (우리 가족 · 지역 · 주택 수 · 가족 · 출퇴근까지), 고객 휴대폰이면 이 화면을 처음 상태로
+    try{ ['hosil','hosil-rgn'].forEach(k=>localStorage.removeItem(k)); }catch(e){}
+    try{ if(window.parent!==window && window.parent.CONSULT && window.parent.CONSULT.reset){ window.parent.CONSULT.reset('2'); return; } }catch(e){}
+    Object.assign(S,{step:1, houses:null, loan:null, lmode:null, inc:'', debt:'', prior:[], dong:null, type:null, ho:null, band:null, cands:[], confirm:{floor:'',unit:''}, edit:null});
+    try{ if(window.RGN_RESET) window.RGN_RESET(); }catch(e){}
+    const q=location.search.replace(/[?&](c|s|view)=[^&]*/g,'').replace(/^&/,'?');
+    if(q!==location.search){ location.replace(location.pathname+q); return; }
+    save(); toast('처음부터 다시 시작합니다'); go(1); return; }
   if(a==='clear'){ S.cands=[]; save(); render(); }
   if(a==='dl'){ pdfAll(b); return; }
   if(a==='png') savePNG(b);
@@ -945,6 +952,7 @@ const RGN=window.RGN=(function(){
   let st={rk:null,gu:'',dong:'',sido:'',sgg:'',odong:'',own:{sido:'',sgg:''},first:null,share:false};
   try{ st=Object.assign(st,JSON.parse(localStorage.getItem('hosil-rgn')||'{}')); }catch(e){}
   const save=()=>{ try{ localStorage.setItem('hosil-rgn',JSON.stringify(st)); }catch(e){} };
+  window.RGN_RESET=()=>{ st={rk:null,gu:'',dong:'',sido:'',sgg:'',odong:'',own:{sido:'',sgg:''},first:null,share:false}; try{ localStorage.removeItem('hosil-rgn'); }catch(e){} };
   const E=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
   const opts=(l,c,ph)=>'<option value="">'+ph+'</option>'+l.map(x=>'<option'+(x===c?' selected':'')+'>'+E(x)+'</option>').join('');
   const where=()=>st.rk==='local'?('부천 '+(st.gu||'')+(st.dong?' '+st.dong:'')).trim():(st.rk==='out'?[st.sido,st.sgg,st.odong].filter(Boolean).join(' '):'');
