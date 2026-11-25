@@ -10,8 +10,7 @@
 <meta name="theme-color" content="#0F1729"><meta name="color-scheme" content="light">
 <script src="sub.js"></script>
 <script src="../assets/reg.js"></script><script src="../assets/site.js"></script>
-<script src="deskx.js"></script>
-<script src="../assets/qrcode.js"></script><script src="deskw.js"></script>
+<script src="../assets/qrcode.js"></script>
 <script src="../assets/skin.js"></script>
 <style>
 :root{--bg:#F6F3EE;--surface:#fff;--surface2:#FBF9F5;--ink:#0F1729;--muted:#5E6677;--line:#E6E0D5;--line2:#D9D1C3;--navy:#0F1729;--navy-ink:#F5F1E8;--gold:#7A4F00;--gold2:#E8B547;--gold-soft:#FBE7B5;--gold-ink:#4A2E00;--rust:#A4432F;
@@ -210,7 +209,9 @@ async function setPin(pin){var salt=crypto.getRandomValues(new Uint8Array(16)),i
   var kek=await kekFrom(pin,salt,iter,'encrypt');var ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},kek,RAW));
   var u=new Uint8Array(12+ct.length);u.set(iv,0);u.set(ct,12);localStorage.setItem('sig-pin',JSON.stringify({kid:K.kid,salt:ub64(salt),iter:iter,wrap:ub64(u)}));pinFail(0)}
 async function checkPin(pin){var r=pinRec();if(!r)return false;try{var x=await unwrap(pin,r);return x.length===RAW.length&&x.every(function(v,i){return v===RAW[i]})}catch(e){return false}}
-async function useRaw(raw){RAW=raw;KEY=await crypto.subtle.importKey('raw',raw,{name:'AES-GCM'},true,['decrypt']);return check()}
+async function useRaw(raw){RAW=raw;KEY=await crypto.subtle.importKey('raw',raw,{name:'AES-GCM'},true,['decrypt']);var ok=await check();if(ok){try{await loadDeskJs()}catch(e){}}return ok}
+// 데스크 기능 코드(암호화본)는 열쇠가 맞은 뒤에만 풀어서 붙임
+async function loadDeskJs(){if(window.DESKX&&window.DESKW)return;for(var n of ['deskx','deskw']){if(n==='deskx'&&window.DESKX||n==='deskw'&&window.DESKW)continue;var b=await fetchDec(n+'.enc');var u=URL.createObjectURL(new Blob([b],{type:'text/javascript'}));await new Promise(function(ok,no){var sc=document.createElement('script');sc.src=u;sc.onload=ok;sc.onerror=no;document.head.appendChild(sc)})}}
 window.SIGPIN={has:function(){return !!pinRec()},check:checkPin};
 function isDemo(){try{return localStorage.getItem('sig-demo')==='1'}catch(e){return false}}
 // 자리를 비우면 잠금 (시연판 제외) · 30분 (1분 전 알림)
