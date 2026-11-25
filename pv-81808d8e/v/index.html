@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<title>방문 확정 · 상동역 롯데캐슬 시그니처</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@700&display=swap">
+<script src="../assets/sig.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F3F0EA;font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:#141B2D;word-break:keep-all;line-height:1.6}
+.top{background:#141B2D;color:#F5F1E8;padding:16px max(16px,env(safe-area-inset-left,0px)) 18px}
+.top p{margin:0;font-size:12.5px;letter-spacing:.12em;color:#E8C77A;font-weight:800}.top h1{margin:4px 0 0;font-family:'Noto Serif KR',serif;font-size:24px}
+.wrap{max-width:560px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 60px max(16px,env(safe-area-inset-right,0px))}
+.card{background:#fff;border:1px solid #E3DCCF;border-radius:16px;padding:18px;margin-top:14px}
+.unit{font-family:'Noto Serif KR',serif;font-size:26px;margin:6px 0 0;line-height:1.35}
+.k{font-size:13px;font-weight:800;color:#7A4F00;letter-spacing:.06em;margin:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+input[type=date],select{min-height:54px;font-size:18px;padding:8px 12px;border:1.5px solid #D9D1C3;border-radius:12px;font-family:inherit;background:#fff;color:#141B2D;width:100%}
+.ag{display:flex;gap:10px;align-items:flex-start;margin-top:14px;border:1.5px solid #DDD5C6;border-radius:12px;padding:12px;font-weight:600;cursor:pointer}
+.ag input{width:24px;height:24px;flex:none;margin-top:2px;accent-color:#141B2D}
+button.go{width:100%;min-height:58px;margin-top:16px;border:0;border-radius:14px;background:#141B2D;color:#F6E7C1;font-weight:800;font-size:18px;font-family:inherit;cursor:pointer}
+button.go:disabled{opacity:.5}
+.err{color:#A4432F;font-weight:700;min-height:1.3em;margin:10px 0 0}
+.ok{background:#E8F3EA;border-color:#9CC7A4}.ok h2{margin:0;color:#2F6B3B}
+.q{background:#FFF7E6;border-color:#E8B547}
+.fine{font-size:13px;color:#5E6677;margin-top:14px}
+.who{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.who a{display:inline-flex;align-items:center;min-height:48px;padding:0 16px;border-radius:12px;background:#E8B547;color:#141B2D;font-weight:800;text-decoration:none}
+</style></head><body>
+<header class="top"><p>상동역 롯데캐슬 시그니처</p><h1>관심 호실 · 방문 확정</h1></header>
+<main class="wrap" id="m"><div class="card"><p>불러오는 중…</p></div></main>
+<script>
+(function(){
+  var S=window.SIG||{}, $=function(q){return document.querySelector(q)}, esc=S.esc||function(x){return String(x)};
+  var t=(location.search.match(/[?&]t=([A-Za-z0-9.]+)/)||[])[1]||'';
+  function post(op,b){ return fetch(S.api,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({op:op,t:t},b||{}))}).then(function(r){return r.json()}); }
+  function who(g){ return '<div class="card who"><div><p class="k">담당 상담사</p><b>'+esc(g.who||'')+'</b> '+esc(g.tel||'')+'</div>'+(g.tel?'<a href="tel:'+esc(String(g.tel).replace(/\D/g,''))+'">전화</a>':'')+'</div>'; }
+  function done(g,st,q){
+    var h='<div class="card '+(st==='순번 대기'?'q':'ok')+'"><h2>'+(st==='순번 대기'?'순번 대기로 등록했습니다':'방문이 확정되었습니다')+'</h2><p>'+(st==='순번 대기'?'지금 다른 고객님이 이 호실을 진행 중입니다. '+(q?q+'번째 ':'')+'순서로 기다리시며, 차례가 오면 담당 상담사가 연락드리고 고객님이 <b>다시 한 번 직접 확인</b>하신 뒤 진행합니다.':'이 호실은 고객님 방문을 위해 담당 상담사 이름으로 진행 요청되었습니다. 현장 팀장 승인 뒤 확정됩니다. 계약 여부는 방문하셔서 직접 결정하시면 됩니다.')+'</p></div>';
+    $('#m').innerHTML='<div class="card"><p class="k">관심 호실</p><p class="unit">'+esc(g.unit)+'</p></div>'+h+who(g)+'<p class="fine">이 화면에는 고객님 성함 · 연락처가 들어 있지 않습니다. 방문 일정을 바꾸시려면 담당 상담사에게 연락해 주세요.</p>';
+  }
+  if(!S.api||!t){ $('#m').innerHTML='<div class="card"><p class="err">링크가 올바르지 않습니다. 담당 상담사에게 다시 받아 주세요.</p></div>'; return; }
+  post('vget').then(function(g){
+    if(!g.ok){ $('#m').innerHTML='<div class="card"><p class="err">'+(g.why==='busy'?'잠시 후 다시 열어 주세요.':'링크가 올바르지 않거나 끝났습니다. 담당 상담사에게 문의해 주세요.')+'</p></div>'; return; }
+    if(g.status==='방문 확정'||g.status==='순번 대기'){ done(g,g.status,g.queue); return; }
+    if(g.status==='계약 완료 안내'||g.status==='끝'){ $('#m').innerHTML='<div class="card"><p class="k">관심 호실</p><p class="unit">'+esc(g.unit)+'</p><p>아쉽지만 이 호실은 다른 고객님과 계약되었습니다. 비슷한 조건의 다른 호실은 담당 상담사가 함께 찾아 드립니다.</p></div>'+who(g); return; }
+    var d0=new Date(Date.now()+864e5), ds=d0.getFullYear()+'-'+('0'+(d0.getMonth()+1)).slice(-2)+'-'+('0'+d0.getDate()).slice(-2), today=new Date().toISOString().slice(0,10);
+    $('#m').innerHTML='<div class="card"><p class="k">'+esc(g.site)+' · 다시 상담 가능해진 호실</p><p class="unit">'+esc(g.unit)+'</p>'+(g.status==='차례 · 고객 재확인'?'<p><b>기다리시던 차례가 왔습니다.</b> 아래에서 다시 한 번 방문을 확정해 주세요.</p>':'')+'</div>'+
+      '<form class="card" id="f" novalidate><b>방문하실 날짜와 시간</b><div class="two"><label class="f">날짜<input id="vd" type="date" min="'+today+'" value="'+ds+'"></label><label class="f">시간<select id="vt">'+['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'].map(function(x){return '<option'+(x==='14:00'?' selected':'')+'>'+x+'</option>'}).join('')+'</select></label></div>'+
+      '<label class="ag"><input type="checkbox" id="va"><span>이 호실에 관심을 등록하고 위 날짜에 방문을 확정합니다. 확정하면 담당 상담사 이름으로 이 호실 진행이 요청되고, 방문하지 않으시면 해제되어 다른 고객님께 안내될 수 있습니다.</span></label>'+
+      '<input type="text" id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true"><button class="go" id="go">관심 등록 · 방문 확정</button><p class="err" id="e"></p></form>'+who(g)+
+      '<p class="fine">성함 · 연락처는 이 화면에서 받지 않습니다. 확정 기록에는 날짜와 이 링크 번호만 남습니다. 계약은 방문하셔서 직접 결정하시면 되고, 확정만으로 계약되지 않습니다.</p>';
+    $('#f').onsubmit=function(ev){ ev.preventDefault(); var e=$('#e'); if(!$('#va').checked){ e.textContent='동의 칸을 눌러 주세요'; return; } if(!$('#vd').value){ e.textContent='날짜를 골라 주세요'; return; }
+      var b=$('#go'); b.disabled=true; e.textContent='';
+      post('vok',{agree:true,visit:$('#vd').value+'T'+$('#vt').value,hp:$('#hp').value}).then(function(j){ b.disabled=false;
+        if(j.ok){ done(g,j.status,j.queue); return; }
+        e.textContent=j.why==='sold'?'아쉽지만 이 호실은 계약되었습니다. 담당 상담사가 다른 호실을 안내해 드립니다.':(j.why==='visit'?'날짜를 다시 골라 주세요':'처리하지 못했습니다. 잠시 후 다시 눌러 주시거나 담당 상담사에게 연락해 주세요.'); }).catch(function(){ b.disabled=false; e.textContent='인터넷 연결을 확인해 주세요'; });
+    };
+  }).catch(function(){ $('#m').innerHTML='<div class="card"><p class="err">인터넷 연결을 확인해 주세요.</p></div>'; });
+})();
+</script>
+</body></html>

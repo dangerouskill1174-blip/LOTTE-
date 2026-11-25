@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow">
+<title>우리 집 옵션 견적서 · 상동역 롯데캐슬 시그니처</title>
+<meta property="og:title" content="우리 집 옵션 견적서 · 상동역 롯데캐슬 시그니처"><meta property="og:description" content="상담에서 고른 추가선택품목(유상옵션) 견적서입니다"><meta property="og:image" content="https://dangerouskill1174-blip.github.io/LOTTE-/pv-81808d8e/assets/og.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@700&display=swap">
+<script src="../assets/sig.js"></script><script src="../assets/opt.js"></script><script src="../assets/share.js"></script><script src="../assets/pdfsave.js"></script><script src="../assets/ask.js" data-bottom="20"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#E9E5DD;font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:#0F1729;word-break:keep-all}
+.bar{position:sticky;top:0;z-index:5;background:#0F1729;color:#F5F1E8;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.bar b{display:block;font-size:17px}.bar span{display:block;font-size:12.5px;opacity:.75}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{font:inherit;font-weight:700;font-size:15px;min-height:46px;padding:0 16px;border-radius:12px;border:1.5px solid rgba(245,241,232,.4);background:transparent;color:#F5F1E8;cursor:pointer;white-space:nowrap}
+.acts .g{background:linear-gradient(135deg,#F2C14E,#C98A12);color:#2A1A00;border-color:transparent}
+.pages{padding:16px 8px 40px}
+.pg{width:794px;margin:0 auto;box-shadow:0 8px 24px rgba(15,23,41,.15);background:#fff}
+.miss{max-width:560px;margin:40px auto;background:#fff;border-radius:14px;padding:24px;text-align:center;line-height:1.6}
+@media (max-width:560px){.acts{width:100%}.acts button{flex:1 1 40%;padding:0 8px;font-size:14px}}
+@media print{body{background:#fff}.bar,.shban{display:none!important}.pages{padding:0}.pg{box-shadow:none;zoom:1!important;margin:0}@page{size:A4;margin:0}}
+</style></head><body>
+<div class="bar"><div><b>우리 집 옵션 견적서</b><span id="sub">상동역 롯데캐슬 시그니처 · 추가선택품목</span></div>
+ <div class="acts"><button class="g" id="bPdf">PDF 저장</button><button id="bImg">이미지 저장</button><button id="bPrt">인쇄</button><button id="bSh">보내기</button></div></div>
+<div class="pages" id="pages"></div>
+<script>
+(function(){
+  var S=window.SIG, O=window.OPT, q=O.decode(location.search), um=/[?&]u=([^&#]*)/.exec(location.search), unit=um?decodeURIComponent(um[1]).slice(0,30):'';
+  var host=document.getElementById('pages');
+  if(!q){ host.innerHTML='<div class="miss"><b>견적서를 찾지 못했습니다</b><br>링크가 잘렸을 수 있습니다. 담당 상담사에게 다시 받아 주세요.<br>'+S.who+' '+S.tel+'</div>'; document.querySelector('.acts').hidden=true; return; }
+  document.getElementById('sub').textContent=q.t+' 타입 · '+O.lines(q.t,q.sel).lines.length+'개 품목 · 합계 '+O.won(O.lines(q.t,q.sel).sum)+'원';
+  var html=O.sheet(q.t,q.sel,{unit:unit,who:S.who,tel:S.tel});
+  host.innerHTML='<div class="pg">'+html+'</div>';
+  function fit(){ var w=Math.min(innerWidth,document.documentElement.clientWidth||innerWidth); host.querySelector('.pg').style.zoom = w<820 ? Math.max(.3,(w-16)/794) : 1; }
+  fit(); addEventListener('resize',fit); addEventListener('beforeprint',function(){ host.querySelector('.pg').style.zoom=1; }); addEventListener('afterprint',fit);
+  var name='옵션견적서_'+q.t+(unit?'_'+unit.replace(/\s/g,''):'');
+  if(window.SHARE) SHARE.banner('카카오톡 안에서는 PDF 저장 · 인쇄가 안 될 수 있어요');
+  document.getElementById('bPdf').onclick=function(){ var b=this,o=b.textContent; b.disabled=true; b.textContent='만드는 중…'; PDFSAVE.save([html],name+'.pdf').then(function(){ SHARE.toast('PDF로 저장했습니다 · 다운로드 폴더를 확인하세요'); }).catch(function(){ SHARE.toast('저장하지 못했습니다 · 크롬에서 열어 다시 눌러 주세요'); }).then(function(){ b.disabled=false; b.textContent=o; }); };
+  document.getElementById('bImg').onclick=function(){ var b=this,o=b.textContent; b.disabled=true; b.textContent='만드는 중…';
+    var box=document.createElement('div'); box.style.cssText='position:absolute;left:-12000px;top:0;width:794px'; box.innerHTML=html; document.body.appendChild(box);
+    PDFSAVE.libs().then(function(){ return html2canvas(box.firstElementChild,{scale:2,backgroundColor:'#fff',width:794,height:1123,windowWidth:1100,scrollX:0,scrollY:0}); }).then(function(cv){ cv.toBlob(function(bl){ PDFSAVE.download(bl,name+'.png'); SHARE.toast('이미지로 저장했습니다'); },'image/png'); }).catch(function(){ SHARE.toast('저장하지 못했습니다'); }).then(function(){ box.remove(); b.disabled=false; b.textContent=o; }); };
+  document.getElementById('bPrt').onclick=function(){ if(SHARE.inApp()){ SHARE.toast('인쇄는 크롬에서 됩니다'); SHARE.external(location.href); return; } window.print(); };
+  document.getElementById('bSh').onclick=function(){ SHARE.open({title:'옵션 견적서 보내기',text:'['+S.site+'] '+q.t+' 타입 옵션 견적서입니다.',url:location.href}); };
+})();
+</script>
+</body></html>
