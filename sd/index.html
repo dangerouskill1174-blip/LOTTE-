@@ -94,7 +94,8 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .btoc{position:sticky;top:0;z-index:3;margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px;box-shadow:var(--sh1);display:flex;gap:12px;align-items:center;overflow-x:auto;scrollbar-width:none}.btoc::-webkit-scrollbar{display:none}
 .btoc b{flex:none;font-size:14px;color:var(--muted)}.btoc ol{display:flex;gap:6px;margin:0;padding:0;list-style:none;counter-reset:t}.btoc li{flex:none;counter-increment:t}
 .btoc a{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line2);text-decoration:none;font-size:14px;font-weight:700;white-space:nowrap}.btoc a::before{content:counter(t,decimal);display:none}
-.bguide{display:grid;gap:26px;margin-top:22px;font-size:17.5px;line-height:1.7}
+.bguide{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;margin-top:22px;font-size:17.5px;line-height:1.7}
+.bguide>*,.bpart>*{min-width:0}
 .bpart{scroll-margin-top:90px}
 .bno{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;border-radius:12px;background:var(--navy);color:#F2C14E;font-weight:800;font-size:20px;padding:0 10px}
 .bpart>h2{font-size:clamp(24px,3vw,30px);margin-top:10px}.blead{color:var(--muted);margin-top:6px}
@@ -174,6 +175,9 @@ button.card{font:inherit;text-align:left;color:var(--ink);cursor:pointer}
 .pf{display:grid;gap:12px;margin-top:14px}.pf label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}.pf input,.pf textarea{font:inherit;font-size:17px;min-height:52px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink)}.pf .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .prow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px;background:var(--surface2)}.prow b{font-size:17px}.prow .st{font-size:12.5px;font-weight:800;border-radius:999px;padding:2px 10px;margin-left:6px}.st.on{background:#E3F1EA;color:#0F6B4F}.st.wait{background:#E6EEFB;color:#204A8F}.st.end{background:#EEE;color:#666}
 .skov{position:fixed;inset:0;z-index:60;background:rgba(11,15,24,.72);display:flex;align-items:center;justify-content:center;padding:16px}.skov>div{background:var(--surface);border-radius:22px;padding:22px;max-width:860px;width:100%;max-height:90vh;overflow:auto}
+@media (max-width:600px){.bigb{padding:16px 16px;gap:12px;min-height:0;border-radius:20px}.bigb i{font-size:34px}.bigb b{font-size:21px}.bigb small{font-size:15px}
+.bigb.hero{flex-wrap:wrap;min-height:0}.bigb.hero span{flex:1 1 0;min-width:0}.bigb.hero b{font-size:26px}.bigb.hero small{font-size:15px}.bigb.hero em{flex:1 1 100%;text-align:center;font-size:19px;padding:14px}
+.bigrow{grid-template-columns:minmax(0,1fr)}.btabs button{min-height:60px;font-size:14px}.btabs button i{font-size:22px}body.hubp .wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}}
 </style></head><body>
 <div class="brand"><div class="brand-in"><span class="bn"><i>◆</i>상동역 롯데캐슬 시그니처</span><span class="bt">상담 데스크</span></div></div>
 <div id="root"><p class="loading">여는 중…</p></div>

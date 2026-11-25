@@ -60,3 +60,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .lbm #lbh{font-size:12px;color:rgba(245,241,232,.7);text-align:center}
 .lbf .lbr{font-size:13px;padding:0 10px}
 .lbf .lbr[hidden]{display:none}
+/* 휴대폰: 손가락으로 누르기 쉬운 크기 (모양은 그대로) */
+.top a{display:inline-flex;align-items:center;min-height:44px}
+.fine a{display:inline-block;padding:12px 4px;margin:-12px -4px}
+@media (max-width:600px){.fine{line-height:1.9}}

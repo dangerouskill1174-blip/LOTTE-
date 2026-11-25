@@ -175,7 +175,9 @@
     if (!root) return; var doc = root.ownerDocument || document; css(doc);
     [].forEach.call(root.querySelectorAll('table, svg:not(.noez), .chart, .bars, .paybar, .flow'), function (t) {
       if (t.closest('.ezbox,.noez') || t.__ez || (t.previousElementSibling && t.previousElementSibling.classList && t.previousElementSibling.classList.contains('ezb'))) return;
-      if (t.getBoundingClientRect().height < 60 || t.closest('details:not([open])')) return;
+      /* 누르는 카드(버튼) 안 · 나침반 같은 작은 그림에는 붙이지 않음 */
+      if (t.closest('button,a,label,[role=button],.compass')) return;
+      var r = t.getBoundingClientRect(); if (r.height < 60 || (t.tagName.toLowerCase() === 'svg' && r.width < 140) || t.closest('details:not([open])')) return;
       t.__ez = 1; var k = guess((t.closest('section,.card,.box,div') || t).textContent.slice(0, 400));
       var b = doc.createElement('button'); b.type = 'button'; b.className = 'ezb'; b.dataset.ezk = k; b.textContent = '? 쉽게 보기';
       t.parentNode.insertBefore(b, t);
