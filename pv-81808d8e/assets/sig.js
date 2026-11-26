@@ -37,7 +37,7 @@
   C.esc = esc;
   C.base = (function () { var s = document.currentScript && document.currentScript.src; return s ? new URL('../', s).href : new URL('../', location.href).href; })();
 
-  var ROUTES = { visit: '방문고객', ad: '광고', sim: '시뮬레이터', ref: '지인 소개', flyer: '전단', kakao: '카톡 안내', sheet: '사양서 QR', qa: '답변 링크' };
+  var ROUTES = { visit: '방문고객', ad: '광고', sim: '시뮬레이터', ref: '지인 소개', flyer: '전단', kakao: '카톡 안내', sheet: '사양서 QR', qa: '답변 링크', call: '전화 문의' };
   (function () {
     var m = /[?&]from=([a-z]+)/.exec(location.search);
     if (m && ROUTES[m[1]] && !get('sig-route')) set('sig-route', ROUTES[m[1]]);
