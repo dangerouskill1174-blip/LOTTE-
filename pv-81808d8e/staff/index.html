@@ -45,7 +45,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 /* hub */
 .htop{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .htop h1{font-size:clamp(30px,4vw,44px);margin-top:8px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:24px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px;margin-top:24px}
 .card{position:relative;display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--sh1);transition:transform .18s,box-shadow .18s,border-color .18s;min-height:190px}
 .card:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:var(--gold2)}
 .card .no{font-family:var(--serif);font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.1em}
@@ -67,7 +67,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .lk .acts,.row{display:flex;gap:8px;flex-wrap:wrap}.row{margin-top:14px}
 .subok{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;color:#1F6F5C;background:#DDF1E9;border-radius:999px;padding:4px 12px}
 .hacts{display:flex;gap:8px;flex-wrap:wrap}
-.guidebars{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:16px}.guidebars .guidebar{margin-top:0}.guidebar b{display:block;color:#F2C14E;margin-bottom:2px}
+.guidebars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:10px;margin-top:16px}.guidebars .guidebar{margin-top:0}.guidebar b{display:block;color:#F2C14E;margin-bottom:2px}
 .guidebar{display:block;margin-top:16px;padding:14px 18px;border-radius:14px;background:var(--navy);color:#F5F1E8;text-decoration:none;font-size:15px}.guidebar b{color:#F2C14E;margin-right:10px}
 .grp{margin-top:22px;border-radius:24px;padding:20px 20px 22px}
 .grp.cust{background:#FFF6DE;border:2px solid #E8B547}
@@ -115,7 +115,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .chk{margin:8px 0 0;padding-left:0;list-style:none}.chk li{padding:6px 0 6px 30px;position:relative}.chk li::before{content:"✓";position:absolute;left:4px;color:#1F6F5C;font-weight:800}
 .faq{display:grid;gap:8px;margin-top:14px}.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 16px}
 .faq summary{cursor:pointer;font-weight:800;min-height:52px;display:flex;align-items:center}.faq p{margin:0 0 14px;color:var(--ink)}
-.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px}
 .box{list-style:none;margin:8px 0 0;padding:0}.box li{padding:8px 0 8px 34px;position:relative;border-bottom:1px dashed var(--line)}.box li::before{content:"";position:absolute;left:2px;top:11px;width:20px;height:20px;border:2px solid var(--line2);border-radius:5px}
 .warn.big li{font-size:17px;margin:8px 0}
 .bend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
@@ -127,14 +127,14 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .tips{margin-top:22px;padding:20px 24px;border-radius:20px;border:1px dashed var(--line2)}
 .tips h3{font-size:18px}.tips ol{margin:10px 0 0;padding-left:20px;color:var(--muted)}.tips li{margin:4px 0}.tips b{color:var(--ink)}
 @media (max-width:700px){.send{grid-template-columns:1fr}.qrbox{max-width:240px}}
-.ttwo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:16px}.ttwo a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);border:1.5px solid var(--line2);border-radius:16px;padding:14px 16px}.ttwo a.on{border-color:var(--gold);box-shadow:var(--sh1)}.ttwo b{font-size:13px;color:var(--gold-ink);letter-spacing:.04em}.ttwo span{font-size:14px;color:var(--muted)}
+.ttwo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px;margin-top:16px}.ttwo a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);border:1.5px solid var(--line2);border-radius:16px;padding:14px 16px}.ttwo a.on{border-color:var(--gold);box-shadow:var(--sh1)}.ttwo b{font-size:13px;color:var(--gold-ink);letter-spacing:.04em}.ttwo span{font-size:14px;color:var(--muted)}
 .tlegend{margin-top:12px;font-size:14px;color:var(--muted);line-height:2}
 .vf{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:1px 9px;margin:0 2px;vertical-align:1px;white-space:nowrap}.vf.ok{background:#E3F1EA;color:#0F6B4F}.vf.day{background:#E6EEFB;color:#204A8F}.vf.est{background:#FBE7C9;color:#8A4B10}.vf.chk{background:#FBEDEA;color:#A4432F}
 .ttab{margin-top:14px;border-radius:14px;padding:14px 16px;background:#F3EEE3;border:1.5px solid #C9A961}.ttab span{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:3px 10px;color:#fff;background:#8A6A1F}.ttab p{margin-top:8px}.ttab .btn{margin-top:10px;text-decoration:none;display:inline-flex;align-items:center}
 .tcust{margin-top:14px;border-radius:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--line)}.tcust span{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:3px 10px;color:#5A4A2A;background:#EDE4D3}.tcust p{margin-top:6px;font-size:17px}
-.ttw{overflow-x:auto;margin-top:12px;-webkit-overflow-scrolling:touch}.tt{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.55;min-width:520px}.tt th{background:var(--navy);color:#F2C14E;text-align:left;padding:9px 10px;font-size:14px}.tt td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}.tt tr:nth-child(odd) td{background:var(--surface2)}.tt.num td+td{text-align:right;font-variant-numeric:tabular-nums}.tt.grid td:first-child{background:var(--navy);color:#F5F1E8;width:130px}
-.tcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.tcols ol{margin:6px 0 0;padding-left:22px}.tl{font-weight:800;color:var(--gold-ink)}
-.trow{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}.trow .bcard{margin-top:0}
+.cmpt td.cmo,.cmpt th.cmo{background:var(--gold-soft,#F6EBCF);color:var(--ink)}.cmpt th em{font-style:normal;font-size:12px;background:var(--navy);color:#F5F1E8;border-radius:999px;padding:1px 8px;margin-left:4px}.cmpt tr>th:first-child{white-space:nowrap}.cmpt .sm{font-size:13px;color:var(--muted)}.cmpt td.cmo .sm{color:var(--ink)}.ttw{overflow-x:auto;margin-top:12px;-webkit-overflow-scrolling:touch}.tt{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.55;min-width:520px}.tt th{background:var(--navy);color:#F2C14E;text-align:left;padding:9px 10px;font-size:14px}.tt td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}.tt tr:nth-child(odd) td{background:var(--surface2)}.tt.num td+td{text-align:right;font-variant-numeric:tabular-nums}.tt.grid td:first-child{background:var(--navy);color:#F5F1E8;width:130px}
+.tcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px}.tcols ol{margin:6px 0 0;padding-left:22px}.tl{font-weight:800;color:var(--gold-ink)}
+.trow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px;margin-top:14px}.trow .bcard{margin-top:0}
 .bcard.tdark{background:var(--navy);color:#F5F1E8;border-color:var(--navy)}.bcard.tdark h3{color:#F2C14E}.bcard.tdark .chk li::before{color:#F2C14E}
 .bcard.tbad{border:1.5px solid #C8553D}.bcard.tbad h3{color:#A4432F}.bcard.tbad .chk li::before{content:"✕";color:#A4432F}.bcard.tgood{border:1.5px solid #8A6A1F}.bcard.tgood h3{color:#8A6A1F}
 .ttime{display:inline-block;margin-left:10px;font-size:14px;font-weight:800;color:var(--gold-ink);vertical-align:12px}
@@ -143,7 +143,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .vtop>div{flex:1;min-width:240px}.vtop h1{font-size:clamp(26px,3.4vw,36px);margin-top:6px}
 .back{display:inline-flex;align-items:center;min-height:44px;font-weight:700;text-decoration:none;color:var(--gold-ink);width:100%}
 .pages{display:grid;gap:18px;margin-top:22px}
-.pages.page{grid-template-columns:repeat(auto-fill,minmax(420px,1fr))}
+.pages.page{grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr))}
 .pg{margin:0}.pg img{display:block;width:100%;height:auto;min-height:120px;border-radius:14px;border:1px solid var(--line);background:#fff;box-shadow:var(--sh1);cursor:zoom-in}
 .pg figcaption{font-size:12px;color:var(--muted);text-align:right;margin-top:4px}
 @media (max-width:520px){.pages.page{grid-template-columns:1fr}}
@@ -161,7 +161,7 @@ body.hubp .wrap{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 .bigb{display:flex;align-items:center;gap:18px;width:100%;text-align:left;text-decoration:none;color:var(--ink);background:var(--surface);border:1.5px solid var(--line2);border-radius:24px;padding:22px 24px;box-shadow:var(--sh1);font:inherit;min-height:120px}
 .bigb i{font-style:normal;font-size:44px;flex:none}.bigb span{display:flex;flex-direction:column;gap:4px;flex:1}.bigb b{font-family:var(--serif);font-size:clamp(22px,2.6vw,28px)}.bigb small{font-size:16px;color:var(--muted);line-height:1.5}
 .bigb.hero{background:linear-gradient(135deg,var(--navy),var(--navy2,#1C2846));color:var(--navy-ink);border-color:var(--navy);min-height:180px}.bigb.hero b{font-size:clamp(30px,4vw,40px);color:#fff}.bigb.hero small{color:rgba(245,241,232,.8);font-size:17px}.bigb.hero em{font-style:normal;font-weight:800;font-size:20px;background:#F2C14E;color:#1A1306;border-radius:999px;padding:12px 22px;flex:none}
-.bigrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:14px}
+.bigrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px;margin-top:14px}
 .qline{display:flex;align-items:center;gap:6px;margin-top:14px;min-height:56px;padding:0 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700;font-size:17px}
 .tabnote{font-weight:800;color:#A4432F;background:#FBEDEA;border:1.5px solid #C8553D;border-radius:14px;padding:10px 14px}
 .btabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--line);padding:6px max(10px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(15,23,41,.08)}
@@ -182,7 +182,7 @@ button.card{font:inherit;text-align:left;color:var(--ink);cursor:pointer}
 <div id="root"><p class="loading">여는 중…</p></div>
 <script>
 (function(){
-var PAGES={call:1,notice:1,claim:1,ads:1,walk:1,team:1,wait:1,arch:1,promo:1,hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,tut:1,kit:1,admin:1,edu:1,qa:1,set:1,stat:1,src:1};
+var PAGES={cmp:1,call:1,notice:1,claim:1,ads:1,walk:1,team:1,wait:1,arch:1,promo:1,hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,tut:1,kit:1,admin:1,edu:1,qa:1,set:1,stat:1,src:1};
 var DCFG={api:'https://script.google.com/macros/s/AKfycbw5Klo1YLrsJe_aLt5TnMqTTDV8JXAOFtrUd53f0x1ABgoE8t2qYG9IAcMGrh9XkyUi/exec',sid:'OWNER'}, RAW=null, W=null;
 var te=new TextEncoder(), td=new TextDecoder();
 var K=null, KEY=null, $=function(q){return document.querySelector(q)};
@@ -233,7 +233,7 @@ function opened(raw){sset('sig-staff-k',K.kid+'|'+ub64(raw),false);deskObj()}
 function lockView(msg,mode){
   var pr=pinRec();mode=mode||(pr?'pin':'code');
   if(mode==='pin'){
-    $('#root').innerHTML=lockHead('이 태블릿의 <b>PIN 숫자 6자리</b>를 넣어 주세요.')+
+    $('#root').innerHTML=lockHead('이 기기의 <b>PIN 숫자 6자리</b>를 넣어 주세요.')+
     '<label for="pw">PIN</label><input id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" enterkeyhint="go">'+
     '<p class="err" id="er">'+(msg||'')+'</p><button class="btn btn-p" id="ok" data-t="열기">열기</button><p class="alt"><a href="#" id="alt">PIN을 잊었어요 · 접속 코드로 열기</a></p></form></div>';
     $('#alt').onclick=function(e){e.preventDefault();lockView('','code')};
@@ -241,7 +241,7 @@ function lockView(msg,mode){
       try{raw=await unwrap($('#pw').value,pr)}catch(err){raw=null}
       if(raw&&(await useRaw(raw))){pinFail(0);opened(raw);return show()}
       KEY=null;RAW=null;var n=pinFail()+1;
-      if(n>=PIN_MAX){clearPin();return lockView('PIN이 '+PIN_MAX+'번 틀려 이 태블릿의 PIN을 지웠습니다. 접속 코드로 다시 열어 주세요','code')}
+      if(n>=PIN_MAX){clearPin();return lockView('PIN이 '+PIN_MAX+'번 틀려 이 기기의 PIN을 지웠습니다. 접속 코드로 다시 열어 주세요','code')}
       pinFail(n);$('#er').textContent='PIN이 맞지 않습니다 · 남은 기회 '+(PIN_MAX-n)+'번';$('#pw').value='';lockBusy(false)});
   } else if(mode==='code'){
     $('#root').innerHTML=lockHead('처음 여는 태블릿은 <b>접속 코드</b>(예: ABCD-EFGH-JKLM)를 넣어 주세요. 코드는 사람마다 다르며 운영사가 따로 보내 드립니다.')+
@@ -257,7 +257,7 @@ function lockView(msg,mode){
   setTimeout(function(){var p=$('#pw');if(p)p.focus()},50);
 }
 function pinSetup(msg){
-  $('#root').innerHTML=lockHead('이 태블릿에서만 쓸 <b>PIN 숫자 6자리</b>를 정해 주세요. 다음부터는 접속 코드 대신 PIN으로 엽니다. '+PIN_MAX+'번 틀리면 PIN이 지워지고 접속 코드를 다시 넣어야 합니다.')+
+  $('#root').innerHTML=lockHead('이 기기에서만 쓸 <b>PIN 숫자 6자리</b>를 정해 주세요. 다음부터는 접속 코드 대신 PIN으로 엽니다. '+PIN_MAX+'번 틀리면 PIN이 지워지고 접속 코드를 다시 넣어야 합니다.')+
   '<label for="pw">PIN 숫자 6자리</label><input id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off">'+
   '<label for="pw2">한 번 더</label><input id="pw2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" enterkeyhint="go">'+
   '<p class="err" id="er">'+(msg||'')+'</p><button class="btn btn-p" id="ok" data-t="PIN 정하고 열기">PIN 정하고 열기</button>'+
@@ -266,7 +266,7 @@ function pinSetup(msg){
   $('#lf').addEventListener('submit',async function(e){e.preventDefault();var a=$('#pw').value,b=$('#pw2').value;
     if(!pinOk(a))return($('#er').textContent='같은 숫자 반복 · 연속 숫자가 아닌 숫자 6자리로 정해 주세요');
     if(a!==b)return($('#er').textContent='두 번 넣은 PIN이 서로 다릅니다');
-    lockBusy(true);try{await setPin(a);toast('PIN을 정했습니다');show()}catch(err){$('#er').textContent='이 태블릿에 저장하지 못했습니다';lockBusy(false)}});
+    lockBusy(true);try{await setPin(a);toast('PIN을 정했습니다');show()}catch(err){$('#er').textContent='이 기기에 저장하지 못했습니다';lockBusy(false)}});
   setTimeout(function(){var p=$('#pw');if(p)p.focus()},50);
 }
 function promoPage(root){
@@ -302,6 +302,7 @@ async function show(){
     document.body.classList.toggle('hubp',p==='hub');
     if(p==='hub'){var tb='c';try{tb=sessionStorage.getItem('sig-hubtab')||'c'}catch(e){}hubTab(tb);}
     if(p==='hub'&&window.DESKW) DESKW.hub();
+    if(p==='tut'&&window.DESKW&&DESKW.tut) DESKW.tut($('#root'));
     if(p==='hub'&&window.DESKX){ DESKX.hubDecor(); var r0=DESKX.rec&&DESKX.rec(); if(r0&&r0.untilT-Date.now()<14*864e5){var eb=$('#eduBan');if(eb)eb.innerHTML='<div class="eduban"><span>보안교육 기한이 '+new Date(r0.untilT).toLocaleDateString('ko-KR')+'까지입니다 · 미리 갱신해 주세요</span><a href="?p=edu">갱신하기</a></div>'}
       var mirror=function(){var a=$('#qaStat'),b=$('#qaLine');if(a&&b)b.innerHTML=a.innerHTML};setTimeout(mirror,1200);setTimeout(mirror,4000);}
   }catch(e){ if(e&&e.message==='missing'){$('#root').innerHTML='<main class="wrap"><p class="loading">자료를 찾지 못했습니다. <a href="./">상담 데스크로</a></p></main>'} else {sdel('sig-staff-k');KEY=null;clearPin();lockView('접속 코드가 바뀌었습니다. 새 암호를 넣어 주세요')} }
