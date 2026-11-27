@@ -28,7 +28,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.chip{font-weight:800;border-radius:999px;padding:8px 14px;background:var(--gold-soft);color:var(--gold-ink);border:1.5px solid var(--gold2)}
 .cand{border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:12px;background:var(--surface2)}
 .cand.p{border-color:var(--gold2);box-shadow:0 0 0 3px var(--gold-soft)}
-.cand .r{font-size:13px;font-weight:800;color:var(--gold)}.cand h3{font-size:22px;margin-top:2px}
+.cand .r{font-size:13px;font-weight:800;color:var(--gold)}.rec .rcand{border-color:#2E9E6B;background:linear-gradient(180deg,rgba(46,158,107,.08),transparent 60%)}.rec .rcand .r{color:#2E9E6B}.rmemo{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px dashed #2E9E6B;font-weight:700}.rmemo span{font-weight:400;color:var(--muted)}.cand h3{font-size:22px;margin-top:2px}
 .cand ul{margin:8px 0 0;padding-left:20px}.cand li{margin:3px 0}
 .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.kv div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px}.kv span{display:block;font-size:12.5px;color:var(--muted)}.kv b{font-size:18px}
 .fp{display:block;width:100%;margin-top:10px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0;overflow:hidden}.fp img{display:block;width:100%}
@@ -90,24 +90,36 @@ function won(v){return window.EZ?EZ.won(v):eok(v)}
 function dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');s+='==='.slice((s.length+3)%4);var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return JSON.parse(new TextDecoder().decode(u))}
 var m=/[?&]d=([A-Za-z0-9_-]+)/.exec(location.search), R=null;
 try{R=m?dec(m[1]):null}catch(e){R=null}
-if(!R||!R.c||!R.c.length){$('#m').innerHTML='<p class="err">결과지 주소가 올바르지 않습니다. 상담사에게 다시 받아 주세요.</p>';return}
+var RC=R&&R.rc?{dong:R.rc[0],ho:R.rc[1],type:R.rc[2],bn:R.rc[3],P:R.rc[4],loan:R.rc[5],tx:R.rc[6],mine:R.rc[7],dir:R.rc[8],bid:R.rc[9],fl:R.rc[10],no:R.rc[11],rs:R.rc[12]||[],memo:R.rc[13]||'',who:R.rc[14]||''}:null;
+if(R&&(!R.c||!R.c.length)&&RC){R.c=[];var ONLY=true}
+if(!R||!R.c||(!R.c.length&&!RC)){$('#m').innerHTML='<p class="err">결과지 주소가 올바르지 않습니다. 상담사에게 다시 받아 주세요.</p>';return}
 var C=R.c.map(function(x){return {dong:x[0],ho:x[1],type:x[2],bn:x[3],P:x[4],loan:x[5],tx:x[6],mine:x[7],dir:x[8],bid:x[9]}});
-var P0=C[0], A=R.an&&window.SKIN?SKIN.ann(R.an):null;
+var P0=C[0]||RC, A=R.an&&window.SKIN?SKIN.ann(R.an):null;
 var top=(R.t||[]).map(function(k){return LABEL[k]}).filter(Boolean);
-var sum=(top.length?top.join(' · ')+'를 모두 챙기는 ':'')+P0.type+' · '+P0.dong+'동 · '+P0.bn+', 계약금 '+won(P0.P*.05)+'으로 시작합니다.';
+var sum=ONLY?'상담사가 콕 집은 추천 호실 · '+RC.dong+'동 '+RC.no+' '+RC.type+', 계약금 '+won(RC.P*.05)+'으로 시작합니다.':(top.length?top.join(' · ')+'를 모두 챙기는 ':'')+P0.type+' · '+P0.dong+'동 · '+P0.bn+', 계약금 '+won(P0.P*.05)+'으로 시작합니다.';
+function recCard(){var T=TYPE[RC.type]||{},D0=DONG[RC.dong]||{},c0=C[0],df=c0?RC.P-c0.P:0;
+  return '<section class="sec rec"><h2>⭐ 상담사가 콕 집은 추천 호실</h2><p class="s">'+(ONLY?'':'고객님이 고르신 1 · 2 · 3순위와 따로, ')+'담당 상담사가 고객님 가족 기준으로 한 곳을 골랐습니다.</p><div class="cand p rcand"><p class="r">⭐ 추천</p><h3>'+esc(RC.dong)+'동 '+esc(RC.no)+' · '+esc(RC.type)+'</h3><ul>'+(RC.rs||[]).map(function(t){return '<li>✓ '+esc(t)+'</li>'}).join('')+'<li>'+esc(T.plan||'')+(T.use?' · 실사용 약 '+T.use+'평':'')+'</li></ul>'+
+  (RC.memo?'<p class="rmemo">💬 “'+esc(RC.memo)+'”'+(RC.who?' <span>— '+esc(RC.who)+'</span>':'')+'</p>':'')+
+  '<div class="kv"><div><span>분양가</span><b>'+eok(RC.P)+'</b></div><div><span>계약금 5%</span><b>'+won(RC.P*.05)+'</b></div><div><span>잔금대출</span><b>'+(RC.loan?'최대 '+RC.loan+'억':'제한')+'</b></div><div><span>입주 때 내 돈 (추정)</span><b>'+eok(RC.mine)+'</b></div></div>'+
+  (c0&&Math.abs(df)>0.004?'<p class="s">고르신 1순위('+esc(c0.dong)+'동 '+esc(c0.type)+' '+esc(c0.bn)+')보다 분양가 '+(df<0?'<b>'+won(-df)+' 낮습니다</b>':won(df)+' 높습니다')+'.</p>':'')+
+  '<p class="fine">상담사 의견입니다. 최종 선택은 고객님이 하시고, 계약 가능 여부와 동 · 호수는 상담사가 확인한 뒤 확정됩니다. 앞으로의 가격을 약속하지 않습니다.</p>'+
+  '<div class="btns"><a class="btn btn-s" href="../3/?from=rec">나만의 시그니처에서 직접 비교해 보기</a></div></div></section>'}
 var h='';
 if(A) h+='<p class="ann">'+A.e+' '+esc(A.m)+'</p>';
 h+='<section class="hero"><p class="k">우리 가족 상담 결과 · 한 줄 요약</p><h1>'+esc(sum)+'</h1><p class="d">'+(R.f?esc(R.f)+' · ':'')+esc(R.dt||'')+' 상담</p></section>';
 if(top.length) h+='<section class="sec"><h2>우리 가족이 고른 중요한 3가지</h2><div class="chips">'+top.map(function(t){return '<span class="chip">✓ '+esc(t)+'</span>'}).join('')+'</div></section>';
-h+='<section class="sec"><h2>'+(C.length>1?'고른 호실 · 1순위부터':'고른 호실')+'</h2><p class="s">분양가는 입주자모집공고 기준이고, 대출 · 세금 · 내 돈은 추정입니다.</p>';
+if(RC&&ONLY) h+=recCard();
+if(C.length){h+='<section class="sec"><h2>'+(C.length>1?'고른 호실 · 1순위부터':'고른 호실')+'</h2><p class="s">분양가는 입주자모집공고 기준이고, 대출 · 세금 · 내 돈은 추정입니다.</p>';
 C.forEach(function(c,i){var T=TYPE[c.type]||{},D0=DONG[c.dong]||{};
   h+='<div class="cand'+(i===0?' p':'')+'"><p class="r">'+(C.length>1?(i+1)+'순위':'우리 집')+'</p><h3>'+c.dong+'동 · '+c.type+' · '+esc(c.bn)+'</h3><ul><li>'+esc(D0.tag||'')+'</li><li>'+esc(T.plan||'')+' · 실사용 약 '+(T.use||'')+'평</li>'+(c.dir?'<li>'+esc(c.dir)+'향 (단지배치도 방위표 기준)</li>':'')+'<li>'+esc(D0.comm||'')+'</li></ul>'+
   '<div class="kv"><div><span>분양가</span><b>'+eok(c.P)+'</b></div><div><span>계약금 5%</span><b>'+won(c.P*.05)+'</b></div><div><span>잔금대출</span><b>'+(c.loan?'최대 '+c.loan+'억':'제한')+'</b></div><div><span>입주 때 내 돈 (추정)</span><b>'+eok(c.mine)+'</b></div></div>'+
   (i===0?'<button class="fp" data-z="../assets/g/fp-'+c.type+'.jpg"><img loading="lazy" src="../assets/g/fp-'+c.type+'.jpg" alt="'+c.type+' 평면도"></button>':'')+'</div>'});
-h+='</section>';
-var pins=C.slice(0,3).map(function(c,i){var H=MAP.H[c.dong],O=MAP.O[c.ho]||[0,0];if(!H)return '';return '<span class="mpin" style="left:'+((H[0]+O[0])/MAP.w*100)+'%;top:'+((H[1]+O[1])/MAP.h*100)+'%;--c:'+RKC[i]+'"><i>'+(i+1)+'</i></span>'}).join('');
+h+='</section>';}
+if(RC&&!ONLY) h+=recCard();
+var pins=C.slice(0,3).map(function(c,i){var H=MAP.H[c.dong],O=MAP.O[c.ho]||[0,0];if(!H)return '';return '<span class="mpin" style="left:'+((H[0]+O[0])/MAP.w*100)+'%;top:'+((H[1]+O[1])/MAP.h*100)+'%;--c:'+RKC[i]+'"><i>'+(i+1)+'</i></span>'}).join('')+(RC&&MAP.H[RC.dong]?(function(){var H=MAP.H[RC.dong],O=MAP.O[RC.ho]||[0,0];return '<span class="mpin" style="left:'+((H[0]+O[0])/MAP.w*100)+'%;top:'+((H[1]+O[1])/MAP.h*100)+'%;--c:#2E9E6B"><i>⭐</i></span>'})():'');
 if(window.MODELV){var mc=C.slice(0,3).map(function(c,i){var b=MODELV.band(c.bid)||[1,MODELV.top(c.dong)];return {dong:c.dong,lo:b[0],hi:Math.min(b[1],MODELV.top(c.dong)),r:i,label:c.dong+'동 '+c.type}});
-  h+='<section class="sec"><h2>모형에서 우리 집은 여기</h2><p class="s">견본주택 모형 사진 위에 고른 동과 층 구간을 표시했습니다. 숫자는 순위입니다.</p><div id="mvh">'+MODELV.html(mc,{base:'../assets/g/'})+'</div></section>';}
+  if(RC) mc.push({dong:RC.dong,lo:RC.fl,hi:RC.fl,r:C.length?3:0,col:'#2E9E6B',mark:'⭐',label:'추천 '+RC.dong+'동 '+RC.no});
+  h+='<section class="sec"><h2>모형에서 우리 집은 여기</h2><p class="s">견본주택 모형 사진 위에 고른 동과 층 구간을 표시했습니다. 숫자는 순위'+(RC?', ⭐는 상담사 추천 호실':'')+'입니다.</p><div id="mvh">'+MODELV.html(mc,{base:'../assets/g/'})+'</div></section>';}
 h+='<section class="sec"><h2>배치도에서 보기</h2><p class="s">단지배치도 위에 고른 호실 라인을 표시했습니다. 숫자는 순위입니다.</p><div class="mmap"><img src="../3/siteplan.jpg" alt="단지 배치도">'+pins+'</div></section>';
 h+='<section class="sec"><h2>언제, 얼마를 내나요</h2><p class="s">'+P0.dong+'동 '+P0.type+' '+esc(P0.bn)+' 기준</p><div class="pay" id="pay"></div><div class="ezrow"><button class="ezb" data-ezk="money">? 쉽게 보기 · 자금 흐름</button><button class="ezb" data-ezk="loan">? 대출</button><button class="ezb" data-ezk="tax">? 세금</button></div>'+
   '<table class="sch"><tr><td>계약금 5% · 계약일</td><td>1,000만 원</td></tr><tr><td>계약금 나머지 · 30일 안에</td><td>'+won(P0.P*.05-.1)+'</td></tr>'+MID.map(function(d,i){return '<tr><td>중도금 '+(i+1)+'회 · '+d+'</td><td>'+won(P0.P*.1)+'</td></tr>'}).join('')+'<tr><td>잔금 35% · 입주 때 (2032년 3월 예정)</td><td>'+won(P0.P*.35)+'</td></tr><tr><td>취득세 (추정) · 잔금 때</td><td>'+won(P0.tx)+'</td></tr></table>'+

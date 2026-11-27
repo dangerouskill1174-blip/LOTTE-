@@ -38,16 +38,16 @@
   function html(cands, o) {
     o = o || {}; css(o.doc); var base = o.base || '../assets/g/', id = o.ph || best(cands), P = PH.filter(function (p) { return p.id === id; })[0] || PH[0];
     var tabs = '<div class="mvt" role="tablist">' + PH.map(function (p) {
-      var dots = cands.filter(function (c) { return !c.off && p.D[c.dong]; }).map(function (c) { return '<b style="--c:' + RKC[c.r % 3] + '"></b>'; }).join('');
+      var dots = cands.filter(function (c) { return !c.off && p.D[c.dong]; }).map(function (c) { return '<b style="--c:' + (c.col || RKC[c.r % 3]) + '"></b>'; }).join('');
       return '<button type="button" data-mv="' + p.id + '"' + (p.id === P.id ? ' class="on"' : '') + '>' + p.n + (dots ? '<i>' + dots + '</i>' : '') + '</button>'; }).join('') + '</div>';
     var ov = '', miss = [], seen = {};
     cands.slice().sort(function (a, b) { return (a.off ? 0 : 1) - (b.off ? 0 : 1) || b.r - a.r; }).forEach(function (c) {
       var d = P.D[c.dong]; if (!d) { if (!c.off) miss.push(c); return; }
       var x = d[0], w = d[1], t = d[2], b = d[3], h = b - t, T = top(c.dong), lo = c.lo || 1, hi = c.hi || T;
-      var y1 = b - (Math.min(hi, T) / T) * h, y2 = b - ((Math.max(lo, 1) - 1) / T) * h, col = RKC[c.r % 3];
+      var y1 = b - (Math.min(hi, T) / T) * h, y2 = b - ((Math.max(lo, 1) - 1) / T) * h, col = c.col || RKC[c.r % 3];
       ov += '<div class="mvb' + (c.off ? ' off' : '') + '" style="--c:' + col + ';left:' + (x - w / 2) + '%;width:' + w + '%;top:' + t + '%;height:' + h + '%"><div class="mvl" style="top:' + ((y1 - t) / h * 100) + '%;height:' + Math.max(1.2, (y2 - y1) / h * 100) + '%"></div></div>';
       var k = seen[c.dong] = (seen[c.dong] || 0) + 1, ly = Math.max(t, 11) + (k - 1) * 8;
-      ov += '<div class="mvn' + (c.off ? ' off' : '') + '" style="--c:' + col + ';left:' + x + '%;top:' + ly + '%"><i>' + (c.r + 1) + '</i>' + esc(c.label || c.dong + '동') + '</div>';
+      ov += '<div class="mvn' + (c.off ? ' off' : '') + '" style="--c:' + col + ';left:' + x + '%;top:' + ly + '%"><i>' + (c.mark || (c.r + 1)) + '</i>' + esc(c.label || c.dong + '동') + '</div>';
     });
     var f = '<div class="mvf" style="aspect-ratio:' + P.ar + '"><img src="' + base + 'model-' + P.id + '.jpg" alt="견본주택 모형 · ' + esc(P.n) + '"><div class="dim"></div>' + ov + '</div>';
     var cap = '<p class="mvc">견본주택 모형 사진 · ' + esc(P.n) + ' 본 모습입니다. 빛나는 띠가 고르신 층 구간의 <b>대략 위치</b>입니다.' + (miss.length ? ' ' + miss.map(function (c) { return (c.r + 1) + '순위 ' + c.dong + '동'; }).join(' · ') + '은 다른 방향 사진에 보입니다.' : '') + '</p>';
