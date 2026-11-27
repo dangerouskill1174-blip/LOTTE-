@@ -182,7 +182,7 @@ button.card{font:inherit;text-align:left;color:var(--ink);cursor:pointer}
 <div id="root"><p class="loading">여는 중…</p></div>
 <script>
 (function(){
-var PAGES={cmp:1,call:1,notice:1,claim:1,ads:1,walk:1,team:1,wait:1,arch:1,promo:1,hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,tut:1,kit:1,admin:1,edu:1,qa:1,set:1,stat:1,src:1};
+var PAGES={stage:1,cmp:1,call:1,notice:1,claim:1,ads:1,walk:1,team:1,wait:1,arch:1,promo:1,hub:1,v1:1,v2:1,sc:1,cd:1,sim:1,consult:1,guide:1,basic:1,tut:1,kit:1,admin:1,edu:1,qa:1,set:1,stat:1,src:1};
 var DCFG={api:'https://script.google.com/macros/s/AKfycbw5Klo1YLrsJe_aLt5TnMqTTDV8JXAOFtrUd53f0x1ABgoE8t2qYG9IAcMGrh9XkyUi/exec',sid:'OWNER'}, RAW=null, W=null;
 var te=new TextEncoder(), td=new TextDecoder();
 var K=null, KEY=null, $=function(q){return document.querySelector(q)};
@@ -291,7 +291,7 @@ async function show(){
   var p=page();
   if(window.DESKX){
     if(p==='edu'||p==='qa'||p==='set'||p==='src'||(p==='stat'&&DCFG.sid==='OWNER')){$('#root').innerHTML='';DESKX[p]($('#root'));return}
-    if((p==='promo'||p==='wait'||p==='team'||p==='notice'||p==='claim'||p==='ads'||p==='walk'||p==='call')&&window.DESKW){if(!DESKX.trained()){$('#root').innerHTML='';DESKX.edu($('#root'),'first');return}$('#root').innerHTML='';DESKW[p]($('#root'));return}
+    if((p==='promo'||p==='wait'||p==='team'||p==='notice'||p==='claim'||p==='ads'||p==='walk'||p==='call'||p==='stage')&&window.DESKW){if(!DESKX.trained()){$('#root').innerHTML='';DESKX.edu($('#root'),'first');return}$('#root').innerHTML='';DESKW[p]($('#root'));return}
     if(!DESKX.trained()){$('#root').innerHTML='';DESKX.edu($('#root'),'first');return}
   }
   try{
