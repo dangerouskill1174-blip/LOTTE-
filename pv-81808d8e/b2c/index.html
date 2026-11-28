@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>디어 상담 데스크 B2C 시연판</title>
+<meta name="description" content="디어 상담 데스크 B2C(직원·팀장용) 시연판. 열쇠 없이 바로 볼 수 있는 검토용 화면이며 고객 정보는 모두 가상입니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--bg:#F4F2EE;--surface:#FFFFFF;--ink:#16202E;--muted:#5D6573;--line:#E5DFD4;--line2:#CFC6B6;--navy:#1B365D;--navy2:#132642;--navy-s:#E8EEF6;--gold:#A87A2C;--gold-s:#F7EEDC;--gold-b:#E5CFA4;--green:#1F7A55;--green-s:#E2F2EA;--red:#A53A2A;--red-s:#FBE9E5;--amber:#9A5B00;--amber-s:#FFF3D6;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:17px;line-height:1.55;word-break:keep-all;overflow-wrap:break-word;-webkit-tap-highlight-color:transparent}
+body{overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4{margin:0;line-height:1.3;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* 상단 시연 바 */
+.top{position:sticky;top:0;z-index:30;background:#101A2B;color:#fff;padding-block:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.top .wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.brand b{font-size:16px}.brand .tag{background:var(--gold);color:#fff;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:800}
+.brand small{color:#B9C2D0;font-size:13px}
+.views{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;flex:1 1 520px;max-width:640px}
+.views button{min-height:44px;border:0;border-radius:12px;background:#22314A;color:#D8DEE8;font-weight:700;font-size:14px;padding:4px 6px;line-height:1.25}
+.views button.on{background:var(--navy);color:#fff;box-shadow:inset 0 0 0 2px #E6B85C}
+.roles{display:flex;gap:4px;background:#22314A;border-radius:12px;padding:4px}
+.roles button{border:0;border-radius:9px;background:transparent;color:#D8DEE8;font-weight:700;font-size:14px;min-height:36px;padding:0 12px}
+.roles button.on{background:#fff;color:var(--navy)}
+main{padding-block:18px 90px}
+/* 공통 부품 */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px}
+.card+.card{margin-top:14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px}
+.k{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.sub{color:var(--muted);font-size:15px}
+.fine{color:var(--muted);font-size:13px;line-height:1.5}
+.btn{min-height:52px;border-radius:14px;border:1.5px solid var(--line2);background:var(--surface);font-weight:700;padding:8px 16px;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-align:center;line-height:1.3;text-decoration:none;color:var(--ink)}
+.btn.p{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.g{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn.s{background:#F1EEE8;border-color:#F1EEE8}
+.btn.r{background:var(--red-s);border-color:#F0C8BF;color:var(--red)}
+.btn.big{min-height:66px;font-size:21px;border-radius:18px;width:100%}
+.btn.w{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:800;background:#EFEBE3;color:#4A5160}
+.chip.n{background:var(--navy-s);color:var(--navy)}.chip.gd{background:var(--gold-s);color:#6E4C12}.chip.ok{background:var(--green-s);color:var(--green)}.chip.no{background:var(--red-s);color:var(--red)}.chip.am{background:var(--amber-s);color:var(--amber)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.between{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.stack>*+*{margin-top:12px}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.tabs button{min-height:60px;border-radius:16px;border:0;background:#EFEBE3;font-weight:800;font-size:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
+.tabs button span{font-size:20px}
+.tabs button.on{background:var(--navy);color:#fff}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px}
+.stp{position:relative;padding-top:44px}
+.stp .no{position:absolute;top:16px;left:18px;font-size:13px;font-weight:900;color:var(--gold)}
+.stp.done{border-color:#B9DCCB;background:#FAFDFB}
+.q{list-style:none;margin:10px 0 0;padding:0}
+.q li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid var(--line);margin-top:6px}
+.q li.me{border-color:var(--navy);background:var(--navy-s)}
+.q .n{font-weight:900;min-width:52px;text-align:center;border-radius:10px;padding:3px 0;background:#EFEBE3;font-size:14px}
+.q li:first-child .n{background:var(--gold);color:#fff}
+.opt{display:grid;gap:8px;margin-top:10px}
+.opt button{text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;min-height:56px}
+.opt button.on{border-color:var(--navy);background:var(--navy-s)}
+.opt button b{display:block}
+.opt button small{color:var(--muted);font-size:14px}
+.pill{display:inline-block;font-size:12px;font-weight:800;border-radius:8px;padding:1px 6px;background:var(--gold);color:#fff;margin-left:4px;vertical-align:2px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:800}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cust{border:1.5px solid var(--line);border-radius:16px;padding:14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
+.cust+.cust{margin-top:10px}
+.cust.sel{border-color:var(--navy);background:#FAFBFE}
+.cust input[type=checkbox]{width:24px;height:24px;margin-top:3px}
+.fl{display:flex;flex-wrap:wrap;gap:6px}
+.fl button{min-height:44px;border-radius:12px;border:0;background:#EFEBE3;font-weight:700;padding:0 14px}
+.fl button.on{background:var(--navy);color:#fff}
+.inp{width:100%;min-height:54px;border-radius:12px;border:1.5px solid var(--line2);padding:10px 14px;font-size:19px;background:var(--surface)}
+textarea.inp{min-height:84px;font-size:16px;line-height:1.5}
+label.ck{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:14px;border:1.5px solid var(--line);margin-top:8px;cursor:pointer}
+label.ck input{width:24px;height:24px;flex:0 0 24px;margin-top:1px}
+label.ck.on{border-color:var(--navy);background:var(--navy-s)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:grid;gap:8px;width:min(560px,calc(100% - 32px))}
+.toast div{background:var(--navy2);color:#fff;border-radius:14px;padding:12px 16px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.25);animation:fi .2s ease-out}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ov{position:fixed;inset:0;z-index:50;background:rgba(16,26,43,.62);display:flex;align-items:flex-start;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px 16px;overflow-y:auto}
+.ov .box{background:var(--surface);border-radius:22px;width:100%;max-width:720px;padding:20px;margin:auto 0;animation:fi .2s ease-out}
+.ov .box.sm{max-width:520px}
+.ov .x{float:right;border:0;background:#EFEBE3;border-radius:12px;min-width:44px;min-height:44px;font-size:20px}
+.alarm{border:3px solid var(--gold);text-align:center}
+.alarm .ic{font-size:44px}
+.shake{animation:sh .5s ease-in-out 2}
+@keyframes sh{0%,100%{transform:none}25%,75%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+/* 고객과 같이 보기 */
+.cv{font-size:18px}.cv.l{font-size:20px}.cv.xl{font-size:22px}
+.cvbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.sbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
+.sbar button{min-height:54px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:15px;line-height:1.2;padding:4px}
+.sbar button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.sbar button.done{background:var(--navy-s);border-color:#C9D6E8;color:var(--navy)}
+.cvg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:16px;margin-top:14px;align-items:start}
+@media (max-width:899px){.cvg{grid-template-columns:minmax(0,1fr)}}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:8px;margin-top:8px}
+.pick button{min-height:58px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-weight:800;padding:6px 8px;line-height:1.25}
+.pick button small{display:block;font-weight:600;color:var(--muted);font-size:13px}
+.pick button.on{border-color:var(--navy);background:var(--navy-s);color:var(--navy)}
+.bandrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 14px;border:2px solid var(--line);border-radius:16px;margin-top:8px}
+.bandrow.in{border-color:var(--navy);background:#FAFBFE}
+.bandrow.rec{border-color:var(--gold);background:var(--gold-s)}
+.bandrow .pr{font-size:1.35em;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums}
+.side .cand{border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px}
+.side .cand.rec{border-color:var(--gold-b);background:var(--gold-s)}
+.lock{border:2px dashed var(--line2);border-radius:16px;padding:16px;text-align:center;color:var(--muted)}
+.bar{height:22px;border-radius:999px;background:#ECE7DE;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy);border-radius:999px}
+.qrbox{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:18px;align-items:center;background:var(--gold-s);border-radius:20px;padding:18px}
+.qrbox .qr{background:#fff;border-radius:14px;padding:10px;width:100%;max-width:260px;aspect-ratio:1}
+.qrbox .qr svg{width:100%;height:100%;display:block}
+@media (max-width:599px){.qrbox{grid-template-columns:minmax(0,1fr)}.qrbox .qr{margin:0 auto}}
+.st{border:2px dashed var(--line2);border-radius:14px;padding:12px 14px;font-weight:800;margin-top:12px}
+.st.ok{border-style:solid;border-color:var(--green);background:var(--green-s);color:var(--green)}
+.hold{position:relative;overflow:hidden}
+.hold i{position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--gold);transition:width 2s linear}
+.hold.down i{width:100%}
+/* 휴대폰 프레임 */
+.phonewrap{display:flex;flex-direction:column;align-items:center}
+.phone{width:100%;max-width:420px;border:10px solid #16202E;border-radius:40px;background:var(--bg);overflow:hidden;box-shadow:0 24px 50px -14px rgba(16,26,43,.35)}
+.phone .sb{background:#16202E;color:#fff;font-size:12px;font-weight:700;display:flex;justify-content:space-between;padding:6px 18px}
+.phone .in{padding:14px;max-height:76vh;overflow-y:auto}
+.phone .in>*+*{margin-top:12px}
+@media (max-width:520px){.phone{border:0;border-radius:0;box-shadow:none;max-width:none}.phone .sb{display:none}.phone .in{max-height:none;padding:0}}
+.pt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:#E6E1D7;border-radius:14px;padding:4px}
+.pt button{min-height:46px;border:0;border-radius:11px;background:transparent;font-weight:800;font-size:15px}
+.pt button.on{background:#fff;color:var(--navy)}
+.say{background:var(--navy);color:#fff;border-radius:16px;padding:14px}
+.say .k{color:#F1CF8A}
+.dont{background:var(--red-s);border:1px solid #F0C8BF;border-radius:16px;padding:14px;color:#6E2418}
+.dont ul{margin:6px 0 0;padding-left:18px}
+.tl{list-style:none;margin:8px 0 0;padding:0;border-left:3px solid var(--line2)}
+.tl li{position:relative;padding:4px 0 10px 16px}
+.tl li::before{content:"";position:absolute;left:-8px;top:10px;width:13px;height:13px;border-radius:50%;background:var(--line2)}
+.tl li.ok::before{background:var(--green)}
+.rv{margin-top:28px}
+.rv summary{min-height:52px;display:flex;align-items:center;font-weight:800;cursor:pointer}
+.rv h3{margin-top:16px;font-size:18px}
+.rv ul{padding-left:20px;margin:6px 0}
+.foot{border-top:1px solid var(--line);padding-block:16px;color:var(--muted);font-size:13px;text-align:center}
+@media (max-width:1399px){.brand small{display:none}}
+@media (max-width:700px){.top{position:static}.side{position:static!important}}
+@media print{.top,.tabs,.toast,.foot,.noprint,.rv{display:none!important}.ov{position:static;background:none;padding:0}.ov .box{box-shadow:none;max-width:none}main>*:not(.ov){display:none}}
+</style>
+</head>
+<body>
+<header class="top" aria-label="시연 화면 전환">
+  <div class="wrap">
+    <div class="brand"><span class="tag">B2C 시연판 v2.1</span><b>디어 상담 데스크</b><small>상동역 롯데캐슬 시그니처 · 직원 · 팀장용 · 가상 고객</small></div>
+    <nav class="views" id="views">
+      <button data-a="view" data-v="tablet">🖥 내 태블릿</button>
+      <button data-a="view" data-v="client">👥 고객과 같이 보기</button>
+      <button data-a="view" data-v="phone">📲 고객 휴대폰</button>
+      <button data-a="view" data-v="staff">📱 내 휴대폰</button>
+    </nav>
+    <div class="roles" role="group" aria-label="누구로 볼까요"><button data-a="role" data-v="staff">직원으로</button><button data-a="role" data-v="lead">팀장으로</button></div>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <noscript><div class="card">이 시연판은 자바스크립트를 켜야 움직입니다. 아래 ‘검토자용 설명’에 화면 구성이 글로 정리되어 있습니다.</div></noscript>
+</main>
+
+<div class="toast" id="toast" aria-live="polite"></div>
+<div id="ovl"></div>
+
+<div class="wrap">
+<details class="card rv" id="review">
+<summary>📝 검토자용 설명 (다른 AI · 동료 검토용 · 화면 구성과 원칙을 글로 정리)</summary>
+<p class="sub">이 페이지는 열쇠(비밀번호) 없이 누구나 열 수 있는 <b>B2C 시연판</b>입니다. 실제 운영판은 암호화되어 있고, 여기 나오는 고객 이름 · 번호 · 수수료는 모두 가상입니다. 분양가 · 납부 일정 · 동 · 라인 · 층 구간은 <b>입주자모집공고(2026.08.14) 공급금액표</b>에서 옮긴 실제 값입니다.</p>
+<h3>범위</h3>
+<ul><li>지금: B2C = 상담사(직원) · 팀장이 쓰는 화면. 위쪽 ‘직원으로 / 팀장으로’로 바꿔 볼 수 있습니다.</li>
+<li>나중(B2B): 대행사 · 시행사 · 인포메이션 화면, 현장 &gt; 본부 &gt; 팀 &gt; 상담사 권한, 감사 기록, 공식 문자 발송(API) · 080 수신거부, 수수료 정산. 데이터 구조는 미리 그 계층을 담아 두었습니다.</li></ul>
+<h3>화면 4개</h3>
+<ul><li><b>내 태블릿</b> · 탭 4개(오늘 · 상담 · 내 고객 · 알림). 오늘 탭 첫 화면은 3단계: ① 업무 개시 체크인(책상 태블릿에서만) → ② 우리 팀 순번 → ③ 새 상담(응대 순서 고르기 포함).</li>
+<li><b>고객과 같이 보기</b> · 상담사 메뉴가 사라지는 발표 화면. 위에는 글자 크기 · 전체 화면 · 상담 종료만. 진행 4단계: 조건 확인 → 후보 비교 → 자금 · 일정 → 자료 받기. 유입 매체는 고객 화면에 나오지 않고 상담 시작 전에 상담사만 고릅니다. 상담사 메모는 2초 길게 눌러야 열립니다.</li>
+<li><b>고객 휴대폰</b> · 고객이 QR을 찍으면 열리는 결과지. 1 · 2 · 3순위, ⭐ 상담사 추천 호실(확인 시각 · ‘실시간 계약으로 바뀔 수 있음’ 표시), 납부 일정, ‘휴대폰에 보관’(본인이 직접 이름 · 번호 입력 · 인증 · 동의, 모든 동의는 꺼진 채 시작).</li>
+<li><b>내 휴대폰</b> · 알림(태블릿과 휴대폰에 같이 울리고 한쪽에서 확인하면 둘 다 닫힘), 지금 단계 화법 메모(현장 단계 × 상담 단계), 전화 응대(번호만 넣으면 문자 앱이 채워져 열림).</li></ul>
+<h3>지키는 원칙</h3>
+<ul><li>근태처럼 보이는 말은 쓰지 않고 ‘책상 비치 전원 ON 업무 개시 체크인(워킹 · 상담 배정 활성화 및 활동비 정산 로그)’으로 통일.</li>
+<li>고객 화면에 대표번호 · 남은 호실 수 · 판매율 · 계약 여부를 보여 주지 않음. 계약 가능 여부는 상담사가 확인 후 확정.</li>
+<li>공인 자료만. 원문 대조가 끝나지 않은 자료(대장 단지 실거래 등)는 ‘원문 대조 필요’ 표시를 달고, 고객 화면에는 팀장이 대조 완료로 바꾸기 전까지 잠김.</li>
+<li>“저층이 더 오른다” · “프리미엄 보장” 같은 말 금지. 과거 실거래는 날짜와 출처를 함께, 앞으로의 가격을 약속하지 않음.</li>
+<li>광고성 안내: (광고) 표시 · 무료 수신거부 · 밤 9시 ~ 아침 8시 발송 금지 · 2년마다 동의 재확인 · 시행사 승인 문구만.</li>
+<li>현장끼리 섞이지 않음(고객 기록은 이 현장 안에서만).</li></ul>
+<h3>제미나이 검토 의견 반영</h3>
+<ul><li>반영: 내 고객 + 보관함 통합, 첫 화면 3단계, 쉬운 말(QR → 카메라 코드 병기, PIN → 잠금번호, 튜토리얼 → 사용법 익히기, 아웃바운드 → 먼저 거는 전화), 알림 화면에서 개발 로드맵 제거, 발표 화면, 유입 매체 상담사 전용, 상담사 메모 2초 길게 누르기, 고객 진행 4단계, 추천 카드 기준 시각 문구, 금액 ‘14억 6,500만 원’ 표기, 미검증 자료 잠금, 거래 시점 병기, 휴대폰 본인 확인(시연).</li>
+<li>고쳐서 반영: 제미나이 초안의 분양가(7~8억대) · 최고 25층 · 입주 2029년 · 계약금 10%(1차 2,000만) · 잔금 30%는 공고와 달라 공고 값(84㎡ 14억 100만 ~ 16억 3,800만 원 · 최고 49층 · 입주 2032년 3월 예정 · 계약금 5%(1차 1,000만) · 중도금 60% 6회 · 잔금 35%)으로 바꿈. ‘상동 A · 중동 B’ 가상 단지와 ‘본사 검수 완료’ 표시는 지우고 실제 단지(힐스테이트 중동 · 중동 센트럴파크 푸르지오)를 ‘원문 대조 필요’로 표시. 가상의 080 번호 · 의무교육 수료번호는 지움. 개인정보 처리자는 디어가 아니라 대행사 · 시행사 명의로(법률 검토 후 확정), 디어는 시스템 운영 위탁. 순번표는 다른 팀이 섞이지 않게 ‘우리 팀’만.</li>
+<li>나중(B2B): 공식 문자 API · 080 자동 수신거부, 감사 기록 봉인, 의무교육 · 서약, 정산, 승인 흐름, 데이터베이스 이전.</li></ul>
+</details>
+<p class="foot">디어 상담 데스크 · 운영 디어 에듀테크 · 이 시연판의 고객 · 수수료 정보는 가상이며 분양 조건은 입주자모집공고 원문이 기준입니다.</p>
+</div>
+
+<script src="qrcode.js"></script>
+<script>
+'use strict';
+/* ===== 1. 현장 · 조직 (B2B 때 그대로 넓힘: 현장 > 총괄 > 본부 > 팀 > 상담사) ===== */
+var ORG = { siteId: 'SDLC', site: '상동역 롯데캐슬 시그니처', hq: '1총괄', div: '3본부', team: '2팀' };
+var TEAM = [
+  { id: 'u1', title: '실장', name: '박서준' }, { id: 'u2', title: '과장', name: '이하나' },
+  { id: 'u3', title: '팀장', name: '홍길동', lead: true }, { id: 'u4', title: '대리', name: '최민호' },
+  { id: 'u5', title: '실장', name: '정유진' }
+];
+/* ===== 2. 입주자모집공고(2026.08.14) 공급금액표 · 단위 억 · [4층, 5층, 6~9층, 10~19층, 20~25층, 27~39층, 40층 이상] ===== */
+var P = {
+  A104: [15.27, 15.42, 15.58, 15.74, 15.99, 16.22, 16.30], A105: [14.65, 14.82, 14.96, 15.11, 15.42, 15.58, 15.65],
+  A6: [14.20, 14.35, 14.51, 14.65, 14.80, 14.95, 14.99], B: [null, null, 14.50, 14.65, 14.79, 14.94, 14.99],
+  C4: [14.97, 15.13, 15.29, 15.44, 15.76, 15.90, 15.98], C6: [14.01, 14.15, 14.30, 14.44, 14.59, 14.73, 14.80],
+  D104: [15.00, 15.16, 15.32, 15.47, 15.79, 15.95, 15.99], D103: [14.02, 14.18, 14.33, 14.47, 14.62, 14.76, 14.83],
+  E: [15.34, 15.51, 15.67, 15.81, 16.13, 16.30, 16.38],
+  F4: [15.08, 15.24, 15.40, 15.54, 15.87, 15.93, 15.99], F6: [14.11, 14.25, 14.40, 14.54, 14.69, 14.83, 14.90],
+  T113A: [20.97, 21.21, 21.42, 21.63, 22.06, 22.30, 22.42], T113B: [null, null, 21.54, 21.76, 22.19, 22.42, 22.49],
+  T121_103: [22.22, 22.45, 22.68, 22.91, 23.14, 23.38, 23.49], T121_104: [21.69, 21.92, 22.15, 22.36, 23.14, 23.38, 23.49]
+};
+var BANDS = [{ n: '4층', i: 0, lo: 4, hi: 4 }, { n: '5층', i: 1, lo: 5, hi: 5 }, { n: '6~9층', i: 2, lo: 6, hi: 9 }, { n: '10~19층', i: 3, lo: 10, hi: 19 }, { n: '20~25층', i: 4, lo: 20, hi: 25 }, { n: '27~39층', i: 5, lo: 27, hi: 39 }, { n: '40층 이상', i: 6, lo: 40, hi: 49 }];
+var DIR = { 1: '남서', 2: '남서', 3: '남서', 4: '남동', 5: '남동', 6: '남동' };
+var DONG = { '101': '상동역 1번 출구와 가장 가까운 북측 동', '102': '단지 중앙 · 오픈스퀘어 정원 옆', '103': '남측의 조용한 동 · 어린이공원 옆', '104': '단지 남쪽 끝 · 어린이공원 바로 옆', '105': '길주로에서 먼 동측 동', '106': '어린이집 · 에듀클럽이 있는 커뮤니티 동', '107': '상동역 쪽 북측 · 스포츠클럽 바로 옆' };
+var LN = [];
+function add(d, h, t, pk, st) { LN.push({ dong: d, ho: h, type: t, pk: pk, start: st || 4, top: (d === '101' || d === '103' || d === '107') ? 48 : 49, dir: t === '121' ? '남' : DIR[h] }); }
+add('101',1,'113B','T113B',6); add('101',2,'84E','E'); add('101',3,'84F','F4'); add('101',4,'84F','F6',6); add('101',5,'84C','C6',6); add('101',6,'84B','B',6);
+add('102',1,'113A','T113A'); add('102',2,'84E','E'); add('102',3,'84F','F4'); add('102',4,'84F','F6'); add('102',5,'84C','C6'); add('102',6,'84A','A6');
+add('103',1,'113A','T113A'); add('103',2,'84E','E'); add('103',3,'121','T121_103'); add('103',4,'121','T121_103'); add('103',5,'84D','D103'); add('103',6,'84A','A6');
+add('104',1,'84A','A104'); add('104',2,'84E','E'); add('104',3,'121','T121_104'); add('104',4,'121','T121_104'); add('104',5,'84D','D104'); add('104',6,'113A','T113A');
+add('105',1,'84A','A105'); add('105',2,'84C','C4'); add('105',3,'84F','F4'); add('105',4,'84F','F4'); add('105',5,'84C','C4'); add('105',6,'113A','T113A');
+add('106',1,'84A','A6'); add('106',2,'84C','C6'); add('106',3,'84F','F6'); add('106',4,'84F','F4'); add('106',5,'84C','C4'); add('106',6,'113A','T113A');
+add('107',1,'84B','B',6); add('107',2,'84C','C6',6); add('107',3,'84F','F6',6); add('107',4,'84F','F4'); add('107',5,'84C','C4'); add('107',6,'113B','T113B',6);
+var MID = ['2027.10.28', '2028.04.25', '2029.01.23', '2030.01.31', '2030.07.23', '2031.04.22'];
+function lineOf(d, h) { return LN.filter(function (l) { return l.dong === d && l.ho === +h; })[0]; }
+function bandsOf(l) { return BANDS.filter(function (b) { return P[l.pk][b.i] != null && b.hi >= l.start && b.lo <= l.top; }); }
+function bandName(l, b) { return b.i === 6 ? '40~' + l.top + '층' : b.n; }
+/* ===== 3. 대장 단지 실거래 (국토교통부 실거래 신고 · 리치고 공개 목록에서 옮김 · 원문 대조 필요) ===== */
+var TR = [
+  { name: '힐스테이트 중동', size: '999세대 · 2022년 준공 · 최고 49층', area: '전용 84.94㎡', t: [['2026.10.03',44,12.45],['2026.09.22',11,11.18],['2026.09.17',42,12.0],['2026.09.10',36,11.7],['2026.09.07',11,11.85],['2026.09.07',13,13.05],['2026.09.01',21,11.7],['2026.08.29',14,11.38],['2026.08.29',39,11.7]] },
+  { name: '중동 센트럴파크 푸르지오', size: '999세대 · 2020년 2월 입주 · 최고 49층', area: '전용 84.83㎡', t: [['2026.10.15',31,14.35],['2026.10.13',35,12.5],['2026.10.03',8,13.4],['2026.10.03',24,12.0],['2026.09.22',5,13.65],['2026.09.22',23,14.2],['2026.09.21',37,13.0],['2026.09.19',10,11.45],['2026.09.04',16,13.65],['2026.08.31',3,11.8],['2026.08.29',9,11.75],['2026.08.27',46,13.78],['2026.08.26',47,13.6],['2026.08.25',16,12.95],['2026.08.25',31,12.0],['2026.08.19',27,13.95],['2026.08.06',5,13.9],['2026.08.05',3,11.9],['2026.08.04',3,10.8],['2026.07.31',17,11.98],['2026.07.10',19,11.7]] }
+];
+var CMP = [
+  { name: '상동역 롯데캐슬 시그니처', ours: true, ok: true, st: '7호선 상동역 1번 출구 앞', size: '1,859세대 · 7개 동 · 최고 49층', p84: '14억 100만 ~ 16억 3,800만 원', mv: '2032년 3월 예정', src: '입주자모집공고 (2026.08.14)' },
+  { name: 'e편한세상 부천 어반스퀘어', st: '1호선 · 서해선 소사역 인근', size: '1,649세대 (일반분양 897세대)', p84: '10억 1,650만 ~ 11억 3,900만 원', mv: '2029년 10월 예정', src: '입주자모집공고 (2026.04.23)' },
+  { name: '중동역 다채로움 더원', st: '1호선 중동역 인근', size: '128세대 (일반분양 39세대)', p84: '7억 3,300만 ~ 7억 9,600만 원', mv: '2028년 8월 예정', src: '입주자모집공고 (2026.09.10)' },
+  { name: '부천역 에피트 어바닉', st: '1호선 부천역 인근', size: '150세대 · 2개 동', p84: '84㎡ 없음 (67㎡ 5억 6,937만 ~ 5억 7,219만 원)', mv: '2028년 7월 예정', src: '입주자모집공고 (2026.03.06)' }
+];
+/* ===== 4. 현장 단계별 브리핑 (팀장이 현황판으로 단계 지정 · 직원 화면은 단계 이름만) ===== */
+var PB = {
+  early: { name: '초기', q: '“여기 좋은 데야? 살 만해?”', route: 'B', key: '단지 가치(입지 · 브랜드 · 규모)를 먼저 세우고, 고를 수 있는 폭이 넓을 때 우리 가족 기준을 정합니다.',
+    s: { 1: ['오늘은 단지 큰 그림부터 보시고, 우리 가족 기준으로 좁혀 가겠습니다.'], 2: ['모형도에서 역 · 공원 · 단지 배치를 먼저 짚고, 고객이 고른 동을 ‘이 집’이라고 불러 줍니다.', '층은 넓게 열어 두고, 가족 기준(조망 · 학교 · 예산)으로 1 · 2 · 3안을 고릅니다.'], 3: ['계약금 · 중도금 일정과 입주 때 내 돈을 표로 보여 줍니다.'], 4: ['고르신 1안을 기준으로 진행 순서를 안내합니다. 결과지는 카메라 코드(QR)로 드립니다.'] },
+    obj: [['분양가가 비싼 것 같아요', '같은 기준(84㎡ · 공급금액)으로 인근 단지 비교표를 보여 드리고, 차이를 위치 · 규모 · 입주 시기로 설명합니다.'], ['더 지켜볼게요', '지금 고를 수 있는 폭이 넓다는 사실만 말하고, 다음 방문 날짜를 잡습니다.']],
+    close: '지금은 고르실 수 있는 폭이 넓을 때입니다. 우리 가족 기준에 맞는 1안을 먼저 잡아 두시죠.', dont: ['“무조건 오른다” 같은 전망', '사실이 아닌 마감 임박'] },
+  mid: { name: '중기', q: '“로열층은 다 빠졌다던데, 좋은 호수가 남았어?”', route: 'A', key: '분양가는 단지 총액을 동 · 층 · 향 · 라인으로 나눠 매긴 값입니다. 이 현장은 층보다 라인에 값을 크게 매겨서, 같은 예산이면 고층의 다른 라인보다 좋은 라인의 중층이 우리 가족에게 더 맞을 수 있습니다.',
+    s: { 1: ['“지금 오시는 분들은 대부분 실제 들어와 사실 분들입니다. 오늘은 고층 여부보다 우리 가족에게 맞는 집을 숫자로 같이 보시죠.”', '가족 · 출퇴근 · 학교 · 예산을 먼저 듣습니다. 중기에는 “우리 가족 기준”이 결정을 만듭니다.'],
+      2: ['“처음 분양가는 단지 전체 금액을 동 · 층 · 향 · 라인으로 나눠 매긴 값입니다. 이 라인은 맨 위층보다 ○천만 원 낮게 매겨져 있습니다.” → 📊 같은 돈, 다른 선택', '“같은 층대에서도 라인에 따라 1억이 넘게 차이 납니다.”', '대장 비교는 같은 조건끼리만(신축 · 대단지 · 역세권 · 초고층). 과거 실거래는 날짜 · 출처와 함께, 앞으로의 가격은 약속하지 않습니다.'],
+      3: ['아끼는 금액(고층 대비)을 계약금 · 입주 때 내 돈으로 바꿔 보여 줍니다. 중기 고객은 자금이 되면 결정합니다.'],
+      4: ['고객이 직접 지우고 남긴 1안을 우리 가족 기준 3가지 + 아끼는 금액으로 다시 확인시킵니다.', '결과지는 카메라 코드(QR)로 고객이 직접 가져가게 합니다.'] },
+    obj: [['로열층은 다 나갔죠?', '“고층은 먼저 결정하신 분이 많은 게 사실입니다. 대신 분양가는 층보다 라인에 크게 매겨져 있어서, 같은 돈으로 더 좋은 라인의 중층을 고르실 수 있습니다.”'], ['저층은 나중에 안 팔리잖아요', '“같은 조건 신축의 실제 거래를 보시죠. 저층이라고 무조건 싸게 거래되지 않고, 동 · 라인 · 앞이 트였는지에 따라 달라집니다.” (날짜 · 출처와 함께, 앞으로의 가격을 약속하지 않음)'], ['기다리면 할인되지 않나요?', '시행사가 승인한 혜택만 말합니다. 없는 할인을 약속하지 않습니다.']],
+    close: '처음 말씀하신 우리 가족 기준 세 가지를 챙기면서, 같은 라인 고층보다 수천만 원 낮게 매겨진 집입니다. 이 집으로 준비해 드릴까요?',
+    dont: ['초기 멘트 “좋은 호실 먼저 고르세요”', '“저층이 나중에 더 오른다” · “프리미엄 붙는다”', '“시행사가 가격을 잘못 매겼다”', '없는 할인 · 조건 변경 약속', '“곧 다 나갑니다”(현황판 사실과 다르면 금지)'] },
+  late: { name: '후기', q: '“이 호실 하나, 지금 해야 돼? 입주 때 돈은 되나?”', route: 'M', key: '남은 한 호실의 고유한 이유와 입주 때 자금, 주변 실거래 · 전세가를 사실로 보여 주고 결정 시점을 정합니다.',
+    s: { 1: ['“오늘은 이 호실 하나를 같이 꼼꼼히 보시죠.”'], 2: ['비교 대상을 여러 개 꺼내지 않습니다. 그 호실만의 이유(향 · 앞 · 동선 · 층)를 세 가지로 말합니다.'], 3: ['입주 때 내 돈 · 잔금 대출 · 주변 전세가(국토교통부 실거래가, 날짜와 함께)로 “입주 때 되는 집”인지 확인합니다.'], 4: ['결정 시점을 사실로 정합니다(혜택 기한 · 진행 요청 순서). 없는 마감을 만들지 않습니다.'] },
+    obj: [['끝까지 기다리면 깎아 주지 않나요?', '시행사 승인 혜택만 안내하고, 혜택 기한과 진행 요청 순서를 사실대로 말합니다.'], ['더 좋은 호실 나오면요?', '진행 요청 순서 · 대기 고객 등록으로 “나오면 바로 연락”을 약속합니다.']],
+    close: '이 호실은 우리 가족에게 ○○ · △△ · □□ 세 가지가 맞습니다. 혜택 기한 안에 진행하시면 오늘 바로 진행 요청을 걸어 두겠습니다.', dont: ['여러 대안을 늘어놓기', '거짓 마감 · 허위 경쟁 고객', '없는 할인 약속'] }
+};
+var ROUTE = { A: { t: '🏠 유니트부터 · 타입 설명 먼저', o: ['🏠 유니트 · 타입', '🏙 모형도', '🗺 위치도 · 입지', '💺 상담석 · 태블릿'] }, B: { t: '🗺 모형도 · 위치도 · 입지부터', o: ['🗺 위치도 · 입지', '🏙 모형도', '🏠 유니트 · 타입', '💺 상담석 · 태블릿'] }, M: { t: '✏️ 내 순서', o: ['🏙 모형도', '🏠 유니트 · 타입', '🗺 위치도 · 입지', '💺 상담석 · 태블릿'] } };
+var REASONS = ['같은 라인 고층보다 분양가가 낮게 매겨진 층', '고르신 예산 범위 안에서 가장 균형 잡힌 집', '정원 · 공원 쪽으로 앞이 열린 라인', '상동역 출구 쪽 동선이 짧은 동', '어린이집 · 에듀클럽이 가까운 동', '처음 말씀하신 우리 가족 기준 3가지와 맞음'];
+/* ===== 5. 상태 ===== */
+var NOW = new Date();
+function pad(n) { return String(n).padStart(2, '0'); }
+function stamp(d) { d = d || new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+function dayStr(off) { var d = new Date(NOW.getTime() - off * 864e5); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+var S = {
+  view: 'tablet', role: 'lead', tab: 'today', rule: false, checkin: null, stage: 'mid', sold: 1000, total: 1859, route: '', verified: false,
+  queue: ['u1', 'u2', 'u3', 'u4', 'u5'], alert: null, alerts: [], notif: true, font: '',
+  notices: [
+    { d: dayStr(0), t: '오늘 14시 모델하우스 단체 방문(약 20명) · 상담석 2개 비워 두기', by: '팀장 홍길동', seen: 3 },
+    { d: dayStr(0), t: '시행사 승인: 이번 주 토 · 일 방문 고객 사은품 안내 가능 (승인 문구 그대로)', by: '팀장 홍길동', seen: 5 },
+    { d: dayStr(1), t: '주말 워킹 많음 · 업무 개시 체크인 후 순번 확인 부탁드립니다', by: '팀장 홍길동', seen: 5 },
+    { d: dayStr(3), t: '중기 브리핑으로 바뀜 · 📊 같은 돈, 다른 선택 화면 먼저 보여 주기', by: '팀장 홍길동', seen: 5 }
+  ],
+  nq: '', ntext: '',
+  cust: [
+    { id: 'c1', name: '한지민', tel: '01048213910', src: '네이버 검색', interest: '84A · 103동 6호 라인 10~19층', docs: ['우리 집 결과지', '⭐ 추천 호실'], kept: true, promo: true, ad: ['문자', '카카오톡'], adDate: dayStr(34), unsub: false, log: [[dayStr(34) + ' 11:04', '상담 시작 (네이버 검색)'], [dayStr(34) + ' 11:38', '카메라 코드(QR) 보여 줌'], [dayStr(34) + ' 11:39', '고객 휴대폰에서 열림'], [dayStr(34) + ' 11:42', '고객이 직접 보관 · 동의']] },
+    { id: 'c2', name: '윤성호', tel: '01077129045', src: '부동산 소개', interest: '113A · 102동 1호 라인 20~25층', docs: ['우리 집 결과지', '납부 일정표'], kept: true, promo: true, ad: ['문자'], adDate: dayStr(712), unsub: false, log: [[dayStr(712) + ' 14:20', '상담 시작'], [dayStr(712) + ' 14:56', '고객이 직접 보관 · 동의']] },
+    { id: 'c3', name: '보관함 · 이름 없음 #04', tel: '', src: '워킹', interest: '84F · 105동 3호 라인 10~19층', docs: ['우리 집 결과지 (보관 안 함)'], kept: false, promo: false, ad: [], adDate: '', unsub: false, temp: true, log: [[dayStr(1) + ' 16:05', '상담 시작 (워킹)'], [dayStr(1) + ' 16:31', '카메라 코드(QR) 보여 줌'], [dayStr(1) + ' 16:32', '고객 휴대폰에서 열림 · 보관은 안 함'], [dayStr(1) + ' 16:40', '💾 저장하고 새 고객 (상담 기록만)']] },
+    { id: 'c4', name: '강미영', tel: '01022936104', src: '유튜브', interest: '84A · 104동 1호 라인 27~39층', docs: ['우리 집 결과지'], kept: true, promo: false, ad: [], adDate: '', unsub: false, log: [[dayStr(108) + ' 10:15', '상담 시작'], [dayStr(108) + ' 10:51', '고객이 직접 보관 · 필수 동의만']] },
+    { id: 'c5', name: '조현진', tel: '01055018372', src: '현수막', interest: '121 · 103동 3호 라인 40층 이상', docs: ['우리 집 결과지', '인근 단지 비교표'], kept: true, promo: true, ad: ['문자'], adDate: dayStr(220), unsub: true, log: [[dayStr(220) + ' 15:10', '상담 시작'], [dayStr(220) + ' 15:44', '고객이 직접 보관 · 동의'], [dayStr(40) + ' 09:12', '고객 수신거부 요청 → 발송 제외']] },
+    { id: 'c6', name: '송태우', tel: '01091402289', src: '지인 소개', interest: '84C · 106동 2호 라인 6~9층', docs: ['우리 집 결과지'], kept: true, promo: true, ad: ['문자'], adDate: dayStr(735), unsub: false, log: [[dayStr(735) + ' 13:00', '상담 시작'], [dayStr(735) + ' 13:33', '고객이 직접 보관 · 동의']] }
+  ],
+  filter: 'all', sel: {}, msgType: 'info', msgBody: '요청하신 103동 6호 라인 계약 가능 여부를 확인했습니다. 편하실 때 연락 주세요.', approved: false, night: false,
+  c: { step: 1, src: '', fam: '', type: '', prio: [], budget: '', dong: '103', ho: 6, sub: 'units', cands: [], rec: null, pay: 0, qr: 'wait', start: '' },
+  cp: { name: '', tel: '', sent: false, code: '', ok: false, req: false, promo: false, ad: false, sms: false, kakao: false, call: false, done: null, err: '' },
+  sp: { tab: 'alarm', call: 'in', chk: [false, false, false], media: '네이버 검색', res: '방문 예약', tally: { '네이버 검색': 4, '유튜브': 2, '현수막': 3, '부동산 소개': 2, '지인 소개': 1 }, tel: '' }
+};
+/* ===== 6. 도우미 ===== */
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]; }); }
+function won(eok) { var m = Math.round(eok * 10000); var e = Math.floor(m / 10000), r = m % 10000; return (e ? e + '억' : '') + (r ? (e ? ' ' : '') + r.toLocaleString('ko-KR') + '만' : '') + ' 원'; }
+function gap(eok) { var m = Math.round(Math.abs(eok) * 10000); return m >= 10000 ? won(m / 10000) : m.toLocaleString('ko-KR') + '만 원'; }
+function maskTel(t) { return t ? t.slice(0, 3) + '-****-' + t.slice(-4) : '번호 없음'; }
+function fmtTel(v) { var d = String(v || '').replace(/\D/g, '').slice(0, 11); return d.length > 7 ? d.slice(0, 3) + '-' + d.slice(3, d.length - 4) + '-' + d.slice(-4) : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3) : d; }
+function me() { return TEAM.filter(function (u) { return S.role === 'lead' ? u.lead : u.id === 'u4'; })[0]; }
+function who(u) { return u.title + ' ' + u.name; }
+function lead() { return S.role === 'lead'; }
+function $(s, r) { return (r || document).querySelector(s); }
+function toast(t) { var b = $('#toast'), d = document.createElement('div'); d.textContent = t; b.appendChild(d); setTimeout(function () { d.remove(); }, 3600); }
+function daysSince(d) { return d ? Math.floor((NOW - new Date(d + 'T00:00:00')) / 864e5) : 0; }
+function adState(c) { if (c.temp || !c.tel) return [false, '연락처 없음']; if (c.unsub) return [false, '수신거부']; if (!c.promo) return [false, '홍보 이용 미동의']; if (!c.ad.length) return [false, '광고 수신 미동의']; if (daysSince(c.adDate) >= 730) return [false, '2년 지나 재확인 필요']; return [true, '']; }
+function beep(urgent) { try { var A = window.AudioContext || window.webkitAudioContext; if (!A) return; var x = new A(); (urgent ? [880, 1175, 880, 1175] : [587, 880]).forEach(function (f, i) { var o = x.createOscillator(), g = x.createGain(); o.frequency.value = f; o.type = urgent ? 'triangle' : 'sine'; g.gain.setValueAtTime(.18, x.currentTime + i * .16); g.gain.exponentialRampToValueAtTime(.001, x.currentTime + i * .16 + .28); o.connect(g); g.connect(x.destination); o.start(x.currentTime + i * .16); o.stop(x.currentTime + i * .16 + .3); }); } catch (e) { } }
+function say(t) { try { if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = 'ko-KR'; u.rate = .96; speechSynthesis.speak(u); } catch (e) { } }
+function qrSvg(text) { try { var q = qrcode(0, 'M'); q.addData(unescape(encodeURIComponent(text))); q.make(); return q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); } catch (e) { return '<p class="fine">카메라 코드(QR)를 그리지 못했습니다 · 인터넷 연결 확인</p>'; } }
+function base() { return location.href.split('#')[0]; }
+function pct() { return Math.round(S.sold / S.total * 100); }
+function autoStage() { var p = S.sold / S.total; return p < .3 ? 'early' : p < .8 ? 'mid' : 'late'; }
+/* ===== 7. 그리기 ===== */
+function render() {
+  document.querySelectorAll('#views button').forEach(function (b) { b.classList.toggle('on', b.dataset.v === S.view); });
+  document.querySelectorAll('.roles button').forEach(function (b) { b.classList.toggle('on', b.dataset.v === S.role); });
+  var a = $('#app');
+  a.innerHTML = S.view === 'tablet' ? vTablet() : S.view === 'client' ? vClient() : S.view === 'phone' ? vPhone() : vStaff();
+  if (S.alert && (S.view === 'tablet' || S.view === 'staff')) a.insertAdjacentHTML('afterbegin', alarmBox());
+  if (history.replaceState) history.replaceState(null, '', '#' + S.view);
+}
+function alarmBox() {
+  var x = S.alert; return '<section class="card alarm shake" style="margin-bottom:14px"><div class="ic">🔔</div><p class="k">' + (S.view === 'tablet' ? '이 태블릿' : '내 휴대폰') + '에 온 알림 · 태블릿과 휴대폰에 같이 울렸습니다</p><h2 style="font-size:28px;margin-top:6px">' + esc(x.title) + '</h2><p class="sub" style="margin-top:6px">' + esc(x.body) + '</p>' +
+    '<div class="grid2" style="margin-top:14px"><button class="btn p big" data-a="ack" data-v="ok">✓ 확인 · ' + (x.kind === 'walk' ? '받겠습니다' : '알겠습니다') + '</button>' + (x.kind === 'walk' ? '<button class="btn s big" data-a="ack" data-v="no">못 받아요 · 다음 순번으로</button>' : '') + '</div><p class="fine" style="margin-top:8px">한쪽에서 누르면 다른 기기의 알림도 같이 닫힙니다 · 앱을 닫아 둔 상태에서도 오게 하는 설정(푸시)은 알림 탭 참고</p></section>';
+}
+/* ----- 태블릿 ----- */
+function vTablet() {
+  var u = me(), qi = S.queue.indexOf(u.id);
+  var head = '<section class="card"><div class="between"><div><div class="row"><span class="chip n">' + esc(ORG.site) + '</span>' + (S.checkin ? '<span class="chip ok">● 업무 중 · 워킹 배정 켜짐</span>' : '<span class="chip">○ 업무 개시 전</span>') + '<span class="chip gd">현장 ' + PB[S.stage].name + (lead() ? ' · 계약 약 ' + pct() + '%' : '') + '</span></div><h1 style="font-size:24px;margin-top:8px">' + esc(who(u)) + '님, 안녕하세요</h1><p class="sub">' + ORG.hq + ' · ' + ORG.div + ' · ' + ORG.team + ' · ' + (lead() ? '팀장 화면' : '직원 화면') + '</p></div>' +
+    '<div class="card" style="padding:12px 16px;background:#FAF8F4"><p class="k">우리 팀 내 순번</p><p style="font-size:30px;font-weight:900;color:var(--navy)">' + (S.checkin ? (qi + 1) + '대기' : '—') + '</p></div></div>' +
+    '<div class="tabs"><button data-a="tab" data-v="today" class="' + (S.tab === 'today' ? 'on' : '') + '"><span>🏠</span>오늘</button><button data-a="tab" data-v="consult"><span>👥</span>상담</button><button data-a="tab" data-v="cust" class="' + (S.tab === 'cust' ? 'on' : '') + '"><span>📋</span>내 고객</button><button data-a="tab" data-v="more" class="' + (S.tab === 'more' ? 'on' : '') + '"><span>🔔</span>알림</button></div></section>';
+  return head + '<div style="margin-top:14px">' + (S.tab === 'cust' ? tCust() : S.tab === 'more' ? tMore() : tToday()) + '</div>';
+}
+function tToday() {
+  var u = me(), q = S.queue.map(function (id) { return TEAM.filter(function (x) { return x.id === id; })[0]; });
+  var s1 = '<section class="card stp ' + (S.checkin ? 'done' : '') + '"><span class="no">① 업무 개시</span><h2>' + (S.checkin ? '✓ 업무 개시 체크인 완료' : '책상에 태블릿을 켜고 체크인') + '</h2><p class="sub" style="margin-top:4px">' + (S.checkin ? '체크인 ' + esc(S.checkin) + ' · 워킹 · 상담 배정이 켜졌고 활동비 정산 기록이 남습니다.' : '「책상 비치 전원 ON 업무 개시 체크인」 · 누르면 워킹 · 상담 배정이 켜지고 활동비 정산 기록이 남습니다.') + '</p>' +
+    '<label class="ck ' + (S.rule ? 'on' : '') + '"><input type="checkbox" data-a="rule" ' + (S.rule ? 'checked' : '') + '><span><b>오늘의 수칙 2가지</b><br><span class="fine">① 고객 연락처는 고객이 직접 넣은 것만 보관 ② “확정 · 보장 · 무조건 오른다” 같은 말 쓰지 않기</span></span></label>' +
+    '<button class="btn p big" style="margin-top:10px" data-a="checkin" ' + (S.checkin || !S.rule ? 'disabled' : '') + '>' + (S.checkin ? '✓ 체크인 됨' : '▶ 업무 개시 체크인') + '</button><p class="fine" style="margin-top:6px">휴대폰에서는 체크인이 안 됩니다(책상 태블릿 전용). 알림 · 상담 · 자료 보내기는 휴대폰에서도 똑같이 됩니다.</p></section>';
+  var s2 = '<section class="card stp ' + (S.checkin ? '' : '') + '"><span class="no">② 대기</span><div class="between"><h2>우리 팀 순번</h2><span class="chip">' + ORG.hq + ' · ' + ORG.div + ' · ' + ORG.team + '</span></div>' +
+    (S.checkin ? '<ol class="q">' + q.map(function (x, i) { return '<li class="' + (x.id === u.id ? 'me' : '') + '"><span class="n">' + (i + 1) + '대기</span><b style="flex:1">' + esc(who(x)) + (x.id === u.id ? ' (나)' : '') + '</b>' + (i === 0 ? '<span class="chip gd">다음 워킹</span>' : '') + '</li>'; }).join('') + '</ol>' +
+      (lead() ? '<p class="fine" style="margin-top:10px">인포메이션(B2B 단계에서 연결)에게 받은 워킹 정보를 팀장이 1대기에게 바로 알립니다.</p><button class="btn g w" style="margin-top:8px" data-a="walk">🔔 1대기 ' + esc(who(q[0])) + '에게 워킹 알림 보내기</button>' : '<p class="fine" style="margin-top:10px">내 차례가 오면 태블릿과 휴대폰에 소리 · 음성 알림이 같이 옵니다.</p><button class="btn s w" style="margin-top:8px" data-a="test">🔔 알림 시험 (팀장이 보냈다고 치기)</button>')
+      : '<p class="sub" style="margin-top:10px">① 체크인을 하면 순번이 열립니다.</p>') + '</section>';
+  var pb = PB[S.stage], cur = S.route;
+  var s3 = '<section class="card stp"><span class="no">③ 새 상담</span><h2>고객이 오셨나요? 어디부터 보여 드릴까요?</h2><p class="fine">상담사마다 응대 순서가 다릅니다 · 고르면 사용법 익히기 순서도 같이 바뀝니다</p><div class="opt">' +
+    ['A', 'B', 'M'].map(function (k) { return '<button data-a="route" data-v="' + k + '" class="' + (cur === k ? 'on' : '') + '"><b>' + ROUTE[k].t + (pb.route === k ? '<span class="pill">' + pb.name + ' 추천</span>' : '') + '</b><small>' + ROUTE[k].o.join(' → ') + '</small></button>'; }).join('') + '</div>' +
+    '<button class="btn p big" style="margin-top:12px" data-a="newc">✨ 새 고객 상담 시작</button><div class="grid2" style="margin-top:8px"><button class="btn s" data-a="tab" data-v="cust">🔄 2차 고객 이어 하기</button><button class="btn s" data-a="quickrec">⭐ 추천 호실만 보내기</button></div></section>';
+  return '<div class="steps3">' + s1 + s2 + s3 + '</div>';
+}
+function tCust() {
+  var list = S.cust.filter(function (c) { var f = S.filter; return f === 'all' || (f === 'kept' && c.kept) || (f === 'box' && c.temp) || (f === 'ad' && adState(c)[0]) || (f === 'unsub' && c.unsub) || (f === '84' && /^84/.test(c.interest)) || (f === 'big' && /^(113|121)/.test(c.interest)); });
+  var nsel = Object.keys(S.sel).filter(function (k) { return S.sel[k]; }).length;
+  var top = '<div class="grid3"><div class="card"><p class="k">휴대폰에 보관한 고객</p><p style="font-size:30px;font-weight:900;color:var(--navy)">' + S.cust.filter(function (c) { return c.kept; }).length + '명</p></div><div class="card"><p class="k">광고 안내 가능</p><p style="font-size:30px;font-weight:900;color:var(--green)">' + S.cust.filter(function (c) { return adState(c)[0]; }).length + '명</p></div><div class="card"><p class="k">보관함 (상담 기록만)</p><p style="font-size:30px;font-weight:900">' + S.cust.filter(function (c) { return c.temp; }).length + '건</p></div></div>';
+  var f = [['all', '전체'], ['kept', '보관 고객'], ['box', '🗂 보관함'], ['ad', '광고 가능'], ['84', '84㎡'], ['big', '113 · 121㎡'], ['unsub', '수신거부']];
+  return top + '<section class="card" style="margin-top:14px"><div class="between"><div><h2>📋 내 고객 · 보관함</h2><p class="fine">고객이 직접 ‘휴대폰에 보관’을 누르면 이름 · 번호 · 동의가 여기로 들어옵니다. 보관 안 한 상담은 🗂 보관함에 상담 기록만 남고, 지울지는 상담사가 정합니다.</p></div><button class="btn p" data-a="bulk" ' + (nsel ? '' : 'disabled') + '>✉ 고른 고객에게 안내 (' + nsel + '명)</button></div>' +
+    '<div class="fl" style="margin-top:12px">' + f.map(function (x) { return '<button data-a="filter" data-v="' + x[0] + '" class="' + (S.filter === x[0] ? 'on' : '') + '">' + x[1] + '</button>'; }).join('') + '</div><div style="margin-top:12px">' +
+    (list.length ? list.map(custCard).join('') : '<p class="sub" style="padding:20px 0;text-align:center">조건에 맞는 고객이 없습니다.</p>') + '</div></section>';
+}
+function custCard(c) {
+  var a = adState(c), d = c.adDate ? 730 - daysSince(c.adDate) : null;
+  return '<div class="cust ' + (S.sel[c.id] ? 'sel' : '') + '"><input type="checkbox" data-a="sel" data-v="' + c.id + '" ' + (S.sel[c.id] ? 'checked' : '') + ' aria-label="고르기"><div><div class="between"><div><b style="font-size:19px">' + esc(c.name) + '</b> <span class="sub">' + maskTel(c.tel) + ' · ' + esc(c.src) + '</span></div><div class="row">' +
+    (c.temp ? '<span class="chip">🗂 보관함 · 상담 기록만</span>' : c.unsub ? '<span class="chip no">수신거부 · 발송 제외</span>' : a[0] ? '<span class="chip ok">광고 가능 · ' + c.ad.join(' · ') + '</span>' : '<span class="chip">광고 제외 · ' + a[1] + '</span>') +
+    (d != null && !c.unsub && c.ad.length ? (d < 0 ? '<span class="chip no">동의 2년 지남</span>' : d <= 30 ? '<span class="chip am">재확인 D-' + d + '</span>' : '') : '') + '</div></div>' +
+    '<p style="margin-top:4px">관심: <b>' + esc(c.interest) + '</b></p><p class="sub">받은 자료: ' + c.docs.map(esc).join(' · ') + '</p>' +
+    '<div class="row" style="margin-top:8px"><button class="btn s" data-a="log" data-v="' + c.id + '">🔎 전달 기록</button><button class="btn s" data-a="resume" data-v="' + c.id + '">이어서 상담</button>' + (c.temp ? '<button class="btn r" data-a="del" data-v="' + c.id + '">지우기</button>' : '') + '</div></div></div>';
+}
+function tMore() {
+  var pb = PB[S.stage], q = S.nq.trim(), ns = S.notices.filter(function (n) { return !q || n.t.indexOf(q) >= 0 || n.d.indexOf(q) >= 0; }), days = [];
+  ns.forEach(function (n) { if (days.indexOf(n.d) < 0) days.push(n.d); });
+  var al = '<section class="card"><h2>🔔 알림</h2><p class="sub">업무 개시 체크인을 하면 태블릿과 휴대폰 둘 다 알림을 받습니다. 한쪽에서 확인하면 둘 다 닫힙니다.</p><div class="grid3" style="margin-top:12px"><button class="btn ' + (S.notif ? 'p' : 's') + '" data-a="notif">' + (S.notif ? '🔔 알림 켜짐 · 소리 + 음성' : '🔕 알림 꺼짐') + '</button><button class="btn s" data-a="sound">🔊 소리 · 음성 시험</button><button class="btn r" data-a="endday">⏹ 오늘 업무 종료</button></div>' +
+    '<details style="margin-top:10px"><summary class="fine" style="min-height:44px;display:flex;align-items:center;cursor:pointer">앱을 닫아도 알림이 오게 하려면 (휴대폰 설정 안내)</summary><ol class="fine" style="padding-left:18px"><li>휴대폰에서 상담 데스크를 연 뒤 ‘홈 화면에 추가’</li><li>홈 화면 아이콘으로 열고 ‘🔔 알림 켜기’ → 허용</li><li>휴대폰 설정 → 알림 → 상담 데스크 → 소리 · 잠금 화면 표시 켜기</li></ol><p class="fine">닫힌 상태의 알림은 휴대폰 기본 알림음으로 오고, 화면을 열면 음성 안내가 나옵니다.</p></details></section>';
+  var nt = '<section class="card"><div class="between"><h2>📌 공지 · 날짜별 보관</h2><span class="chip">' + S.notices.length + '건</span></div>' +
+    (lead() ? '<div style="margin-top:10px"><textarea class="inp" id="ntext" data-f="ntext" placeholder="우리 팀에게 보낼 공지 (고객 이름 · 번호는 넣지 마세요)">' + esc(S.ntext) + '</textarea><button class="btn p w" style="margin-top:8px" data-a="npost">📣 우리 팀에 공지 보내기 (태블릿 · 휴대폰 알림)</button></div>' : '') +
+    '<input class="inp" style="margin-top:10px;font-size:16px" data-f="nq" id="nq" value="' + esc(S.nq) + '" placeholder="🔍 공지 찾기 (예: 사은품, 11-2)">' +
+    days.map(function (d) { return '<p class="k" style="margin-top:14px">' + d + (d === dayStr(0) ? ' · 오늘' : '') + '</p>' + ns.filter(function (n) { return n.d === d; }).map(function (n) { return '<div class="card" style="padding:12px 14px;margin-top:6px"><p>' + esc(n.t) + '</p><p class="fine" style="margin-top:4px">' + esc(n.by) + ' · 팀원 확인 ' + n.seen + '/' + TEAM.length + '</p></div>'; }).join(''); }).join('') + '</section>';
+  var stg = '<section class="card"><div class="between"><h2>📊 현장 단계 · 브리핑</h2><span class="chip gd">지금 ' + pb.name + '</span></div>' +
+    (lead() ? '<p class="sub" style="margin-top:6px">현황판 계약 세대를 넣으면 단계가 자동으로 정해집니다(30% 미만 초기 · 80% 미만 중기 · 그 이상 후기). 팀원 화면에는 숫자 없이 단계 이름과 브리핑만 나갑니다.</p><div class="row" style="margin-top:10px"><input class="inp" style="max-width:200px" type="number" inputmode="numeric" id="sold" value="' + S.sold + '"><span>/ ' + S.total.toLocaleString('ko-KR') + '세대</span><button class="btn p" data-a="setsold">반영</button></div><div class="fl" style="margin-top:10px">' + ['early', 'mid', 'late'].map(function (k) { return '<button data-a="stage" data-v="' + k + '" class="' + (S.stage === k ? 'on' : '') + '">' + PB[k].name + '로 고정</button>'; }).join('') + '</div>'
+      : '<p class="sub" style="margin-top:6px">팀장이 현황판으로 정한 단계입니다. 단계에 따라 고객 응대 브리핑 · 화법 메모가 자동으로 바뀝니다.</p>') +
+    '<div class="card" style="margin-top:12px;background:#FAF8F4"><p class="k">이 단계 고객 머릿속 질문</p><p style="font-weight:800;margin-top:4px">' + pb.q + '</p><p class="sub" style="margin-top:6px">' + pb.key + '</p></div></section>';
+  var cmp = '<section class="card"><h2>🏙 인근 단지 비교표 · 84㎡ 공급금액</h2><p class="fine">공인 자료(입주자모집공고 · 청약홈)만 씁니다. ‘원문 대조 필요’는 보도가 인용한 공고 숫자라 원문과 맞춰 본 뒤 고객에게 보여 줍니다.</p><div class="tw" style="margin-top:8px"><table><thead><tr><th>단지</th><th>84㎡ 공급금액</th><th>규모 · 역</th><th>입주</th><th>확인</th></tr></thead><tbody>' +
+    CMP.map(function (r) { return '<tr' + (r.ours ? ' style="background:var(--navy-s)"' : '') + '><td><b>' + esc(r.name) + '</b><br><span class="fine">' + esc(r.src) + '</span></td><td>' + esc(r.p84) + '</td><td>' + esc(r.size) + '<br><span class="fine">' + esc(r.st) + '</span></td><td>' + esc(r.mv) + '</td><td>' + (r.ok ? '<span class="chip ok">원문 확인</span>' : '<span class="chip am">원문 대조 필요</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+    '<h3 style="margin-top:16px">대장 단지 실거래 (같은 조건 신축 · 대단지 · 초고층)</h3><p class="fine">국토교통부 실거래 신고 기준 · 공개 목록에서 옮김 · 직거래 · 해제 거래 제외 · <b>국토교통부 원자료 대조 전</b></p>' +
+    (lead() ? '<button class="btn ' + (S.verified ? 's' : 'g') + ' w" style="margin-top:8px" data-a="verify">' + (S.verified ? '🔒 고객 화면에서 다시 잠그기' : '✓ 국토부 원자료와 대조했습니다 → 고객 화면에 열기 (시연)') + '</button>' : '<p class="fine" style="margin-top:6px">' + (S.verified ? '팀장이 대조 완료로 열었습니다.' : '팀장이 대조 완료로 열기 전까지 고객 화면에는 잠겨 있습니다.') + '</p>') + '</section>';
+  var etc = '<section class="card"><h2>🧾 수수료 청구서 · 예시 양식</h2><p class="sub">대행사 양식을 받으면 그 모양으로 바꿉니다. 지금은 예시로 계산 · 출력까지 됩니다.</p><button class="btn s w" style="margin-top:10px" data-a="claim">청구서 예시 열기</button></section>' +
+    '<section class="card"><h2>📘 사용법 익히기</h2><p class="sub">고른 응대 순서(' + (S.route ? ROUTE[S.route].t : '아직 안 고름') + ')대로 입구 → 유형 판정 → 보여 주는 순서 → 반론 → 계약 순으로 연습합니다.</p></section>' +
+    '<section class="card" style="border-style:dashed"><h2>🔜 B2B 단계에서 붙일 것 (지금 시연판에는 없음)</h2><ul class="sub" style="padding-left:18px;margin:6px 0 0"><li>대행사 · 시행사 · 인포메이션 화면, 현장 &gt; 총괄 &gt; 본부 &gt; 팀 권한</li><li>공식 문자 발송(API) · 080 무료 수신거부 자동 연결 · 발신번호 등록</li><li>고객 귀속 기록 봉인(다툼 방지) · 의무교육 · 서약 확인 · 현장 종료 시 파기 확인</li><li>수수료 정산 · 승인 흐름 · 데이터베이스 이전</li></ul></section>';
+  return '<div class="grid2"><div>' + al + stg + '</div><div>' + nt + '</div></div><div style="margin-top:14px">' + cmp + '</div><div class="grid2" style="margin-top:14px"><div>' + etc + '</div></div>';
+}
+/* ----- 고객과 같이 보기 ----- */
+function vClient() {
+  var c = S.c, fs = S.font;
+  var bar = '<section class="card cvbar"><div><p class="k">우리 집 맞춤 상담</p><h2 style="font-size:22px">' + esc(ORG.site) + '</h2></div><div class="row"><div class="fl" role="group" aria-label="글자 크기"><button data-a="font" data-v="" class="' + (fs === '' ? 'on' : '') + '">보통</button><button data-a="font" data-v="l" class="' + (fs === 'l' ? 'on' : '') + '">크게</button><button data-a="font" data-v="xl" class="' + (fs === 'xl' ? 'on' : '') + '">아주 크게</button></div><button class="btn s" data-a="fullscreen">⛶ 전체 화면</button><button class="btn s hold" data-hold="memo" aria-label="상담사 메모, 2초 길게 누르기">🔒 메모<i></i></button><button class="btn r" data-a="endc">상담 종료</button></div></section>' +
+    '<div class="sbar">' + [[1, '1 · 조건 확인'], [2, '2 · 후보 비교'], [3, '3 · 자금 · 일정'], [4, '4 · 자료 받기']].map(function (x) { return '<button data-a="step" data-v="' + x[0] + '" class="' + (c.step === x[0] ? 'on' : c.step > x[0] ? 'done' : '') + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  var body = c.step === 1 ? cs1() : c.step === 2 ? cs2() : c.step === 3 ? cs3() : cs4();
+  var nav = '<div class="between" style="margin-top:20px;padding-top:14px;border-top:1px solid var(--line)"><button class="btn s" data-a="step" data-v="' + Math.max(1, c.step - 1) + '" style="visibility:' + (c.step > 1 ? 'visible' : 'hidden') + '">← 이전</button>' + (c.step < 4 ? '<button class="btn p" data-a="step" data-v="' + (c.step + 1) + '">다음 단계 →</button>' : '') + '</div>';
+  return '<div class="cv ' + fs + '">' + bar + '<div class="cvg"><section class="card">' + body + nav + '</section>' + side() + '</div></div>';
+}
+function side() {
+  var c = S.c;
+  return '<aside class="card side" style="position:sticky;top:84px"><div class="between"><h3>🏡 우리 집 후보</h3><span class="chip">' + c.cands.length + '/3</span></div>' +
+    (c.fam || c.type || c.budget ? '<p class="sub" style="margin-top:6px">' + [c.fam, c.type && c.type + '㎡', c.budget].filter(Boolean).map(esc).join(' · ') + '</p>' : '') + (c.prio.length ? '<div class="row" style="margin-top:6px">' + c.prio.map(function (p) { return '<span class="chip n">#' + esc(p) + '</span>'; }).join('') + '</div>' : '') +
+    (c.cands.length ? c.cands.map(function (x, i) { var r = c.rec && c.rec.key === x.key; return '<div class="cand ' + (r ? 'rec' : '') + '"><div class="between"><span class="chip n">' + (i + 1) + '순위</span>' + (r ? '<span class="chip gd">⭐ 상담사 추천</span>' : '') + '</div><p style="font-weight:800;margin-top:4px">' + esc(x.label) + '</p><p style="font-weight:900;color:var(--navy)">' + won(x.price) + '</p></div>'; }).join('') : '<p class="sub" style="margin-top:10px">2단계에서 마음에 드는 층을 담아 주세요.</p>') +
+    (c.rec && !c.cands.some(function (x) { return x.key === c.rec.key; }) ? '<div class="cand rec"><span class="chip gd">⭐ 상담사 추천</span><p style="font-weight:800;margin-top:4px">' + esc(c.rec.label) + '</p><p style="font-weight:900;color:var(--navy)">' + won(c.rec.price) + '</p></div>' : '') + '</aside>';
+}
+function cs1() {
+  var c = S.c, fam = ['30대 신혼 · 아이 계획', '영유아 가정', '초등 자녀 가정', '중고등 자녀 가정', '부부 둘 · 은퇴 준비', '부모님과 3대'], types = ['84㎡', '113㎡', '121㎡', '아직 모름'], tags = ['역 가까움', '학교 · 학원', '예산', '채광 · 향', '조망 · 앞 트임', '커뮤니티', '수납 · 방 개수', '공원 · 정원'], bud = ['14억대', '15억대', '16억대', '21억 이상'];
+  function g(list, f, multi) { return '<div class="pick">' + list.map(function (x) { var on = multi ? c.prio.indexOf(x) >= 0 : c[f] === x.replace('㎡', ''); return '<button data-a="' + (multi ? 'prio' : 'cf') + '" data-f="' + f + '" data-v="' + esc(x.replace('㎡', '')) + '" class="' + (on ? 'on' : '') + '">' + (on ? '✓ ' : '') + esc(x) + '</button>'; }).join('') + '</div>'; }
+  return '<h2 style="font-size:1.4em">우리 가족 기준부터 정해요</h2><p class="sub">고르신 기준으로 호실 후보와 자금 일정을 바로 정리해 드립니다.</p>' +
+    '<h3 style="margin-top:16px">1. 가족</h3>' + g(fam, 'fam') + '<h3 style="margin-top:16px">2. 넓이</h3>' + g(types, 'type') + '<h3 style="margin-top:16px">3. 우리 집에 가장 중요한 3가지 <span class="sub">(' + c.prio.length + '/3)</span></h3>' + g(tags, 'prio', true) + '<h3 style="margin-top:16px">4. 예산 (분양가 기준)</h3>' + g(bud, 'budget');
+}
+function cs2() {
+  var c = S.c;
+  return '<div class="pt" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button data-a="sub" data-v="units" class="' + (c.sub === 'units' ? 'on' : '') + '">🏢 동 · 라인 · 층 담기</button><button data-a="sub" data-v="value" class="' + (c.sub === 'value' ? 'on' : '') + '">📊 같은 돈, 다른 선택</button></div><div style="margin-top:14px">' + (c.sub === 'units' ? units() : value()) + '</div>';
+}
+function units() {
+  var c = S.c, ds = Object.keys(DONG), ls = LN.filter(function (l) { return l.dong === c.dong; }), l = lineOf(c.dong, c.ho) || ls[0];
+  return '<h3>동</h3><div class="pick">' + ds.map(function (d) { return '<button data-a="dong" data-v="' + d + '" class="' + (c.dong === d ? 'on' : '') + '">' + d + '동<small>' + esc(DONG[d].split(' · ')[0]) + '</small></button>'; }).join('') + '</div>' +
+    '<h3 style="margin-top:14px">라인 (호) · 타입</h3><div class="pick">' + ls.map(function (x) { return '<button data-a="ho" data-v="' + x.ho + '" class="' + (x.ho === l.ho ? 'on' : '') + '">' + x.ho + '호 · ' + x.type + '<small>' + x.dir + '향</small></button>'; }).join('') + '</div>' +
+    '<div class="between" style="margin-top:16px"><h3>' + l.dong + '동 ' + l.ho + '호 라인 · ' + l.type + ' · 층 구간별 분양가</h3><span class="fine">입주자모집공고 공급금액 기준</span></div>' +
+    bandsOf(l).map(function (b) { var key = l.dong + '-' + l.ho + '-' + b.i, inC = c.cands.some(function (x) { return x.key === key; }), r = c.rec && c.rec.key === key; return '<div class="bandrow ' + (r ? 'rec' : inC ? 'in' : '') + '"><div><b>' + bandName(l, b) + '</b>' + (r ? ' <span class="chip gd">⭐ 상담사 추천 · ' + c.rec.floor + '층</span>' : inC ? ' <span class="chip n">후보에 담김</span>' : '') + '<div class="pr">' + won(P[l.pk][b.i]) + '</div></div><div class="row"><button class="btn ' + (inC ? 's' : 'p') + '" data-a="cand" data-v="' + key + '">' + (inC ? '빼기' : '+ 담기') + '</button><button class="btn s" data-a="rec" data-v="' + key + '" title="상담사가 고르는 추천">⭐ 추천</button></div></div>'; }).join('') +
+    '<p class="fine" style="margin-top:10px">계약 가능 여부와 정확한 호수는 선착순이라 상담사가 현황을 확인한 뒤 확정합니다. 발코니 확장 · 유상 옵션은 따로입니다.</p>';
+}
+function value() {
+  var c = S.c, l = lineOf(c.dong, c.ho), bs = bandsOf(l), top = P[l.pk][6], mx = Math.max.apply(null, bs.map(function (b) { return P[l.pk][b.i]; })), mn = Math.min.apply(null, bs.map(function (b) { return P[l.pk][b.i]; }));
+  var same = LN.filter(function (x) { return x.dong === l.dong && x.type.slice(0, 2) === l.type.slice(0, 2) && P[x.pk][3] != null; });
+  var h = '<h3>① 같은 라인, 층마다 얼마나 다를까 · ' + l.dong + '동 ' + l.ho + '호 라인 (' + l.type + ')</h3><p class="sub">분양가는 단지 전체 금액을 동 · 층 · 향 · 라인으로 나눠 매긴 값입니다.</p>' +
+    bs.map(function (b) { var v = P[l.pk][b.i]; return '<div style="margin-top:10px"><div class="between"><b>' + bandName(l, b) + '</b><span><b style="color:var(--navy)">' + won(v) + '</b>' + (b.i < 6 && top != null ? ' <span class="chip gd">40층 이상보다 ' + gap(top - v) + ' 낮음</span>' : '') + '</span></div><div class="bar" style="margin-top:4px"><i style="width:' + (55 + 45 * (v - mn) / ((mx - mn) || 1)).toFixed(1) + '%"></i></div></div>'; }).join('') +
+    '<h3 style="margin-top:20px">② 같은 층대, 라인마다 얼마나 다를까 · ' + l.dong + '동 10~19층</h3><div class="tw"><table><thead><tr><th>라인</th><th>타입 · 향</th><th class="num">10~19층</th><th class="num">40층 이상</th></tr></thead><tbody>' +
+    same.map(function (x) { return '<tr' + (x.ho === l.ho ? ' style="background:var(--navy-s)"' : '') + '><td><b>' + x.ho + '호</b></td><td>' + x.type + ' · ' + x.dir + '향</td><td class="num">' + won(P[x.pk][3]) + '</td><td class="num">' + (P[x.pk][6] != null ? won(P[x.pk][6]) : '—') + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+    '<p class="fine" style="margin-top:6px">같은 돈이면 ‘고층의 다른 라인’보다 ‘가족에게 맞는 라인의 중층’이 더 맞을 수 있습니다. 어느 쪽이 좋은지는 가족 기준으로 고르시면 됩니다.</p>' +
+    '<h3 style="margin-top:20px">③ 같은 조건 신축 대단지의 실제 거래 (전용 84㎡)</h3>';
+  if (!S.verified) return h + '<div class="lock" style="margin-top:8px">🔒 국토교통부 원자료와 대조한 뒤 보여 드립니다<br><span class="fine">팀장이 ‘대조 완료’로 열면 여기에 거래 날짜 · 층 · 금액이 나옵니다 (알림 탭 → 인근 단지 비교표)</span></div>';
+  return h + TR.map(function (t) { var rows = t.t.slice().sort(function (a, b) { return a[1] - b[1]; }); return '<div class="card" style="margin-top:8px;padding:12px"><div class="between"><b>' + esc(t.name) + '</b><span class="fine">' + esc(t.size) + ' · ' + esc(t.area) + '</span></div><div class="tw"><table><thead><tr><th>층</th><th>계약일</th><th class="num">거래 금액</th></tr></thead><tbody>' + rows.map(function (r) { return '<tr><td>' + r[1] + '층</td><td>' + r[0] + '</td><td class="num">' + won(r[2]) + '</td></tr>'; }).join('') + '</tbody></table></div></div>'; }).join('') +
+    '<p class="fine" style="margin-top:8px">※ 국토교통부 실거래 신고 기준 과거 거래이며 앞으로의 가격을 뜻하지 않습니다. 직거래 · 해제 거래는 뺐습니다. 같은 기간에도 저층이 고층보다 비싸게 거래된 사례가 있고, 대체로는 고층이 조금 더 비싸게 거래되는 것도 사실입니다.</p>';
+}
+function payOf(p) { var c1 = 0.1, c2 = p * 0.05 - c1; return { c1: c1, c2: c2, mid: p * 0.6, m1: p * 0.1, bal: p * 0.35 }; }
+function cs3() {
+  var c = S.c, list = c.cands.length ? c.cands : c.rec ? [c.rec] : [];
+  if (!list.length) return '<h2>예상 납부 일정</h2><p class="sub" style="margin-top:8px">2단계에서 후보 층을 하나 이상 담으면 계약금 · 중도금 · 잔금이 바로 계산됩니다.</p><button class="btn p" style="margin-top:12px" data-a="step" data-v="2">← 후보 담으러 가기</button>';
+  if (c.pay >= list.length) c.pay = 0; var t = list[c.pay], x = payOf(t.price);
+  return '<h2>예상 납부 일정</h2><p class="sub">입주자모집공고 납부 일정 기준 · 발코니 확장 · 유상 옵션 · 취득세는 따로</p><div class="fl" style="margin-top:10px">' + list.map(function (u, i) { return '<button data-a="pay" data-v="' + i + '" class="' + (c.pay === i ? 'on' : '') + '">' + esc(u.label) + '</button>'; }).join('') + '</div>' +
+    '<div class="card" style="margin-top:12px;background:var(--navy);color:#fff;border:0"><p style="color:#C9D3E3">' + esc(t.label) + ' 분양가</p><p style="font-size:2em;font-weight:900;color:#F1CF8A">' + won(t.price) + '</p></div>' +
+    '<div class="tw" style="margin-top:12px"><table><tbody><tr><td><b>계약금 1차</b> · 계약일</td><td class="num"><b>' + won(x.c1) + '</b></td></tr><tr><td><b>계약금 2차</b> · 30일 안 (계약금 합계 5%)</td><td class="num"><b>' + won(x.c2) + '</b></td></tr><tr><td><b>중도금 60%</b> · 6회 (회당 10% ' + won(x.m1) + ')<br><span class="fine">' + MID.join(' · ') + ' · 중도금 대출 · 이자 후불</span></td><td class="num"><b>' + won(x.mid) + '</b></td></tr><tr><td><b>잔금 35%</b> · 입주 지정일 (2032년 3월 예정)</td><td class="num"><b>' + won(x.bal) + '</b></td></tr></tbody></table></div>' +
+    '<p class="fine" style="margin-top:8px">대출은 대출 시점 규정 · 시세 · 소득(DSR)으로 은행이 정합니다. 숫자는 이해를 돕기 위한 계산이며 계약서가 아닙니다.</p>';
+}
+function cs4() {
+  var c = S.c, link = base() + '#phone', st = c.qr === 'kept' ? ['ok', '✓ 고객이 결과지를 열고 휴대폰에 보관했습니다 · 내 고객에 기록됨'] : c.qr === 'open' ? ['ok', '✓ 고객 휴대폰에서 결과지가 열렸습니다 · 보관을 누르면 내 고객에 기록됩니다'] : ['', '⏳ 고객이 찍기를 기다리는 중'];
+  return '<h2>오늘 상담 결과를 휴대폰으로 가져가세요</h2><p class="sub">결과지에는 이름 · 번호가 들어가지 않습니다. 보관을 원하실 때만 고객님이 직접 넣으시면 됩니다.</p>' +
+    '<div class="qrbox" style="margin-top:14px"><div class="qr">' + qrSvg(link) + '</div><div><b style="font-size:1.25em">휴대폰 카메라로<br>이 카메라 코드(QR)를 비춰 주세요</b><ol style="padding-left:20px;margin:8px 0 0;line-height:1.7"><li>카메라를 켜고 1~2초 비춥니다</li><li>뜨는 주소를 누르면 결과지가 열립니다</li><li>‘휴대폰에 보관’을 누르면 담당 상담사에게 기록됩니다</li></ol></div></div>' +
+    '<div class="st ' + st[0] + '">' + st[1] + '</div>' +
+    '<div class="grid2" style="margin-top:12px"><button class="btn g big" data-a="openphone">📲 고객 휴대폰으로 열어 보기 (시연)</button><button class="btn s big" data-a="savenext">💾 저장하고 새 고객</button></div>' +
+    '<div class="card" style="margin-top:12px;background:#FAF8F4"><h3>📞 전화 고객이면 · 문자로 보내기</h3><p class="fine">번호만 넣으면 문자 앱이 번호와 내용이 채워진 채 열립니다. 태블릿에서는 카메라 코드로 내 휴대폰에 넘깁니다.</p><input class="inp" style="margin-top:8px" type="tel" inputmode="tel" id="ctel" data-f="ctel" placeholder="010-0000-0000"><div class="grid2" style="margin-top:8px"><button class="btn p" data-a="smsgo" data-v="ctel">📱 문자 앱 열기 (휴대폰)</button><button class="btn s" data-a="smsqr" data-v="ctel">💻 태블릿이면: 내 휴대폰으로 넘기기</button></div><div id="smsqr"></div><p class="fine" style="margin-top:6px">고객 번호는 이 화면에 저장하지 않습니다. 고객이 자료를 열고 직접 ‘보관’을 누를 때만 내 고객에 들어옵니다.</p></div>';
+}
+/* ----- 고객 휴대폰 ----- */
+function vPhone() {
+  var c = S.c, cp = S.cp, rec = c.rec, main = rec || c.cands[0], x = main ? payOf(main.price) : null, canSave = cp.name.trim().length >= 2 && cp.ok && cp.req;
+  var h = '<div class="card" style="background:var(--navy);color:#fff;border:0"><span class="chip" style="background:rgba(255,255,255,.15);color:#fff">이름 · 번호가 없는 결과지</span><h2 style="font-size:24px;margin-top:8px">우리 집 상담 결과지</h2><p style="color:#C9D3E3">' + esc(ORG.site) + '</p></div>' +
+    '<div class="card"><p class="k">상담 요약</p><p style="font-weight:800;margin-top:4px">' + ([c.fam, c.type && c.type + '㎡', c.budget].filter(Boolean).map(esc).join(' · ') || '오늘 함께 본 조건') + '</p>' + (c.prio.length ? '<div class="row" style="margin-top:6px">' + c.prio.map(function (p) { return '<span class="chip n">#' + esc(p) + '</span>'; }).join('') + '</div>' : '') + '</div>' +
+    '<div class="card"><h3>🏡 고르신 후보</h3>' + (c.cands.length ? c.cands.map(function (u, i) { return '<div class="between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span><span class="chip n">' + (i + 1) + '순위</span> <b>' + esc(u.label) + '</b></span><b style="color:var(--navy)">' + won(u.price) + '</b></div>'; }).join('') : '<p class="sub" style="margin-top:6px">상담 화면 2단계에서 담은 후보가 여기에 나옵니다.</p>') + '</div>' +
+    (rec ? '<div class="card" style="background:var(--gold-s);border:2px solid var(--gold-b)"><span class="chip gd">⭐ 상담사 추천 호실</span><h3 style="font-size:21px;margin-top:6px">' + esc(rec.label.replace(/ [0-9~]+층.*$/, '')) + ' ' + rec.floor + '층 · ' + esc(rec.hosu) + '호</h3><p style="font-size:24px;font-weight:900;color:var(--navy)">' + won(rec.price) + '</p><ul style="padding-left:18px;margin:6px 0">' + rec.reasons.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>' + (rec.note ? '<p style="background:#fff;border-radius:12px;padding:10px">' + esc(rec.note) + '</p>' : '') + '<p class="fine" style="margin-top:8px;background:#fff;border-radius:10px;padding:8px">※ ' + esc(rec.at) + ' 기준 확인 사항이며, 실시간 계약으로 변동될 수 있습니다. 계약 가능 여부는 담당 상담사가 다시 확인해 드립니다.</p></div>' : '') +
+    (x ? '<div class="card"><h3>💳 예상 납부 (' + esc(main.label) + ')</h3><div class="grid3" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px;text-align:center"><div class="card" style="padding:8px"><p class="fine">계약금 5%</p><b>' + won(x.c1 + x.c2) + '</b></div><div class="card" style="padding:8px"><p class="fine">중도금 60%</p><b>' + won(x.mid) + '</b></div><div class="card" style="padding:8px"><p class="fine">잔금 35%</p><b>' + won(x.bal) + '</b></div></div></div>' : '') +
+    '<div class="card" style="border:2px solid var(--navy)"><h3>📥 이 결과지를 휴대폰에 보관하시겠어요?</h3><p class="fine" style="margin-top:4px"><b>보관하지 않아도 결과지는 그대로 보실 수 있습니다.</b> 보관하시면 언제든 다시 보시고, 고르신 호실의 계약 가능 여부를 담당 상담사가 알려 드릴 수 있습니다.</p>' +
+    (cp.done ? keptBox() :
+      '<label style="display:block;margin-top:12px;font-weight:700">성함 (호칭도 괜찮아요)<input class="inp" style="margin-top:4px" data-f="cpname" id="cpname" value="' + esc(cp.name) + '" maxlength="20" placeholder="예: 김민수"></label>' +
+      '<label style="display:block;margin-top:10px;font-weight:700">휴대폰 번호<div class="row" style="margin-top:4px;flex-wrap:nowrap"><input class="inp" type="tel" inputmode="tel" data-f="cptel" id="cptel" value="' + esc(cp.tel) + '" placeholder="010-0000-0000" ' + (cp.ok ? 'readonly' : '') + '><button class="btn ' + (cp.ok ? 's' : 'p') + '" style="flex:0 0 auto" data-a="sendcode" ' + (cp.ok ? 'disabled' : '') + '>' + (cp.ok ? '✓ 확인됨' : '본인 확인') + '</button></div></label>' +
+      (cp.sent && !cp.ok ? '<div class="row" style="margin-top:8px;flex-wrap:nowrap"><input class="inp" inputmode="numeric" maxlength="6" data-f="cpcode" id="cpcode" placeholder="인증번호 6자리 (시연: 123456)"><button class="btn g" style="flex:0 0 auto" data-a="verify6">확인</button></div><p class="fine">시연판이라 문자가 실제로 가지 않습니다. 운영판은 문자 발송(API)을 연결한 뒤 켭니다.</p>' : '') +
+      '<label class="ck ' + (cp.req ? 'on' : '') + '"><input type="checkbox" data-a="cpck" data-v="req" ' + (cp.req ? 'checked' : '') + '><span><b>[필수]</b> 개인정보 수집 · 이용 동의<br><span class="fine">자료 보관 · 계약 가능 여부 회신 · 상담 연락에 씁니다</span></span></label>' +
+      '<details class="fine" style="margin-top:6px"><summary style="min-height:44px;display:flex;align-items:center;cursor:pointer">개인정보 수집 · 이용 안내 보기</summary><ul style="padding-left:18px;margin:0"><li>받는 곳(처리자): 상동역 롯데캐슬 시그니처 분양 대행사 · 시행사 <b>(운영 전 법률 검토로 명의 확정)</b> · 담당 상담사</li><li>항목: 성함, 휴대폰 번호, 받은 자료와 관심 동 · 타입 · 층</li><li>보유: 수집일부터 6개월 (삭제를 요청하시면 바로 파기) · 이 현장 상담에만 씀 · 제3자 제공 없음</li><li>시스템 운영 위탁: 디어 에듀테크</li><li>동의하지 않으셔도 결과지는 그대로 보실 수 있고 불이익은 없습니다.</li></ul></details>' +
+      '<label class="ck ' + (cp.promo ? 'on' : '') + '"><input type="checkbox" data-a="cpck" data-v="promo" ' + (cp.promo ? 'checked' : '') + '><span><b>[선택]</b> 분양 홍보 · 판매 권유 목적 이용 동의<br><span class="fine">이 현장(상동역 롯데캐슬 시그니처)의 미계약 호실 · 분양 조건 · 행사 안내에만</span></span></label>' +
+      '<label class="ck ' + (cp.ad ? 'on' : '') + '"><input type="checkbox" data-a="cpck" data-v="ad" ' + (cp.ad ? 'checked' : '') + '><span><b>[선택]</b> 광고성 정보 수신 동의 · 받을 방법을 골라 주세요</span></label>' +
+      '<div class="row" style="margin:6px 0 0 36px">' + [['sms', '문자'], ['kakao', '카카오톡'], ['call', '전화']].map(function (m) { return '<label class="ck" style="margin:0;padding:8px 12px' + (cp.ad ? '' : ';opacity:.5') + '"><input type="checkbox" data-a="cpck" data-v="' + m[0] + '" ' + (cp[m[0]] ? 'checked' : '') + (cp.ad ? '' : ' disabled') + '> ' + m[1] + '</label>'; }).join('') + '</div>' +
+      '<p class="fine" style="margin-top:8px">광고는 (광고) 표시와 무료 수신거부 방법을 넣어 밤 9시 ~ 아침 8시를 피해 보내며, 2년마다 동의를 다시 여쭙니다. 선택 동의는 안 하셔도 됩니다.</p>' +
+      (cp.err ? '<p style="color:var(--red);font-weight:700;margin-top:6px">' + esc(cp.err) + '</p>' : '') +
+      '<button class="btn p big" style="margin-top:10px" data-a="keep" ' + (canSave ? '' : 'disabled') + '>' + (canSave ? '휴대폰에 보관하기' : '성함 · 본인 확인 · [필수] 동의 후 누를 수 있어요') + '</button>') + '</div>' +
+    '<p class="fine" style="text-align:center">' + esc(ORG.site) + ' · 금액은 입주자모집공고 공급금액 기준이며 계약 전 공고 원문을 꼭 확인하세요.</p>';
+  return '<div class="phonewrap"><p class="sub" style="text-align:center;max-width:460px;margin-bottom:10px">고객이 카메라 코드(QR)를 찍으면 열리는 화면입니다. 실제 휴대폰으로 4단계 코드를 찍어도 이 화면이 열립니다.</p><div class="phone"><div class="sb"><span>' + pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()) + '</span><span>🔒 결과지</span><span>5G</span></div><div class="in">' + h + '</div></div></div>';
+}
+function keptBox() {
+  var d = S.cp.done;
+  return '<div class="card" style="margin-top:10px;background:var(--green-s);border-color:#B9DCCB"><p style="font-weight:900;color:var(--green);font-size:19px">✓ 휴대폰에 보관했습니다</p><p style="margin-top:4px">담당 상담사에게 받으셨다고 전달했습니다. 이 화면을 홈 화면에 추가하거나 카톡 ‘나와의 채팅’에 보내 두시면 언제든 다시 보실 수 있습니다.</p><p class="fine" style="margin-top:6px">동의 ' + esc(d.at) + ' · 홍보 이용 ' + (d.promo ? '동의' : '안 함') + ' · 광고 ' + (d.ad.length ? d.ad.join(' · ') : '안 받음') + '<br>원하지 않으시면 언제든 무료로 끊으실 수 있습니다 (수신거부 · 삭제 요청 화면)</p>' +
+    '<div class="grid2" style="margin-top:10px"><button class="btn s" data-a="gocust">🖥 (시연) 태블릿 ‘내 고객’에서 보기</button><button class="btn s" data-a="cpreset">다른 고객으로 다시 시연</button></div></div>';
+}
+/* ----- 내 휴대폰 (상담사) ----- */
+function vStaff() {
+  var sp = S.sp, pb = PB[S.stage], st = S.c.step, u = me(), qi = S.queue.indexOf(u.id), h;
+  var head = '<div class="card" style="background:#16202E;color:#fff;border:0;padding:12px 14px"><div class="between"><span style="font-weight:700">🔒 업무 개시 체크인은 책상 태블릿에서만</span><span class="chip ' + (S.checkin ? 'ok' : '') + '">' + (S.checkin ? '업무 중 · ' + (qi + 1) + '대기' : '개시 전') + '</span></div></div>' +
+    '<div class="pt"><button data-a="sptab" data-v="alarm" class="' + (sp.tab === 'alarm' ? 'on' : '') + '">🔔 알림</button><button data-a="sptab" data-v="memo" class="' + (sp.tab === 'memo' ? 'on' : '') + '">💬 화법 메모</button><button data-a="sptab" data-v="call" class="' + (sp.tab === 'call' ? 'on' : '') + '">📞 전화 응대</button></div>';
+  if (sp.tab === 'alarm') {
+    h = '<div class="card"><h3>오늘 받은 알림</h3>' + (S.alerts.length ? S.alerts.slice().reverse().map(function (a) { return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>' + esc(a.title) + '</b><p class="fine">' + esc(a.at) + ' · ' + esc(a.state || '알림 옴') + '</p></div>'; }).join('') : '<p class="sub" style="margin-top:6px">아직 없습니다. 태블릿 ‘오늘’에서 알림을 보내 보세요(팀장: 워킹 알림 · 직원: 알림 시험).</p>') + '</div>' +
+      '<div class="card"><h3>우리 팀 순번</h3><p class="fine">' + ORG.hq + ' · ' + ORG.div + ' · ' + ORG.team + '</p>' + (S.checkin ? '<ol class="q">' + S.queue.map(function (id, i) { var x = TEAM.filter(function (t) { return t.id === id; })[0]; return '<li class="' + (id === u.id ? 'me' : '') + '"><span class="n">' + (i + 1) + '대기</span><b style="flex:1">' + esc(who(x)) + (id === u.id ? ' (나)' : '') + '</b></li>'; }).join('') + '</ol>' : '<p class="sub" style="margin-top:6px">태블릿에서 체크인하면 보입니다.</p>') + '</div>';
+  } else if (sp.tab === 'memo') {
+    h = '<div class="card"><div class="between"><span class="chip ok">태블릿과 같이 움직임</span><span class="chip gd">현장 ' + pb.name + ' · 상담 ' + st + '단계</span></div><div class="fl" style="margin-top:8px">' + [1, 2, 3, 4].map(function (n) { return '<button data-a="step" data-v="' + n + '" data-keep="1" class="' + (st === n ? 'on' : '') + '">' + n + '단계</button>'; }).join('') + '</div><p class="fine" style="margin-top:6px">고객 태블릿에는 화법이 나오지 않고 내 휴대폰에만 나옵니다.</p></div>' +
+      '<div class="card"><p class="k">💭 지금 고객 머릿속 질문</p><p style="font-weight:800;font-size:18px;margin-top:4px">' + pb.q + '</p></div>' +
+      '<div class="say"><p class="k">💬 지금 단계에서 할 말</p><ul style="padding-left:18px;margin:6px 0 0">' + (pb.s[st] || []).map(function (t) { return '<li style="margin-top:4px">' + esc(t) + '</li>'; }).join('') + '</ul>' + (st === 4 ? '<p style="margin-top:8px;font-weight:800">마무리: ' + esc(pb.close) + '</p>' : '') + '</div>' +
+      '<div class="card"><p class="k">🛡 이럴 땐 이렇게</p>' + pb.obj.map(function (o) { return '<details style="margin-top:6px"><summary style="min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:800">' + esc(o[0]) + '</summary><p class="sub">' + esc(o[1]) + '</p></details>'; }).join('') + '</div>' +
+      '<div class="dont"><b>🚫 하지 않는 말</b><ul>' + pb.dont.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul></div>';
+  } else {
+    var inb = sp.call === 'in', ck = inb ? ['“상동역 롯데캐슬 시그니처 ' + who(u) + '입니다.” 소속 · 이름 먼저', '어디서 보고 전화하셨는지 묻기 · 확정 · 보장 표현 쓰지 않기', '자료를 원하시면 아래 번호 넣고 바로 문자로 보내기'] : ['먼저 거는 전화 대상이 ‘전화 광고 동의’가 살아 있는 고객인지 확인', '처음에 이름 · 소속과 수신거부 방법 안내', '이 현장 안내만 (다른 현장 홍보 금지)'];
+    h = '<div class="pt" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button data-a="calltype" data-v="in" class="' + (inb ? 'on' : '') + '">📲 걸려 온 전화</button><button data-a="calltype" data-v="out" class="' + (!inb ? 'on' : '') + '">📞 먼저 거는 전화</button></div>' +
+      '<div class="card"><p class="k">' + (inb ? '걸려 온 전화 체크' : '먼저 거는 전화 · 꼭 확인') + '</p>' + ck.map(function (t, i) { return '<label class="ck ' + (sp.chk[i] ? 'on' : '') + '"><input type="checkbox" data-a="callck" data-v="' + i + '" ' + (sp.chk[i] ? 'checked' : '') + '><span>' + esc(t) + '</span></label>'; }).join('') + '</div>' +
+      '<div class="card"><h3>📲 통화 중 자료 보내기</h3><p class="fine">고객이 “보내 주세요” 하면 번호만 넣고 누르세요. 문자 앱이 번호 · 내용이 채워진 채 열립니다.</p><input class="inp" style="margin-top:8px" type="tel" inputmode="tel" id="sptel" data-f="sptel" value="' + esc(sp.tel) + '" placeholder="010-0000-0000"><div class="grid2" style="margin-top:8px"><button class="btn p" data-a="smsgo" data-v="sptel">📱 단지 안내 보내기</button><button class="btn s" data-a="smsgo" data-v="sptel" data-k="visit">📅 방문 예약 안내 보내기</button></div></div>' +
+      '<div class="card"><p class="k">어디서 보고 전화했나요</p><div class="fl" style="margin-top:6px">' + Object.keys(sp.tally).map(function (m) { return '<button data-a="media" data-v="' + esc(m) + '" class="' + (sp.media === m ? 'on' : '') + '">' + esc(m) + '</button>'; }).join('') + '</div><p class="k" style="margin-top:10px">통화 결과</p><div class="fl" style="margin-top:6px">' + ['방문 예약', '자료 보냄', '단순 문의', '수신거부 요청'].map(function (r) { return '<button data-a="res" data-v="' + r + '" class="' + (sp.res === r ? 'on' : '') + '">' + r + '</button>'; }).join('') + '</div><button class="btn p w" style="margin-top:10px" data-a="calllog">✓ 통화 결과 남기기 (이름 · 번호는 저장 안 함)</button>' +
+      '<p class="k" style="margin-top:12px">오늘 내 통화 ' + Object.keys(sp.tally).reduce(function (a, k) { return a + sp.tally[k]; }, 0) + '건</p><div class="row" style="margin-top:4px">' + Object.keys(sp.tally).map(function (k) { return '<span class="chip">' + esc(k) + ' ' + sp.tally[k] + '</span>'; }).join('') + '</div></div>';
+  }
+  return '<div class="phonewrap"><p class="sub" style="text-align:center;max-width:460px;margin-bottom:10px">상담사 본인 휴대폰 화면입니다. 태블릿이 없어도 알림 확인 · 자료 보내기 · 화법 메모가 됩니다.</p><div class="phone"><div class="sb"><span>' + esc(who(u)) + '</span><span>상담사 전용</span><span>LTE</span></div><div class="in">' + head + h + '</div></div></div>';
+}
+/* ===== 8. 겹쳐 뜨는 창 ===== */
+function ov(html, sm) { $('#ovl').innerHTML = '<div class="ov" data-a="ovbg"><div class="box' + (sm ? ' sm' : '') + '" role="dialog" aria-modal="true"><button class="x" data-a="close" aria-label="닫기">×</button>' + html + '</div></div>'; }
+function close() { $('#ovl').innerHTML = ''; }
+function srcModal() {
+  ov('<p class="k">상담사만 보는 입력 · 고객 화면에는 나오지 않음</p><h2 style="margin-top:4px">이 고객은 어디서 보고 오셨나요?</h2><p class="sub">고르면 바로 고객과 같이 보는 화면으로 넘어갑니다.</p><div class="pick" style="margin-top:12px">' + ['워킹', '네이버 검색', '유튜브', '현수막', '부동산 소개', '지인 소개', '문자 안내', '재방문'].map(function (s) { return '<button data-a="start" data-v="' + s + '">' + s + '</button>'; }).join('') + '</div>', true);
+}
+function recModal(key) {
+  var p = key.split('-'), l = lineOf(p[0], p[1]), b = BANDS[+p[2]], ex = S.c.rec && S.c.rec.key === key ? S.c.rec : null, fl = ex ? ex.floor : Math.min(b.hi, l.top) - (b.hi > b.lo ? 1 : 0);
+  ov('<p class="k">상담사 입력 · 고객 결과지에 같이 갑니다</p><h2 style="margin-top:4px">⭐ 추천 호실 지정</h2><div class="card" style="margin-top:10px;background:var(--gold-s);border-color:var(--gold-b)"><b>' + l.dong + '동 ' + l.ho + '호 라인 · ' + l.type + ' · ' + bandName(l, b) + '</b><p style="font-size:22px;font-weight:900;color:var(--navy)">' + won(P[l.pk][b.i]) + '</p></div>' +
+    '<label style="display:block;margin-top:12px;font-weight:700">층 (' + b.lo + '~' + Math.min(b.hi, l.top) + ')<input class="inp" type="number" inputmode="numeric" id="rfl" min="' + b.lo + '" max="' + Math.min(b.hi, l.top) + '" value="' + fl + '"></label>' +
+    '<p style="font-weight:700;margin-top:12px">추천 이유 (최대 3개)</p>' + REASONS.map(function (r) { return '<label class="ck"><input type="checkbox" class="rr" value="' + esc(r) + '" ' + (ex ? (ex.reasons.indexOf(r) >= 0 ? 'checked' : '') : (r === REASONS[0] || r === REASONS[5] ? 'checked' : '')) + '><span>' + esc(r) + '</span></label>'; }).join('') +
+    '<label style="display:block;margin-top:12px;font-weight:700">상담사 한마디 (선택)<textarea class="inp" id="rnote" maxlength="120" placeholder="예: 정원 쪽이라 아이 키우기 좋고, 같은 라인 고층보다 부담이 적습니다">' + esc(ex ? ex.note : '') + '</textarea></label>' +
+    '<p class="fine" style="margin-top:6px">결과지에는 “' + stamp() + ' 기준 확인 사항이며, 실시간 계약으로 변동될 수 있습니다”가 같이 찍힙니다. 계약 가능 여부를 먼저 확인하고 추천하세요.</p><button class="btn g big" style="margin-top:12px" data-a="recok" data-v="' + key + '">⭐ 추천 호실로 저장</button>');
+}
+function logModal(id) {
+  var c = S.cust.filter(function (x) { return x.id === id; })[0];
+  ov('<p class="k">자료 전달 기록 · 고객이 직접 한 일만 남음</p><h2 style="margin-top:4px">' + esc(c.name) + '</h2><p class="sub">' + esc(c.interest) + '</p><ul class="tl">' + c.log.map(function (r) { return '<li class="ok"><b>' + esc(r[1]) + '</b><br><span class="fine">' + esc(r[0]) + '</span></li>'; }).join('') + '</ul><p class="fine">동의: 필수 ' + (c.kept ? '✓' : '—') + ' · 홍보 이용 ' + (c.promo ? '✓' : '—') + ' · 광고 ' + (c.ad.length ? c.ad.join(' · ') + ' (' + c.adDate + ')' : '—') + (c.unsub ? ' · 수신거부' : '') + '</p><p class="fine" style="margin-top:6px">B2B 단계에서는 이 기록을 고칠 수 없게 봉인해 고객 귀속 다툼(치기)을 막습니다.</p>', true);
+}
+function bulkModal() {
+  var sel = S.cust.filter(function (c) { return S.sel[c.id]; }), ad = S.msgType === 'ad', ok = [], ex = {};
+  sel.forEach(function (c) { var r = ad ? adState(c) : (c.temp || !c.tel ? [false, '연락처 없음'] : c.unsub && false ? [false, ''] : [true, '']); if (r[0]) ok.push(c); else ex[r[1]] = (ex[r[1]] || 0) + 1; });
+  var hr = new Date().getHours(), night = ad && (S.night || hr >= 21 || hr < 8), can = ok.length && !night && (!ad || S.approved);
+  var text = (ad ? '(광고) ' : '') + '[' + ORG.site + '] ' + S.msgBody + (ad ? '\n무료 수신거부: (080 번호 개통 후 자동으로 들어감)' : '');
+  ov('<p class="k">고른 ' + sel.length + '명 · 동의 상태로 자동 걸러냄</p><h2 style="margin-top:4px">✉ 고른 고객에게 안내</h2><div class="pt" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:10px"><button data-a="mtype" data-v="info" class="' + (!ad ? 'on' : '') + '">📄 정보 안내 (요청하신 답변)</button><button data-a="mtype" data-v="ad" class="' + (ad ? 'on' : '') + '">📢 광고 안내 (행사 · 미계약 호실)</button></div>' +
+    '<div class="card" style="margin-top:10px;background:#FAF8F4"><div class="between"><b>실제로 보낼 사람</b><b style="font-size:26px;color:var(--green)">' + ok.length + '명</b></div><div class="row" style="margin-top:6px">' + (Object.keys(ex).length ? Object.keys(ex).map(function (k) { return '<span class="chip no">제외 · ' + esc(k) + ' ' + ex[k] + '명</span>'; }).join('') : '<span class="fine">제외된 사람이 없습니다</span>') + '</div></div>' +
+    (night ? '<div class="dont" style="margin-top:10px"><b>🌙 지금은 광고 안내를 보낼 수 없습니다 (밤 9시 ~ 아침 8시)</b></div>' : '') +
+    '<textarea class="inp" style="margin-top:10px" id="mbody" data-f="msgBody">' + esc(S.msgBody) + '</textarea><pre style="white-space:pre-wrap;font-family:inherit;background:var(--navy-s);border-radius:12px;padding:12px;margin-top:8px;font-size:15px" id="mprev">' + esc(text) + '</pre>' +
+    (ad ? '<label class="ck ' + (S.approved ? 'on' : '') + '"><input type="checkbox" data-a="appr" ' + (S.approved ? 'checked' : '') + '><span>시행사가 승인한 내용(혜택 · 조건 · 문구)만 넣었습니다</span></label><div class="row" style="margin-top:6px"><button class="btn s" data-a="nightsim">' + (S.night ? '🌙 밤 시간 시연 끄기' : '🌙 밤 시간이라고 치기') + '</button></div>' : '') +
+    '<button class="btn p big" style="margin-top:12px" data-a="bulksend" ' + (can ? '' : 'disabled') + '>' + (night ? '밤 시간 · 발송 막힘' : '📱 내 휴대폰 문자 앱으로 ' + ok.length + '명에게 (20명씩)') + '</button><p class="fine" style="margin-top:6px">지금(B2C)은 상담사 휴대폰 문자 앱으로 보내고, 보낸 기록만 남깁니다. 공식 문자 발송(API) · 080 자동 수신거부는 B2B 단계에서 연결합니다.</p>');
+}
+function claimModal() {
+  var fee = +(S.fee || 4200000), it = Math.round(fee * .03), lt = Math.round(fee * .003), net = fee - it - lt, u = me();
+  function w(v) { return v.toLocaleString('ko-KR') + '원'; }
+  ov('<p class="k">예시 양식 · 대행사 양식을 받으면 바꿈</p><h2 style="margin-top:4px">🧾 분양 상담 수수료 청구서 (예시)</h2><div class="card" style="margin-top:10px"><div class="tw"><table><tbody><tr><th>현장</th><td>' + esc(ORG.site) + '</td></tr><tr><th>청구인</th><td>' + esc(who(u)) + ' · ' + ORG.hq + ' · ' + ORG.div + ' · ' + ORG.team + '</td></tr><tr><th>대상</th><td>103동 15층대 84A 1건 (고객 이름은 적지 않음)</td></tr><tr><th>세전 수수료</th><td><input class="inp" type="number" inputmode="numeric" id="fee" value="' + fee + '" style="max-width:220px"> <button class="btn s" data-a="feecalc">다시 계산</button></td></tr><tr><th>사업소득세 3%</th><td class="num">− ' + w(it) + '</td></tr><tr><th>지방소득세 0.3%</th><td class="num">− ' + w(lt) + '</td></tr><tr><th>실제 받는 금액</th><td class="num"><b style="font-size:20px;color:var(--navy)">' + w(net) + '</b></td></tr><tr><th>서명</th><td style="height:70px">(출력 후 서명)</td></tr></tbody></table></div><p class="fine" style="margin-top:8px">🔒 계좌번호 · 주민등록번호는 앱에 넣지 않습니다. 출력 후 정산 담당에게 따로 냅니다.</p></div><div class="grid2 noprint" style="margin-top:10px"><button class="btn p" data-a="print">🖨 출력 · PDF로 저장</button><button class="btn s" data-a="close">닫기</button></div>');
+}
+function memoModal() {
+  var pb = PB[S.stage], st = S.c.step;
+  ov('<p class="k">🔒 상담사 메모 · 고객 화면을 잠깐 덮습니다</p><h2 style="margin-top:4px">현장 ' + pb.name + ' · 상담 ' + st + '단계</h2><div class="say" style="margin-top:10px"><ul style="padding-left:18px;margin:0">' + (pb.s[st] || []).map(function (t) { return '<li style="margin-top:4px">' + esc(t) + '</li>'; }).join('') + '</ul></div><div class="dont" style="margin-top:10px"><b>🚫 하지 않는 말</b><ul>' + pb.dont.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul></div><p class="fine" style="margin-top:8px">휴대폰 ‘💬 화법 메모’에도 같은 내용이 나옵니다(두 번째 화면).</p>', true);
+}
+/* ===== 9. 동작 ===== */
+function fire(kind, title, body) {
+  if (!S.notif) { toast('알림이 꺼져 있습니다 · 알림 탭에서 켜세요'); return; }
+  S.alert = { kind: kind, title: title, body: body }; S.alerts.push({ title: title, at: stamp(), state: '알림 옴' }); beep(true); say(title + '. ' + body); render();
+}
+var H = {
+  view: function (v) { S.view = v; close(); render(); scrollTo(0, 0); },
+  role: function (v) { S.role = v; render(); toast(v === 'lead' ? '팀장 화면 · 단계 숫자 · 워킹 알림 · 공지 쓰기가 보입니다' : '직원 화면 · 단계 이름과 브리핑만 보입니다'); },
+  tab: function (v) { if (v === 'consult') { srcModal(); return; } S.tab = v; render(); },
+  rule: function () { S.rule = !S.rule; render(); },
+  checkin: function () { S.checkin = stamp(); beep(false); toast('업무 개시 체크인 · 워킹 · 상담 배정이 켜졌습니다'); render(); },
+  walk: function () { var f = TEAM.filter(function (t) { return t.id === S.queue[0]; })[0]; if (f.id === me().id) { fire('walk', '워킹 고객 배정', '인포메이션에서 84㎡ 문의 고객이 오셨습니다. 상담석으로 안내해 주세요.'); return; } S.alerts.push({ title: '1대기 ' + who(f) + '에게 워킹 알림 보냄', at: stamp(), state: '보냄' }); toast('1대기 ' + who(f) + '님 태블릿 · 휴대폰에 워킹 알림을 보냈습니다'); setTimeout(function () { toast(who(f) + '님이 휴대폰에서 확인했습니다 · 순번이 한 칸 당겨집니다'); S.queue.push(S.queue.shift()); render(); }, 2200); },
+  test: function () { fire('walk', '워킹 고객 배정', '팀장 홍길동님이 보냈습니다. 84㎡ 문의 고객이 오셨습니다.'); },
+  ack: function (v) { var a = S.alert; S.alert = null; var l = S.alerts[S.alerts.length - 1]; if (l) l.state = (v === 'ok' ? '확인함' : '못 받음 · 다음 순번') + ' · ' + (S.view === 'tablet' ? '태블릿' : '휴대폰') + '에서'; try { speechSynthesis.cancel(); } catch (e) { } if (a && a.kind === 'walk') { var i = S.queue.indexOf(me().id); S.queue.splice(i, 1); S.queue.push(me().id); } toast((S.view === 'tablet' ? '휴대폰' : '태블릿') + ' 알림도 같이 닫혔습니다'); if (a && a.kind === 'walk' && v === 'ok') { render(); setTimeout(srcModal, 300); return; } render(); },
+  route: function (v) { S.route = v; render(); toast(ROUTE[v].t + ' · 사용법 익히기 순서도 바뀌었습니다'); },
+  newc: function () { srcModal(); },
+  start: function (v) { close(); S.c = { step: 1, src: v, fam: '', type: '', prio: [], budget: '', dong: '103', ho: 6, sub: 'units', cands: [], rec: null, pay: 0, qr: 'wait', start: stamp() }; H.cpreset(true); S.view = 'client'; render(); scrollTo(0, 0); toast('유입: ' + v + ' (상담사만 봄) · 고객과 같이 보기'); },
+  quickrec: function () { S.c.step = 2; S.c.sub = 'units'; S.view = 'client'; render(); toast('층 옆 ⭐ 추천을 누르면 이유와 함께 결과지로 보낼 수 있습니다'); },
+  filter: function (v) { S.filter = v; render(); },
+  sel: function (v) { S.sel[v] = !S.sel[v]; render(); },
+  log: function (v) { logModal(v); },
+  resume: function (v) { var c = S.cust.filter(function (x) { return x.id === v; })[0], m = /(\d{3})동 (\d)호/.exec(c.interest); S.c.step = 2; S.c.sub = 'units'; if (m) { S.c.dong = m[1]; S.c.ho = +m[2]; } S.view = 'client'; render(); toast(c.name + ' · 지난 상담에서 이어 갑니다'); },
+  del: function (v) { var c = S.cust.filter(function (x) { return x.id === v; })[0]; ov('<h2>보관함에서 지울까요?</h2><p class="sub" style="margin-top:6px">' + esc(c.name) + ' · ' + esc(c.interest) + '<br>상담 기록만 있는 항목입니다. 지우면 되돌릴 수 없습니다.</p><div class="grid2" style="margin-top:14px"><button class="btn r" data-a="delok" data-v="' + v + '">지우기</button><button class="btn s" data-a="close">그대로 두기</button></div>', true); },
+  delok: function (v) { S.cust = S.cust.filter(function (x) { return x.id !== v; }); delete S.sel[v]; close(); render(); toast('보관함에서 지웠습니다'); },
+  bulk: function () { bulkModal(); },
+  mtype: function (v) { S.msgType = v; bulkModal(); },
+  appr: function () { S.approved = !S.approved; bulkModal(); },
+  nightsim: function () { S.night = !S.night; bulkModal(); },
+  bulksend: function () { var ad = S.msgType === 'ad', ok = S.cust.filter(function (c) { return S.sel[c.id] && (ad ? adState(c)[0] : c.tel && !c.temp); }), body = (ad ? '(광고) ' : '') + '[' + ORG.site + '] ' + S.msgBody; close(); ok.forEach(function (c) { c.log.push([stamp(), (ad ? '광고' : '정보') + ' 안내 보냄 (상담사 문자)']); }); if (/Android|iPhone|iPad/i.test(navigator.userAgent)) location.href = 'sms:' + ok.slice(0, 20).map(function (c) { return c.tel; }).join(',') + '?body=' + encodeURIComponent(body); toast(ok.length + '명 · 문자 앱을 열었습니다 · 보낸 기록이 각 고객 전달 기록에 남았습니다'); render(); },
+  notif: function () { S.notif = !S.notif; render(); },
+  sound: function () { beep(false); say('디어 상담 데스크 알림 시험입니다. 소리와 음성이 잘 들리시나요?'); toast('알림음과 음성을 재생했습니다'); },
+  endday: function () { S.checkin = null; S.alert = null; render(); toast('오늘 업무를 마쳤습니다 · 순번에서 빠지고 알림도 멈춥니다'); },
+  npost: function () { var t = (S.ntext || '').trim(); if (!t) { toast('공지 내용을 넣어 주세요'); return; } if (/01\d[-\s]?\d{3,4}[-\s]?\d{4}/.test(t)) { toast('공지에 전화번호는 넣지 않습니다'); return; } S.notices.unshift({ d: dayStr(0), t: t, by: who(me()), seen: 1 }); S.ntext = ''; render(); toast('우리 팀 태블릿 · 휴대폰에 공지 알림을 보냈습니다'); },
+  setsold: function () { var v = parseInt(($('#sold') || {}).value, 10); if (!(v >= 0 && v <= S.total)) { toast('0 ~ ' + S.total + ' 사이로 넣어 주세요'); return; } S.sold = v; S.stage = autoStage(); render(); toast('계약 약 ' + pct() + '% → ' + PB[S.stage].name + ' · 팀원 브리핑이 바뀌었습니다'); },
+  stage: function (v) { S.stage = v; render(); toast(PB[v].name + '로 고정 · 팀원 화면 브리핑 · 화법 메모가 바뀌었습니다'); },
+  verify: function () { S.verified = !S.verified; render(); toast(S.verified ? '대장 실거래를 고객 화면에 열었습니다 (2단계 → 같은 돈, 다른 선택)' : '고객 화면에서 다시 잠갔습니다'); },
+  claim: function () { claimModal(); },
+  feecalc: function () { S.fee = parseInt(($('#fee') || {}).value, 10) || 0; claimModal(); },
+  print: function () { window.print(); },
+  font: function (v) { S.font = v; render(); },
+  fullscreen: function () { var d = document.documentElement; try { if (document.fullscreenElement) document.exitFullscreen(); else if (d.requestFullscreen) d.requestFullscreen().catch(function () { toast('이 화면에서는 전체 화면이 안 됩니다'); }); } catch (e) { } },
+  endc: function () { ov('<h2>상담을 마칠까요?</h2><p class="sub" style="margin-top:6px">오늘 상담은 지우기 전에 먼저 저장합니다.</p><div class="stack" style="margin-top:14px"><button class="btn p w" data-a="savenext">💾 저장하고 새 고객</button><button class="btn s w" data-a="endnosave">저장하지 않고 지우기</button><button class="btn s w" data-a="close">계속 상담</button></div>', true); },
+  endnosave: function () { close(); S.c.cands = []; S.c.rec = null; S.c.step = 1; S.view = 'tablet'; S.tab = 'today'; render(); toast('저장하지 않고 지웠습니다'); },
+  step: function (v, el) { S.c.step = +v; if (+v === 4 && S.c.qr === 'wait') S.c.qrAt = stamp(); render(); if (!el || !el.dataset.keep) scrollTo(0, 0); },
+  cf: function (v, el) { var f = el.dataset.f; S.c[f] = S.c[f] === v ? '' : v; render(); },
+  prio: function (v) { var p = S.c.prio, i = p.indexOf(v); if (i >= 0) p.splice(i, 1); else if (p.length >= 3) { toast('가장 중요한 것 3가지까지 고를 수 있어요'); return; } else p.push(v); render(); },
+  sub: function (v) { S.c.sub = v; render(); },
+  dong: function (v) { S.c.dong = v; S.c.ho = LN.filter(function (l) { return l.dong === v; })[0].ho; render(); },
+  ho: function (v) { S.c.ho = +v; render(); },
+  cand: function (v) { var c = S.c, i = c.cands.map(function (x) { return x.key; }).indexOf(v); if (i >= 0) { c.cands.splice(i, 1); render(); return; } if (c.cands.length >= 3) { toast('1 · 2 · 3순위까지 담을 수 있어요'); return; } var p = v.split('-'), l = lineOf(p[0], p[1]), b = BANDS[+p[2]]; c.cands.push({ key: v, label: l.dong + '동 ' + l.ho + '호 라인 · ' + l.type + ' · ' + bandName(l, b), price: P[l.pk][b.i] }); toast(c.cands.length + '순위로 담았습니다'); render(); },
+  rec: function (v) { recModal(v); },
+  recok: function (v) { var p = v.split('-'), l = lineOf(p[0], p[1]), b = BANDS[+p[2]], f = parseInt(($('#rfl') || {}).value, 10), hi = Math.min(b.hi, l.top); if (!(f >= b.lo && f <= hi)) { toast(b.lo + '~' + hi + '층 사이로 넣어 주세요'); return; } var rs = [].slice.call(document.querySelectorAll('.rr:checked')).map(function (x) { return x.value; }); if (!rs.length) { toast('추천 이유를 하나 이상 골라 주세요'); return; } if (rs.length > 3) { toast('추천 이유는 3개까지예요'); return; } S.c.rec = { key: v, floor: f, hosu: String(f * 100 + l.ho), label: l.dong + '동 ' + l.ho + '호 라인 · ' + l.type + ' · ' + bandName(l, b), price: P[l.pk][b.i], reasons: rs, note: (($('#rnote') || {}).value || '').trim(), at: stamp() }; close(); render(); toast('⭐ ' + l.dong + '동 ' + S.c.rec.hosu + '호를 추천 호실로 정했습니다 · 결과지에 같이 갑니다'); },
+  pay: function (v) { S.c.pay = +v; render(); },
+  openphone: function () { if (S.c.qr === 'wait') S.c.qr = 'open'; S.view = 'phone'; render(); scrollTo(0, 0); },
+  savenext: function () { close(); var c = S.c, t = c.rec || c.cands[0]; S.cust.unshift({ id: 'c' + Date.now(), name: '보관함 · 이름 없음 #' + pad(S.cust.filter(function (x) { return x.temp; }).length + 5), tel: '', src: c.src || '워킹', interest: t ? t.label.replace(/ · /, ' · ') : '조건만 확인', docs: ['우리 집 결과지' + (c.qr === 'kept' ? '' : ' (보관 안 함)')].concat(c.rec ? ['⭐ 추천 호실'] : []), kept: false, promo: false, ad: [], adDate: '', unsub: false, temp: true, log: [[c.start || stamp(), '상담 시작 (' + (c.src || '워킹') + ')'], [stamp(), '💾 저장하고 새 고객 (상담 기록만)']] }); S.c = { step: 1, src: '', fam: '', type: '', prio: [], budget: '', dong: '103', ho: 6, sub: 'units', cands: [], rec: null, pay: 0, qr: 'wait', start: '' }; S.view = 'tablet'; S.tab = 'cust'; S.filter = 'box'; render(); scrollTo(0, 0); toast('🗂 보관함에 저장했습니다 · 지울지는 나중에 정하시면 됩니다'); },
+  smsgo: function (v, el) { var t = (($('#' + v) || {}).value || '').replace(/\D/g, ''); if (!/^01\d{8,9}$/.test(t)) { toast('휴대폰 번호를 확인해 주세요'); return; } var body = el.dataset.k === 'visit' ? '[' + ORG.site + '] ' + who(me()) + '입니다. 방문 예약 안내드립니다. 모델하우스 위치 · 시간은 링크에서 확인하세요. ' + base() + '#phone' : '[' + ORG.site + '] ' + who(me()) + '입니다. 요청하신 자료입니다. 열어 보시고 ‘휴대폰에 보관’을 누르시면 언제든 다시 보실 수 있습니다. ' + base() + '#phone'; if (S.view === 'staff') { S.sp.tally[S.sp.media] = (S.sp.tally[S.sp.media] || 0); } location.href = 'sms:' + t + '?body=' + encodeURIComponent(body); toast('문자 앱을 열었습니다 · 보내기만 누르세요 (PC에서는 열리지 않을 수 있음)'); },
+  smsqr: function (v) { var t = (($('#' + v) || {}).value || '').replace(/\D/g, ''); if (!/^01\d{8,9}$/.test(t)) { toast('휴대폰 번호를 확인해 주세요'); return; } var body = '[' + ORG.site + '] ' + who(me()) + '입니다. 요청하신 자료입니다. ' + base() + '#phone'; $('#smsqr').innerHTML = '<div class="qrbox" style="margin-top:10px;background:#fff;border:1px solid var(--line)"><div class="qr">' + qrSvg('SMSTO:' + t + ':' + body) + '</div><div><b>내 휴대폰 카메라로 찍으세요</b><p class="fine">번호와 내용이 채워진 문자 창이 열립니다 · 보내기만 누르세요.</p></div></div>'; },
+  sendcode: function () { var t = S.cp.tel.replace(/\D/g, ''); if (!/^01\d{8,9}$/.test(t)) { S.cp.err = '휴대폰 번호를 확인해 주세요'; render(); return; } S.cp.sent = true; S.cp.err = ''; render(); toast('[시연] 인증번호는 123456 입니다'); },
+  verify6: function () { var v = (($('#cpcode') || {}).value || '').trim(); if (v === '123456') { S.cp.ok = true; S.cp.err = ''; render(); toast('본인 번호를 확인했습니다'); } else { S.cp.err = '인증번호가 맞지 않습니다 (시연: 123456)'; render(); } },
+  cpck: function (v) { var cp = S.cp; cp[v] = !cp[v]; if (v === 'ad' && !cp.ad) { cp.sms = cp.kakao = cp.call = false; } render(); },
+  keep: function () { var cp = S.cp, ads = [cp.sms && '문자', cp.kakao && '카카오톡', cp.call && '전화'].filter(Boolean); if (cp.ad && !ads.length) { cp.err = '광고를 받으실 방법을 골라 주세요 · 원하지 않으시면 광고 동의를 꺼 주세요'; render(); return; } var c = S.c, t = c.rec || c.cands[0], at = stamp(); cp.done = { at: at, promo: cp.promo, ad: ads }; c.qr = 'kept'; S.cust.unshift({ id: 'c' + Date.now(), name: cp.name.trim(), tel: cp.tel.replace(/\D/g, ''), src: c.src || '워킹', interest: t ? t.label : '조건만 확인', docs: ['우리 집 결과지'].concat(c.rec ? ['⭐ 추천 호실'] : []), kept: true, promo: cp.promo, ad: ads, adDate: ads.length ? dayStr(0) : '', unsub: false, log: [[c.start || at, '상담 시작 (' + (c.src || '워킹') + ')'], [c.qrAt || at, '카메라 코드(QR) 보여 줌'], [at, '고객 휴대폰에서 열림'], [at, '고객이 본인 번호 확인 · 직접 보관 · 동의']] }); S.alerts.push({ title: '고객 등록 · 결과지 보관', at: at, state: '조용한 알림' }); render(); toast('✓ 보관 완료 · 상담사 내 고객에 들어갔습니다 (조용한 알림)'); },
+  gocust: function () { S.view = 'tablet'; S.tab = 'cust'; S.filter = 'all'; render(); scrollTo(0, 0); },
+  cpreset: function (silent) { S.cp = { name: '', tel: '', sent: false, code: '', ok: false, req: false, promo: false, ad: false, sms: false, kakao: false, call: false, done: null, err: '' }; if (silent !== true) render(); },
+  sptab: function (v) { S.sp.tab = v; render(); },
+  calltype: function (v) { S.sp.call = v; S.sp.chk = [false, false, false]; render(); },
+  callck: function (v) { S.sp.chk[+v] = !S.sp.chk[+v]; render(); },
+  media: function (v) { S.sp.media = v; render(); },
+  res: function (v) { S.sp.res = v; render(); },
+  calllog: function () { S.sp.tally[S.sp.media] = (S.sp.tally[S.sp.media] || 0) + 1; render(); toast(S.sp.media + ' · ' + S.sp.res + ' 남김 (이름 · 번호는 저장 안 함)'); },
+  close: function () { close(); },
+  ovbg: function (v, el, e) { if (e.target === el) close(); }
+};
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-a]'); if (!el) return;
+  if (el.tagName === 'INPUT' && el.type === 'checkbox') return; // change 이벤트에서 처리
+  var a = el.dataset.a; if (a === 'ovbg' && e.target !== el) return; if (H[a]) { H[a](el.dataset.v, el, e); }
+});
+document.addEventListener('change', function (e) { var el = e.target; if (el.type === 'checkbox' && el.dataset.a && H[el.dataset.a]) H[el.dataset.a](el.dataset.v, el, e); });
+document.addEventListener('input', function (e) {
+  var el = e.target, f = el.dataset.f; if (!f) return;
+  if (f === 'ntext') S.ntext = el.value; else if (f === 'nq') { S.nq = el.value; var pos = el.selectionStart; render(); var n = $('#nq'); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (x) { } } }
+  else if (f === 'msgBody') { S.msgBody = el.value; var pv = $('#mprev'); if (pv) pv.textContent = (S.msgType === 'ad' ? '(광고) ' : '') + '[' + ORG.site + '] ' + S.msgBody + (S.msgType === 'ad' ? '\n무료 수신거부: (080 번호 개통 후 자동으로 들어감)' : ''); }
+  else if (f === 'cpname') { S.cp.name = el.value; refreshKeep(); }
+  else if (f === 'cptel' || f === 'ctel' || f === 'sptel') { el.value = fmtTel(el.value); if (f === 'cptel') S.cp.tel = el.value; if (f === 'sptel') S.sp.tel = el.value; }
+});
+function refreshKeep() { var b = document.querySelector('[data-a=keep]'); if (!b) return; var cp = S.cp, ok = cp.name.trim().length >= 2 && cp.ok && cp.req; b.disabled = !ok; b.textContent = ok ? '휴대폰에 보관하기' : '성함 · 본인 확인 · [필수] 동의 후 누를 수 있어요'; }
+/* 2초 길게 눌러 메모 열기 */
+(function () { var t = 0, el = null; function up() { clearTimeout(t); if (el) el.classList.remove('down'); el = null; }
+  document.addEventListener('pointerdown', function (e) { var h = e.target.closest('[data-hold]'); if (!h) return; el = h; h.classList.add('down'); t = setTimeout(function () { up(); memoModal(); }, 2000); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (k) { document.addEventListener(k, up); });
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-hold]')) toast('🔒 메모는 2초 길게 누르면 열립니다'); }); })();
+/* 시작 */
+(function () { var h = (location.hash || '').replace('#', ''); if (['tablet', 'client', 'phone', 'staff'].indexOf(h) >= 0) S.view = h; if (S.view === 'phone' && !S.c.cands.length) { S.c.fam = '초등 자녀 가정'; S.c.type = '84'; S.c.prio = ['학교 · 학원', '예산', '공원 · 정원']; S.c.budget = '14억대'; var l = lineOf('103', 6); S.c.cands = [{ key: '103-6-3', label: '103동 6호 라인 · 84A · 10~19층', price: P[l.pk][3] }, { key: '103-6-5', label: '103동 6호 라인 · 84A · 27~39층', price: P[l.pk][5] }]; S.c.rec = { key: '103-6-3', floor: 15, hosu: '1506', label: '103동 6호 라인 · 84A · 10~19층', price: P[l.pk][3], reasons: [REASONS[0], REASONS[2], REASONS[5]], note: '정원 쪽이라 아이 키우기 좋고, 같은 라인 40층 이상보다 3,400만 원 낮게 매겨진 층입니다.', at: stamp() }; S.c.qr = 'open'; } render(); })();
+window.addEventListener('hashchange', function () { var h = (location.hash || '').replace('#', ''); if (h !== S.view && ['tablet', 'client', 'phone', 'staff'].indexOf(h) >= 0) { S.view = h; render(); } });
+</script>
+</body>
+</html>
