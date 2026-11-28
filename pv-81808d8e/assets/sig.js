@@ -171,3 +171,5 @@
     (document.head || document.documentElement).appendChild(s);
   })();
 })();
+/* 상담사가 보낸 자료 링크(?t=…)로 열면 화면 아래에 ‘휴대폰에 보관’ 카드 */
+(function () { try { if (!/[?&]t=[A-Za-z0-9-]+/.test(location.search)) return; var s = document.currentScript || [].slice.call(document.scripts).filter(function (x) { return /assets\/sig\.js/.test(x.src); })[0]; if (!s) return; var k = document.createElement('script'); k.src = s.src.replace(/sig\.js.*$/, 'keep.js'); document.head.appendChild(k); } catch (e) { } })();
